@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -24,7 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2019/7 - TARI TARI</title>
+  <title>=======手动分割线======= - TARI TARI</title>
+  
+    <meta name="keywords" content="小记">
   
 
   
@@ -106,7 +106,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -325,7 +325,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="/img/home.jpg"></div>
           
@@ -357,339 +357,182 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 
 <div class='l_main'>
-	
-		
-  <section class="post-list">
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
     
     
-      
+    
+      <h1 class="title">
+        =======手动分割线=======
+      </h1>
+      <div class='new-meta-box'>
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/06/%E5%88%9D%E8%AF%86-ansible-1/">
-        初识 ansible (一)
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年4月1日 18:40</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-01T19:34:04+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年4月1日 19:34</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
       
-        个人踩滴小坑要注意下下, 一些参数的含义是什么, 好比我调用 script 模块, 想把脚本调用到目标服务器去执行
-12- name: backup base system version    script: /baseVersionBackup.sh 传入脚本参数1, 2, 3....
-“机智” 的我以为这是到对方服务器的根目录执行脚本….emmmmmm** 注意 chdir 是脚本在对...
-      
-    
+      <div id="lc-pv" data-title="=======手动分割线=======" data-path="/2021/04/01/%E6%89%8B%E5%8A%A8%E5%88%86%E5%89%B2%E7%BA%BF/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2019-07-06</time>
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：1k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：3分钟</p>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  <p>由于 <a target="_blank" rel="noopener" href="https://www.notion.so/">notion</a> 和 <a target="_blank" rel="noopener" href="https://www.yuque.com/">语雀</a> 使用起来过于舒适，差点忘了自己还有个博客，直到 （逃</p>
+<p><img src="/img/%E6%89%8B%E5%8A%A8%E5%88%86%E5%89%B2%E7%BA%BF/image-20210401190333056.png" class="lazyload" data-srcset="/img/%E6%89%8B%E5%8A%A8%E5%88%86%E5%89%B2%E7%BA%BF/image-20210401190333056.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210401190333056"></p>
+<p>上次写博客还是大三上学期末，现在都差不多要毕业了。大二大三那会，在学校啥都干，从之前的文章也能看出，服务器运维、开发、CTF….</p>
+<p>顺便做个总结，这一年虽没写博客，不过找了两份实习，一个是做渗透测试、一个是安全攻防研究，还有学校各种各样的事情，好像上次跑 <code>hexo d</code> 还是不久之前（主要是被 notion 和 语雀 惯懒了）…</p>
+<ul>
+<li>2020.4 - 2020.10 渗透测试实习生，算是正式入门网安吧…感谢组内大佬肯收留我个菜鸡，哈哈，一开始还很纠结，以后是做安全还是运维，所以各投了一份实习（刚过完年做师兄的疯狂安利下），面试和准备，发现还是对网安更敢兴趣一些~，所以选了网安。不过现在偶尔会想，要是当初我选了另外一个实习，现在会怎样？（毕竟两边面试都过了），实习过程中被各种带飞，认识了几个大佬，其中的项目经验，都给秋招打下了基础。</li>
+</ul>
+<ul>
+<li>2020.10 - 2020.12 学校项目，模仿大佬的开源项目，结合深度学习和网安和同学一起做了个《基于A2C和MSF的自适应渗透测试工具》，代码多数是我在写，项目也是我做管理和运维，虽然没做到想象中效果，不过也是第一次尝试去学习和改动大佬的开源项目。虽然功能上没能做的很好（不过还是做了许多的不错的优化），但是以后对开源项目都不会有那种陌生的隔离感了（就这个语言学过，也写过项目，但看着大佬写的就是有点抽象）</li>
+</ul>
+<ul>
+<li>2020.11 - 2021.3 安全攻防研究实习生，第一次在大型项目中技术上承担一定角色，挑战很大，过了一个月才习惯这些工作，之前实习主要是渗透，这次还有很多代码审计、尤其是hvv相关的，代码审计任务很繁重，平均一天要审个6000+行代码（而且还是各种语言，有的压根就不怎么熟悉…）。也做了很多尝试，比如威胁建模评审，安全红线落实等，也是第一次接触SDL，也由此知道为啥大厂核心业务漏洞会难挖，毕竟别人都有做SDL流程。当然除此之外，由于我们部门很看重产出，所以这次实习也没上次实习那么轻松。特别是我这个产品线，迭代了很多代，漏洞特别难挖，而且渗透也比较麻烦，因为环境比较复杂，没有在搞站那会随随便便抓个包改改参数那么舒服了~ 当然产出不仅仅是挖洞，还可以有安全研究分享，输出文档等等等等~</li>
+</ul>
+<p>总之就是从之前各种打杂到现在会稍微专注于一个方向，所以成长也挺快的，虽然还是很菜（x，其实主要还是被各种大佬带飞，少走了一些坑 （</p>
+<p>今年，虽然过年很久了，先立一些 flag 吧~，毕竟实习了两次，发现一些东西需要补补了</p>
+<ul>
+<li>SDL，把实习学的做个总结并做一些拓展</li>
+<li>云安全，先把威胁建模学个差不多，然后熟悉一波主流的云基础框架，毕竟工作要用到</li>
+<li>二进制，常见漏洞点和利用方式要掌握，感觉熟悉二进制以后审计C/C++会舒服不少</li>
+<li>代码审计，把白嫖过来的CTFSHOW入门大部分给刷完，巩固一波基础~</li>
+</ul>
+<p>迟些会把一些正常点的笔记放上来，2333</p>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2019/07/06/%E5%88%9D%E8%AF%86-ansible-1/'>
-            阅读全文
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tari0510.github.io/2021/04/01/%E6%89%8B%E5%8A%A8%E5%88%86%E5%89%B2%E7%BA%BF/>https://tari0510.github.io/2021/04/01/%E6%89%8B%E5%8A%A8%E5%88%86%E5%89%B2%E7%BA%BF/</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
-</div>
 
-          </div>
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%B0%8F%E8%AE%B0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>小记</p></a></div>
+
+
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/03/MySQL_upgrade_from_5.5.*_to_5.7.*/">
-        MySQL upgrade, from 5.5.* to 5.7.*
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        服务器版本 Ubuntu14.04备份(快照)日常忘记密码 -,- (知道密码滴请直接跳至 开始升级至5.7.* )介绍一个简单修改数据库密码的方法
-1sudo cat /etc/mysql/debian.cnf 
-红线选中部分为我本地mysql的用户和密码(password部分每个人不同的喔!)存在mysql的debian-sys-maint用户和密码,那他们是怎么来的呢?
-先假科普一波,...
-      
-    
+    </div>
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-07-03</time>
-        
-      </div>
+  
+
+  
+    <div class="prev-next">
       
-        <div>
-          <a class='readmore' href='/2019/07/03/MySQL_upgrade_from_5.5.*_to_5.7.*/'>
-            阅读全文
-          </a>
-        </div>
+      
+        <a class='next' href='/2020/01/02/django%E8%B8%A9%E5%9D%91%E8%AE%B0/'>
+          <p class='title'>django踩坑记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>python 虚拟环境pip install virtualenvpip install virtualenvwrapper-win # windows 使用此命令
+好处,：可以一个环境对应一个...</p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/03/PHP_upgrade_from_5.5.*_to_7.2.24/">
-        PHP upgrade, from 5.5.* to 7.2.*
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        服务器版本 CentOS6备份(快照)首先卸载当前版本PHP1sudo yum remove php*
-
-配置yum仓库在CentOS6/7升级PHP至7.* 需要开启Remi和EPEL仓库
-123yum install epel-releaserpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-
-安装PH...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-07-03</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/07/03/PHP_upgrade_from_5.5.*_to_7.2.24/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/02/%E3%80%8C%E5%BD%A2%E5%AE%B9%E8%A9%9E%E3%80%8D/">
-        「形容詞」
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        「な形容詞」
-「な形容詞」+ な　+ 名词 ，因此称为「な形容詞」&nbsp; 名词 + の + 名词
-
-にぎやか：热闹的
-「い形容詞」特徴：〜い
-い形容詞 + 名词例：大きい会社
+  </article>
 
 
 
 
-肯定行
-否定行
 
 
-
-〜います
-〜 **い**くないです
-
-
-寒いです
-寒くないです
-
-
-辛い　暖かい　暑い　（食べ）たいです
-
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-07-02</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/07/02/%E3%80%8C%E5%BD%A2%E5%AE%B9%E8%A9%9E%E3%80%8D/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/01/vsftpd_upgrade_from_2.2.2_to_3.0.3/">
-        vsftpd upgrade, from 2.2.2 to 3.0.3
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        记一次vsftpd 升级过程备份(快照)收集系统信息以及原有vsftpd安装版本信息123uname -arpm -qa | grep vsftpdvsftpd -v
-
-卸载原 vsftpd1rpm -e vsftpd-******
-
-GPG签名认证由于没用到公钥,因此跳过下面两条命令
-12gpg -import publickeygpg -verify ***.asc(.sig) ***
-...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-07-01</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/07/01/vsftpd_upgrade_from_2.2.2_to_3.0.3/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/01/Openssh_upgrade_from_7.5_to_8.0p1/">
-        Openssh upgrade, from 7.5 to 8.0p1
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        记一次OpenSSH升级过程系统环境: Ubuntu14.04sshd -D先是修改sshd配置允许root登录，但是重启不了
-1sudo service ssh restart 
-查看得知存在 sshd -D 进程并终止它
-12ps -ef | grep sshsudo kill ID
-最后开启sshd
-1sudo /usr/sbin/sshd -D
-启动后就可以root登录了emmm…....
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-07-01</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/07/01/Openssh_upgrade_from_7.5_to_8.0p1/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-          <a class="prev" rel="prev" href="/archives/2019/07/">
-            <section class="post prev white-box shadow" >
-              <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
-            </section>
-          </a>
-        
-        <p class="current">
-          2 / 2
-        </p>
-        
-      </div>
-    
-  
-
-
-	
 </div>
 <aside class='l_side'>
   
@@ -697,103 +540,14 @@ GPG签名认证由于没用到公钥,因此跳过下面两条命令
     
     
 
-<section class="widget blogger shadow ">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">TARI TARI</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
-
-  
-
-  
-    
-    
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop">
-    
-  <header>
-    
-      <a href='/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
 
 
-    <div class='content'>
-      <a href="/tags/ansible/" style="font-size: 21.5px; color: #666">ansible</a> <a href="/tags/ctf/" style="font-size: 21.5px; color: #666">ctf</a> <a href="/tags/daily/" style="font-size: 14px; color: #999">daily</a> <a href="/tags/%E5%8B%89%E5%BC%B7/" style="font-size: 19px; color: #777">勉強</a> <a href="/tags/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/" style="font-size: 16.5px; color: #888">学校课程</a> <a href="/tags/%E5%B0%8F%E8%AE%B0/" style="font-size: 21.5px; color: #666">小记</a> <a href="/tags/%E6%97%A5%E5%B8%B8%E6%8A%98%E8%85%BE/" style="font-size: 14px; color: #999">日常折腾</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 24px; color: #555">运维</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
 		  
@@ -802,21 +556,21 @@ GPG签名认证由于没用到公钥,因此跳过下面两条命令
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="=======手动分割线=======";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="half";
-    cover_wrapper.style.display="";
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
     
   
 </script>
