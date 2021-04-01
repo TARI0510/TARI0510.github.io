@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>Wireshark入门与实战 - TARI TARI</title>
+  
+    <meta name="keywords" content="Wireshark 流量分析">
+  
+
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/favicon.ico">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            TARI TARI
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="/img/home.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">TARI TARI</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Wireshark入门与实战
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年4月1日 21:13</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-01T21:17:40+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年4月1日 21:17</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Wireshark入门与实战" data-path="/2021/04/01/Wireshark%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：3.7k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：14分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <p>wireshark入门: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X5411x7R4">https://www.bilibili.com/video/BV1X5411x7R4</a><br>他这里顺序有点误，应该是 P1-P26，P32-P39，P27-P31<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609403656841-61d27bdc-5155-4965-b349-3cf88782698c.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609403656841-61d27bdc-5155-4965-b349-3cf88782698c.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="># Wireshark 入门</p>
+<h2 id="伯克利包过滤-Wireshark包过滤"><a href="#伯克利包过滤-Wireshark包过滤" class="headerlink" title="伯克利包过滤 - Wireshark包过滤"></a>伯克利包过滤 - Wireshark包过滤</h2><p>BPF（Berkeley Packet Filter） 采用与自然语言相近的语法，利用语法构造字符串确定保留具体符合规则的数据包而忽略其他数据包</p>
+<p>最简单语法空白字符，任何数据包都符合空白字符规则</p>
+<h3 id="语法规则"><a href="#语法规则" class="headerlink" title="语法规则"></a>语法规则</h3><ul>
+<li>type表示对象 如 IP地址、子网或端口 -&gt; host、net、port</li>
+<li>dir 表示数据包传输的方向 -&gt; src、dst</li>
+<li>proto 表示与数据包匹配的协议类型 -&gt; ether、ip、tcp、arp</li>
+</ul>
+<h3 id="演示实例"><a href="#演示实例" class="headerlink" title="演示实例"></a>演示实例</h3><p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609403656706-a2c7be3e-a13f-4e9f-8aab-d43c34f7eb2f.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609403656706-a2c7be3e-a13f-4e9f-8aab-d43c34f7eb2f.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">会发现直接在 Apply a display filter 里输入是无法过滤的，<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605596923337-d58d67de-11ac-40bc-b8f2-db9247089e3a.png#align=left&display=inline&height=81&margin=%5Bobject%20Object%5D&name=image.png&originHeight=162&originWidth=2030&size=49871&status=done&style=none&width=1015" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605596923337-d58d67de-11ac-40bc-b8f2-db9247089e3a.png#align=left&display=inline&height=81&margin=%5Bobject%20Object%5D&name=image.png&originHeight=162&originWidth=2030&size=49871&status=done&style=none&width=1015" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>新版的 wireshark 的 expression 功能在如下图所示这里<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605596905704-d89032c3-4269-4f6e-8810-ce1b552bebfa.png#align=left&display=inline&height=102&margin=%5Bobject%20Object%5D&name=image.png&originHeight=204&originWidth=1092&size=351036&status=done&style=none&width=546" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605596905704-d89032c3-4269-4f6e-8810-ce1b552bebfa.png#align=left&display=inline&height=102&margin=%5Bobject%20Object%5D&name=image.png&originHeight=204&originWidth=1092&size=351036&status=done&style=none&width=546" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597076739-900b2bb3-44ab-4f94-9ec3-bf9505a48b59.png#align=left&display=inline&height=1560&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1560&originWidth=1364&size=294373&status=done&style=none&width=1364" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597076739-900b2bb3-44ab-4f94-9ec3-bf9505a48b59.png#align=left&display=inline&height=1560&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1560&originWidth=1364&size=294373&status=done&style=none&width=1364" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>在 wireshark 里，不是直接使用 host 来表示主机名和对应的 ip 地址，而是使用 <code>ip.addr = &lt;ip&gt;</code> 来表示<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597207635-3bdda931-5a71-4992-9606-8571a61abf33.png#align=left&display=inline&height=538&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1076&originWidth=2048&size=415173&status=done&style=none&width=1024" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597207635-3bdda931-5a71-4992-9606-8571a61abf33.png#align=left&display=inline&height=538&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1076&originWidth=2048&size=415173&status=done&style=none&width=1024" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>其他也是类似，如 <code>ip.src</code> 和 <code>ip.dst</code></p>
+<p>在找服务这一块，服务都是以占用端口的形式展示的，因此可以通过这种形式来看怎么用，然后点OK即可。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597599273-503985ea-6cb9-4db9-ab74-510f0be84fe4.png#align=left&display=inline&height=790&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1580&originWidth=1382&size=225399&status=done&style=none&width=691" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597599273-503985ea-6cb9-4db9-ab74-510f0be84fe4.png#align=left&display=inline&height=790&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1580&originWidth=1382&size=225399&status=done&style=none&width=691" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597669802-2e2afe27-0f4e-46fa-89da-02a723a37013.png#align=left&display=inline&height=147&margin=%5Bobject%20Object%5D&name=image.png&originHeight=294&originWidth=1858&size=103612&status=done&style=none&width=929" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597669802-2e2afe27-0f4e-46fa-89da-02a723a37013.png#align=left&display=inline&height=147&margin=%5Bobject%20Object%5D&name=image.png&originHeight=294&originWidth=1858&size=103612&status=done&style=none&width=929" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>也可以使用 逻辑运算符实现筛选，如 <code>tcp.port == 80 and ip.src == 192.168.123.37</code><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597781937-1d89cd2f-0eb3-41f1-a3bb-df0d14953671.png#align=left&display=inline&height=195&margin=%5Bobject%20Object%5D&name=image.png&originHeight=390&originWidth=1776&size=148999&status=done&style=none&width=888" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597781937-1d89cd2f-0eb3-41f1-a3bb-df0d14953671.png#align=left&display=inline&height=195&margin=%5Bobject%20Object%5D&name=image.png&originHeight=390&originWidth=1776&size=148999&status=done&style=none&width=888" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>当然也有类似补全的操作<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597947739-2a348fee-51e0-4c72-8253-9b2ded65fbdc.png#align=left&display=inline&height=330&margin=%5Bobject%20Object%5D&name=image.png&originHeight=660&originWidth=644&size=127152&status=done&style=none&width=322" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605597947739-2a348fee-51e0-4c72-8253-9b2ded65fbdc.png#align=left&display=inline&height=330&margin=%5Bobject%20Object%5D&name=image.png&originHeight=660&originWidth=644&size=127152&status=done&style=none&width=322" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h3 id="wireshark包过滤器分类-遵循伯克利语法规则"><a href="#wireshark包过滤器分类-遵循伯克利语法规则" class="headerlink" title="wireshark包过滤器分类 - 遵循伯克利语法规则"></a>wireshark包过滤器分类 - 遵循伯克利语法规则</h3><h4 id="捕获过滤器-gt-在抓包之前进行设置，在抓取时，就不会抓取不符合文件的数据包"><a href="#捕获过滤器-gt-在抓包之前进行设置，在抓取时，就不会抓取不符合文件的数据包" class="headerlink" title="捕获过滤器 -&gt; 在抓包之前进行设置，在抓取时，就不会抓取不符合文件的数据包"></a>捕获过滤器 -&gt; 在抓包之前进行设置，在抓取时，就不会抓取不符合文件的数据包</h4><ul>
+<li>只捕获目标端口为80的TCP数据包 -&gt; tcp dst port 80</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605600789660-89c5429d-7f5f-4183-a4d9-30e155016176.png#align=left&display=inline&height=266&margin=%5Bobject%20Object%5D&name=image.png&originHeight=532&originWidth=1854&size=93280&status=done&style=none&width=927" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605600789660-89c5429d-7f5f-4183-a4d9-30e155016176.png#align=left&display=inline&height=266&margin=%5Bobject%20Object%5D&name=image.png&originHeight=532&originWidth=1854&size=93280&status=done&style=none&width=927" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<ul>
+<li>捕获目的主机IP地址为 192.168.123.37 的数据包 -&gt;  dst host 192.168.123.37</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605598844368-732cad15-57e4-4dd9-abf0-d71be66473cf.png#align=left&display=inline&height=622&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1244&originWidth=1940&size=424659&status=done&style=none&width=970" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605598844368-732cad15-57e4-4dd9-abf0-d71be66473cf.png#align=left&display=inline&height=622&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1244&originWidth=1940&size=424659&status=done&style=none&width=970" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<ul>
+<li>host 不支持 cidr 域名 书写</li>
+</ul>
+<hr>
+<h4 id="筛选过滤器-（显示过滤器）-gt-抓包之后进行应用的，即再次筛选"><a href="#筛选过滤器-（显示过滤器）-gt-抓包之后进行应用的，即再次筛选" class="headerlink" title="筛选过滤器 （显示过滤器）-&gt; 抓包之后进行应用的，即再次筛选"></a>筛选过滤器 （显示过滤器）-&gt; 抓包之后进行应用的，即再次筛选</h4><p>然后显示过滤器有两种创建方式</p>
+<ol>
+<li>输入框创建</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605601233639-e457aa42-a7b5-4891-8fc2-c698c34c1ecd.png#align=left&display=inline&height=81&margin=%5Bobject%20Object%5D&name=image.png&originHeight=162&originWidth=1978&size=53501&status=done&style=none&width=989" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605601233639-e457aa42-a7b5-4891-8fc2-c698c34c1ecd.png#align=left&display=inline&height=81&margin=%5Bobject%20Object%5D&name=image.png&originHeight=162&originWidth=1978&size=53501&status=done&style=none&width=989" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>当不知道如何创建就看下图这里<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605596905704-d89032c3-4269-4f6e-8810-ce1b552bebfa.png#align=left&display=inline&height=102&margin=%5Bobject%20Object%5D&name=image.png&originHeight=204&originWidth=1092&size=351036&status=done&style=none&width=546" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605596905704-d89032c3-4269-4f6e-8810-ce1b552bebfa.png#align=left&display=inline&height=102&margin=%5Bobject%20Object%5D&name=image.png&originHeight=204&originWidth=1092&size=351036&status=done&style=none&width=546" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605601817671-4b8aacb8-a22a-46ca-a9ee-3d63fc6252b0.png#align=left&display=inline&height=127&margin=%5Bobject%20Object%5D&name=image.png&originHeight=254&originWidth=1676&size=71687&status=done&style=none&width=838" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605601817671-4b8aacb8-a22a-46ca-a9ee-3d63fc6252b0.png#align=left&display=inline&height=127&margin=%5Bobject%20Object%5D&name=image.png&originHeight=254&originWidth=1676&size=71687&status=done&style=none&width=838" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<ol start="2">
+<li>数据包细节面板创建</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605601904173-042a79ec-cc27-412c-af8e-31788678c6cd.png#align=left&display=inline&height=958&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1916&originWidth=1916&size=548155&status=done&style=none&width=958" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605601904173-042a79ec-cc27-412c-af8e-31788678c6cd.png#align=left&display=inline&height=958&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1916&originWidth=1916&size=548155&status=done&style=none&width=958" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p><code>... and Selected</code> 表示 <code>目前的过滤器 + and 进行连接</code><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605602001225-0aa493f3-13c3-4b9e-8289-03f735d8542a.png#align=left&display=inline&height=274&margin=%5Bobject%20Object%5D&name=image.png&originHeight=548&originWidth=1742&size=173915&status=done&style=none&width=871" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605602001225-0aa493f3-13c3-4b9e-8289-03f735d8542a.png#align=left&display=inline&height=274&margin=%5Bobject%20Object%5D&name=image.png&originHeight=548&originWidth=1742&size=173915&status=done&style=none&width=871" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>一开始是只有 <code>Selected</code> 和 Not <code>Selected</code> 的</p>
+<ul>
+<li>表达式规则<ul>
+<li>主题 + 运算符 + 值</li>
+<li>逻辑关系 与 或 非 -&gt; and (&amp;&amp;) or (||) not (!)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Wireshark-捕获数据包文件保存"><a href="#Wireshark-捕获数据包文件保存" class="headerlink" title="Wireshark 捕获数据包文件保存"></a>Wireshark 捕获数据包文件保存</h2><p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609403657147-c0c230fd-d6d4-4ce2-947c-7ad19f6b7a2c.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609403657147-c0c230fd-d6d4-4ce2-947c-7ad19f6b7a2c.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605603567135-ad1cb52f-9675-4759-be52-08a54b9edd37.png#align=left&display=inline&height=470&margin=%5Bobject%20Object%5D&name=image.png&originHeight=940&originWidth=1874&size=163117&status=done&style=none&width=937" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605603567135-ad1cb52f-9675-4759-be52-08a54b9edd37.png#align=left&display=inline&height=470&margin=%5Bobject%20Object%5D&name=image.png&originHeight=940&originWidth=1874&size=163117&status=done&style=none&width=937" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h2 id="杂项设置"><a href="#杂项设置" class="headerlink" title="杂项设置"></a>杂项设置</h2><h3 id="wireshark-数据包颜色的意思"><a href="#wireshark-数据包颜色的意思" class="headerlink" title="wireshark 数据包颜色的意思"></a>wireshark 数据包颜色的意思</h3><p>可以通过 视图 -&gt; 着色规则进行查看<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609403830739-6199a1ef-386d-41e9-84f9-3b62a9831357.png#align=left&display=inline&height=497&margin=%5Bobject%20Object%5D&name=image.png&originHeight=497&originWidth=411&size=34240&status=done&style=none&width=411" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609403830739-6199a1ef-386d-41e9-84f9-3b62a9831357.png#align=left&display=inline&height=497&margin=%5Bobject%20Object%5D&name=image.png&originHeight=497&originWidth=411&size=34240&status=done&style=none&width=411" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609403800570-75efd63b-cb87-4794-91df-d72ffbd50b9f.png#align=left&display=inline&height=544&margin=%5Bobject%20Object%5D&name=image.png&originHeight=544&originWidth=739&size=56387&status=done&style=none&width=739" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609403800570-75efd63b-cb87-4794-91df-d72ffbd50b9f.png#align=left&display=inline&height=544&margin=%5Bobject%20Object%5D&name=image.png&originHeight=544&originWidth=739&size=56387&status=done&style=none&width=739" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h3 id="wireshark-故障包过滤"><a href="#wireshark-故障包过滤" class="headerlink" title="wireshark 故障包过滤"></a>wireshark 故障包过滤</h3><p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609405235320-31bd23b5-dc62-4c14-bf3f-fb4dd674d692.png#align=left&display=inline&height=534&margin=%5Bobject%20Object%5D&name=image.png&originHeight=534&originWidth=501&size=38877&status=done&style=none&width=501" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609405235320-31bd23b5-dc62-4c14-bf3f-fb4dd674d692.png#align=left&display=inline&height=534&margin=%5Bobject%20Object%5D&name=image.png&originHeight=534&originWidth=501&size=38877&status=done&style=none&width=501" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>有5个等级</p>
+<ul>
+<li>Error 严重错误，譬如：畸形数据包或识别出数据包协议头部的某些字段和预期值不符</li>
+<li>Warning 一般性问题（应用程序问题或通信问题），譬如：TCP zero window ,TCP window full ,TCP报文段失序，TCP报文段丢失</li>
+<li>Note 可能引发故障的异常现象（正常行为），譬如：TCP重传，重复确认，快速重传</li>
+<li>Chat 符合常规流量的特征，譬如：SYN,FIN,RST</li>
+<li>Comment</li>
+<li>OK</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">_ws.expert.severity &lt;&#x3D; Note</span><br><span class="line">或者</span><br><span class="line">_ws.expert.severity &lt;&#x3D; Chat</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="查看wireshark-内置文件路径"><a href="#查看wireshark-内置文件路径" class="headerlink" title="查看wireshark 内置文件路径"></a>查看wireshark 内置文件路径</h3><p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605623740999-b327567c-e8cd-4775-ac39-abbf8a1ed8fe.png#align=left&display=inline&height=713&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1426&originWidth=1816&size=1833604&status=done&style=none&width=908" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605623740999-b327567c-e8cd-4775-ac39-abbf8a1ed8fe.png#align=left&display=inline&height=713&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1426&originWidth=1816&size=1833604&status=done&style=none&width=908" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h3 id="修改wireshark默认配置"><a href="#修改wireshark默认配置" class="headerlink" title="修改wireshark默认配置"></a>修改wireshark默认配置</h3><p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605623841618-e72dfc53-1370-4b9d-a2d5-dd8d98591861.png#align=left&display=inline&height=177&margin=%5Bobject%20Object%5D&name=image.png&originHeight=354&originWidth=976&size=317484&status=done&style=none&width=488" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605623841618-e72dfc53-1370-4b9d-a2d5-dd8d98591861.png#align=left&display=inline&height=177&margin=%5Bobject%20Object%5D&name=image.png&originHeight=354&originWidth=976&size=317484&status=done&style=none&width=488" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h1 id="Wireshark-网络分析"><a href="#Wireshark-网络分析" class="headerlink" title="Wireshark 网络分析"></a>Wireshark 网络分析</h1><p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609405807703-705be97f-0b00-41f6-a125-f9e3d7051779.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1609405807703-705be97f-0b00-41f6-a125-f9e3d7051779.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="># Wireshark 部署方式</p>
+<h2 id="远程数据包捕获"><a href="#远程数据包捕获" class="headerlink" title="远程数据包捕获"></a>远程数据包捕获</h2><h3 id="方式1"><a href="#方式1" class="headerlink" title="方式1:"></a>方式1:</h3><p>开启远程桌面，rdp服务，在系统中安装wireshark进行抓包分析<br>缺点: 在于远程登录过程中，都会产生无关与目的远程连接数据流量</p>
+<h3 id="方式2-wireshark-远程抓包"><a href="#方式2-wireshark-远程抓包" class="headerlink" title="方式2: wireshark 远程抓包"></a>方式2: wireshark 远程抓包</h3><h4 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h4><p>服务端: <a target="_blank" rel="noopener" href="https://www.winpcap.org/install/">winpcap</a> -&gt; rpcapd</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">&quot;C:\Program Files (x86)\WinPcap\&quot;</span></span><br><span class="line"><span class="string">.\rpcapd.exe -n</span></span><br></pre></td></tr></table></figure>
+
+<p>客户端: wireshark<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605676732054-bd608dd9-be39-4dfb-91af-3002a9de591c.png#align=left&display=inline&height=888&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1775&originWidth=2206&size=596392&status=done&style=none&width=1103" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605676732054-bd608dd9-be39-4dfb-91af-3002a9de591c.png#align=left&display=inline&height=888&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1775&originWidth=2206&size=596392&status=done&style=none&width=1103" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605678302231-aaa5d801-10bd-4863-8f5f-07fd6d7265c3.png#align=left&display=inline&height=467&margin=%5Bobject%20Object%5D&name=image.png&originHeight=934&originWidth=1902&size=98173&status=done&style=none&width=951" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605678302231-aaa5d801-10bd-4863-8f5f-07fd6d7265c3.png#align=left&display=inline&height=467&margin=%5Bobject%20Object%5D&name=image.png&originHeight=934&originWidth=1902&size=98173&status=done&style=none&width=951" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h4 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h4><h4 id="macos"><a href="#macos" class="headerlink" title="macos"></a>macos</h4><p>注意 macos 版本没有直接抓取数据包的功能，可参考<br><a target="_blank" rel="noopener" href="https://distanceblog.github.io/2020/06/05/wireshark%E8%BF%9C%E7%A8%8B%E6%8A%93%E5%8C%85/">https://distanceblog.github.io/2020/06/05/wireshark%E8%BF%9C%E7%A8%8B%E6%8A%93%E5%8C%85/</a></p>
+<h2 id="本地数据包捕获"><a href="#本地数据包捕获" class="headerlink" title="本地数据包捕获"></a>本地数据包捕获</h2><p>wireshark 不能抓取本地环回网卡数据包<br>不过可以使用 RawCap<br><a target="_blank" rel="noopener" href="https://www.netresec.com/?page=RawCap">https://www.netresec.com/?page=RawCap</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cmd</span></span><br><span class="line">RawCap.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605699228594-f4ee4760-57be-4837-b267-5780e1042f6d.png#align=left&display=inline&height=154&margin=%5Bobject%20Object%5D&name=image.png&originHeight=308&originWidth=906&size=39166&status=done&style=none&width=453" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605699228594-f4ee4760-57be-4837-b267-5780e1042f6d.png#align=left&display=inline&height=154&margin=%5Bobject%20Object%5D&name=image.png&originHeight=308&originWidth=906&size=39166&status=done&style=none&width=453" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>然后浏览器访问 localhost</p>
+<p>不过可以通过访问本机 ip 代替 localhost 间接捉取数据包（狗头</p>
+<h2 id="虚拟机数据包捕获"><a href="#虚拟机数据包捕获" class="headerlink" title="虚拟机数据包捕获"></a>虚拟机数据包捕获</h2><p>选择对应网卡即可。。。</p>
+<p>比如在 kali 上运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netdiscover -r 192.168.18.1/24</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605704939792-bee30349-ecf6-4996-84d7-d48187d111e0.png#align=left&display=inline&height=302&margin=%5Bobject%20Object%5D&name=image.png&originHeight=604&originWidth=1702&size=239244&status=done&style=none&width=851" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605704939792-bee30349-ecf6-4996-84d7-d48187d111e0.png#align=left&display=inline&height=302&margin=%5Bobject%20Object%5D&name=image.png&originHeight=604&originWidth=1702&size=239244&status=done&style=none&width=851" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>哈哈哈哈，原来arp广播还真就这么直白，，Who has ….? Tell …（netdiscover 还真直白</p>
+<h2 id="ARP欺骗捕获数据包"><a href="#ARP欺骗捕获数据包" class="headerlink" title="ARP欺骗捕获数据包"></a>ARP欺骗捕获数据包</h2><h3 id="攻击原则"><a href="#攻击原则" class="headerlink" title="攻击原则"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/rectsuly/article/details/63261412">攻击原则</a></h3><ul>
+<li>任何主机均能发送伪造包给局域网中的另一主机；</li>
+<li>任一主机相信它们接受到的所有包；</li>
+<li>当一个新的响应包到达时，它甚至在没有请求包被发送的情况下覆盖掉旧的记录。</li>
+</ul>
+<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><p>kali 一般要先安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install dsniff</span><br></pre></td></tr></table></figure>
+
+<p>kali 上运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo arpspoof -i eth0 -t &lt;欺骗的目标&gt; &lt;我是谁&gt;</span><br><span class="line"><span class="comment"># 如</span></span><br><span class="line">sudo arpspoof -i eth0 -t 192.168.123.37 192.168.123.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605709097184-f4dc2fbd-0035-4ba3-8516-feef4b2596fc.png#align=left&display=inline&height=91&margin=%5Bobject%20Object%5D&name=image.png&originHeight=182&originWidth=1468&size=72197&status=done&style=none&width=734" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605709097184-f4dc2fbd-0035-4ba3-8516-feef4b2596fc.png#align=left&display=inline&height=91&margin=%5Bobject%20Object%5D&name=image.png&originHeight=182&originWidth=1468&size=72197&status=done&style=none&width=734" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>然后此时在 <code>192.168.123.37</code> 这台机器上wireshark 选择网卡 eth0，因为是欺骗这一张网卡，wireshark 筛选过滤器填入 <code>icmp</code> 查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 然后在 192.168.123.37 上 ping 网关</span></span><br><span class="line">ping 192.168.123.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605715163193-77424cbc-ce52-41bf-b66d-0342db71c9d9.png#align=left&display=inline&height=255&margin=%5Bobject%20Object%5D&name=image.png&originHeight=510&originWidth=1916&size=161118&status=done&style=none&width=958" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605715163193-77424cbc-ce52-41bf-b66d-0342db71c9d9.png#align=left&display=inline&height=255&margin=%5Bobject%20Object%5D&name=image.png&originHeight=510&originWidth=1916&size=161118&status=done&style=none&width=958" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>会发现 192.168.123.1 的 mac 地址是 kali的。。。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605715182447-6145d3c6-a889-409e-830e-acafe83dda8b.png#align=left&display=inline&height=254&margin=%5Bobject%20Object%5D&name=image.png&originHeight=508&originWidth=1414&size=190359&status=done&style=none&width=707" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605715182447-6145d3c6-a889-409e-830e-acafe83dda8b.png#align=left&display=inline&height=254&margin=%5Bobject%20Object%5D&name=image.png&originHeight=508&originWidth=1414&size=190359&status=done&style=none&width=707" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>所以在 <code>192.168.123.37</code> 上是上不了网的，除非kali上开启了数据包转发，当 <code>ip_forward</code> 为 0 时，<code>欺骗的目标</code> 上不了网，当该值为 <code>1</code> 时，会把<code>192.168.123.37</code>发送的数据包做转发给网关，就可以正常上网，但是<code>192.168.123.37</code>的数据包都会经过 kali。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605715282864-12eed658-02cf-489e-8091-dd073306813d.png#align=left&display=inline&height=37&margin=%5Bobject%20Object%5D&name=image.png&originHeight=74&originWidth=848&size=15549&status=done&style=none&width=424" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605715282864-12eed658-02cf-489e-8091-dd073306813d.png#align=left&display=inline&height=37&margin=%5Bobject%20Object%5D&name=image.png&originHeight=74&originWidth=848&size=15549&status=done&style=none&width=424" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h1 id="Wireshark-网络安全"><a href="#Wireshark-网络安全" class="headerlink" title="Wireshark 网络安全"></a>Wireshark 网络安全</h1><h2 id="链路层安全"><a href="#链路层安全" class="headerlink" title="链路层安全"></a>链路层安全</h2><h3 id="针对于交换机的安全问题"><a href="#针对于交换机的安全问题" class="headerlink" title="针对于交换机的安全问题"></a>针对于交换机的安全问题</h3><h4 id="MAC对称欺骗-——-macchange"><a href="#MAC对称欺骗-——-macchange" class="headerlink" title="MAC对称欺骗 —— macchange"></a>MAC对称欺骗 —— macchange</h4><p>擦除只是暂时的，不是覆盖原来的mac地址，机器重启后就会恢复。<br>通过MAC地址欺骗达到隐藏真实主机的目的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-e 改变的是后三字节，即不改变生产厂商</span><br><span class="line">-a 同一类型的随机供应商地址 ( macchanger --list=Huawei 就是同一类型 )</span><br><span class="line">-A 随机厂商随机地址</span><br><span class="line">-p 永久修改</span><br><span class="line">-r 完全随机</span><br><span class="line">-l 查看支持的厂商</span><br><span class="line">-b</span><br><span class="line">-m</span><br></pre></td></tr></table></figure>
+
+<p>设置前需要关闭网卡</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo ifconfig eth0 down</span><br><span class="line"><span class="comment"># -m 不能自己完全随意起，如果前三字节不符合 mac 地址命名规范会报错</span></span><br><span class="line"><span class="comment"># [ERROR] Could not change MAC: interface up or insufficient permissions: Cannot assign requested address</span></span><br><span class="line">sudo macchanger -m 00:90:d1:33:33:33 eth0</span><br><span class="line">sudo ifconfig eth0 up</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605751171287-967e198f-49e0-4d98-b9f6-c3550f0d7c09.png#align=left&display=inline&height=64&margin=%5Bobject%20Object%5D&name=image.png&originHeight=128&originWidth=1154&size=36866&status=done&style=none&width=577" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605751171287-967e198f-49e0-4d98-b9f6-c3550f0d7c09.png#align=left&display=inline&height=64&margin=%5Bobject%20Object%5D&name=image.png&originHeight=128&originWidth=1154&size=36866&status=done&style=none&width=577" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>随机化设置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo macchanger -r eth0</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="MAC地址泛洪分析-——-溢出交换机CAM表"><a href="#MAC地址泛洪分析-——-溢出交换机CAM表" class="headerlink" title="MAC地址泛洪分析 —— 溢出交换机CAM表"></a>MAC地址泛洪分析 —— 溢出交换机CAM表</h3><p>交换机之所以可以交换数据，是因为交换机在内存中维护着一张CAM表，即 端口 &lt;-&gt; MAC地址<br>当表被添满时，其他主机就无法在对应的端口正常交互数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo macof -h</span><br><span class="line"><span class="comment"># -x 源端口 -y 目的端口</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 泛洪</span></span><br><span class="line">sudo macof -i eth0</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="wireshark-抓包分析"><a href="#wireshark-抓包分析" class="headerlink" title="wireshark 抓包分析"></a>wireshark 抓包分析</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756353104-8d3a2f20-b6de-4f3a-96d5-50c27bc73986.png#align=left&display=inline&height=125&margin=%5Bobject%20Object%5D&name=image.png&originHeight=250&originWidth=738&size=30385&status=done&style=none&width=369" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756353104-8d3a2f20-b6de-4f3a-96d5-50c27bc73986.png#align=left&display=inline&height=125&margin=%5Bobject%20Object%5D&name=image.png&originHeight=250&originWidth=738&size=30385&status=done&style=none&width=369" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>因为实际中，主要数据包类型是 tcp 或 udp<br>下面只有 ip 数据包，因此很可能有问题（当然有问题，哈哈<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756440805-bbc21254-960c-424c-adf5-963ddc384ac3.png#align=left&display=inline&height=211&margin=%5Bobject%20Object%5D&name=image.png&originHeight=422&originWidth=1520&size=68067&status=done&style=none&width=760" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756440805-bbc21254-960c-424c-adf5-963ddc384ac3.png#align=left&display=inline&height=211&margin=%5Bobject%20Object%5D&name=image.png&originHeight=422&originWidth=1520&size=68067&status=done&style=none&width=760" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756512911-3a0e38b9-c602-4600-b7b2-400c1d8d8bee.png#align=left&display=inline&height=179&margin=%5Bobject%20Object%5D&name=image.png&originHeight=358&originWidth=802&size=40168&status=done&style=none&width=401" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756512911-3a0e38b9-c602-4600-b7b2-400c1d8d8bee.png#align=left&display=inline&height=179&margin=%5Bobject%20Object%5D&name=image.png&originHeight=358&originWidth=802&size=40168&status=done&style=none&width=401" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>很多无关的 ip 以及 mac地址，数据包很小<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756581434-8a71bd43-da93-4d75-899b-378666a2ed08.png#align=left&display=inline&height=490&margin=%5Bobject%20Object%5D&name=image.png&originHeight=980&originWidth=1890&size=181036&status=done&style=none&width=945" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756581434-8a71bd43-da93-4d75-899b-378666a2ed08.png#align=left&display=inline&height=490&margin=%5Bobject%20Object%5D&name=image.png&originHeight=980&originWidth=1890&size=181036&status=done&style=none&width=945" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756609002-4cbac7d3-258b-48c0-b32b-3f6a61a3b79f.png#align=left&display=inline&height=538&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1076&originWidth=1870&size=215919&status=done&style=none&width=935" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756609002-4cbac7d3-258b-48c0-b32b-3f6a61a3b79f.png#align=left&display=inline&height=538&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1076&originWidth=1870&size=215919&status=done&style=none&width=935" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h4 id="查找源头端口"><a href="#查找源头端口" class="headerlink" title="查找源头端口"></a>查找源头端口</h4><p>交换机</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">display mac-address</span><br></pre></td></tr></table></figure>
+
+<p>找到对应的端口<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756855361-66220b4e-54d5-403c-a181-0bacbd3849e3.png#align=left&display=inline&height=437&margin=%5Bobject%20Object%5D&name=image.png&originHeight=874&originWidth=1508&size=566939&status=done&style=none&width=754" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605756855361-66220b4e-54d5-403c-a181-0bacbd3849e3.png#align=left&display=inline&height=437&margin=%5Bobject%20Object%5D&name=image.png&originHeight=874&originWidth=1508&size=566939&status=done&style=none&width=754" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h4 id="防御策略"><a href="#防御策略" class="headerlink" title="防御策略"></a>防御策略</h4><p>限制交换机端口 MAC 地址数量，比如这个端口只能有3或5个，那他就只能添加3或5跳记录到CAM表，那么就无法溢出啦。</p>
+<h3 id="STP操纵"><a href="#STP操纵" class="headerlink" title="STP操纵"></a>STP操纵</h3><p>生成树协议按照树的结构构造网络拓扑，避免形成回路。STP协议中的各交换机通过交换BPDU报文信息传播生成树信息，如果伪造BPDU报文，控制交换机的端口转发状态，从而动态改变网络拓扑，劫持网络流量到本地。</p>
+<h3 id="广播风暴"><a href="#广播风暴" class="headerlink" title="广播风暴"></a>广播风暴</h3><p>ARP DHCP 通过在局域网中广播，占用网络资源，网络性能下降 -&gt; 网络速度变慢<br>产生原因</p>
+<ul>
+<li>网络短路引发广播风暴 -&gt; 8根连接 两两连接 -&gt; 互联网上网线导致网络性能下降</li>
+<li>网络中存在环路引发广播风暴</li>
+<li>网卡损坏引发广播风暴</li>
+<li>蠕虫病毒引发广播风暴</li>
+</ul>
+<h2 id="网络层安全"><a href="#网络层安全" class="headerlink" title="网络层安全"></a>网络层安全</h2><h3 id="中间人安全测试-欺骗"><a href="#中间人安全测试-欺骗" class="headerlink" title="中间人安全测试 - 欺骗"></a>中间人安全测试 - 欺骗</h3><h4 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h4><ul>
+<li>局域网内用来寻找主机发送数据包的协议，通过它可以找到指定 IP 地址对应的 MAC地址</li>
+<li>每台终端设备都具有ARP缓存表<ul>
+<li><code>arp -a</code> 查看缓存表</li>
+<li><code>arp -d</code> 删除缓存表</li>
+<li>表的填充，寻找 IP 地址对应MAC地址，如果没有则广播此时设置的目标MAC地址为 (00:00:00:00:00:00) 是否具有IP地址对应的MAC地址，找到填充。</li>
+</ul>
+</li>
+</ul>
+<h4 id="ARP协议分析介绍"><a href="#ARP协议分析介绍" class="headerlink" title="ARP协议分析介绍"></a>ARP协议分析介绍</h4><p>显示过滤器</p>
+<ul>
+<li>arp</li>
+<li>请求数据包<ul>
+<li>arp.opcode == 0x0001</li>
+</ul>
+</li>
+<li>响应数据包<ul>
+<li>arp.opcode == 0x0002</li>
+</ul>
+</li>
+<li>查看源 MAC 地址<ul>
+<li>arp.src.hw_mac == 00:00:00:00:00:00</li>
+<li>arp.src.hw_mac == 00:00:00:00:00:00 &amp;&amp; arp.opcode == 0x0002</li>
+</ul>
+</li>
+</ul>
+<h4 id="专家系统分析"><a href="#专家系统分析" class="headerlink" title="专家系统分析"></a>专家系统分析</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605765841082-6ff4962a-2263-4a9d-91a3-c7c7de181c55.png#align=left&display=inline&height=111&margin=%5Bobject%20Object%5D&name=image.png&originHeight=222&originWidth=1902&size=25972&status=done&style=none&width=951" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605765841082-6ff4962a-2263-4a9d-91a3-c7c7de181c55.png#align=left&display=inline&height=111&margin=%5Bobject%20Object%5D&name=image.png&originHeight=222&originWidth=1902&size=25972&status=done&style=none&width=951" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>网关地址与局域网中的计算机具有一致的MAC地址<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605765875092-b18fe093-4d31-49d3-8ce6-b0970dc062a9.png#align=left&display=inline&height=234&margin=%5Bobject%20Object%5D&name=image.png&originHeight=468&originWidth=1358&size=730973&status=done&style=none&width=679" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605765875092-b18fe093-4d31-49d3-8ce6-b0970dc062a9.png#align=left&display=inline&height=234&margin=%5Bobject%20Object%5D&name=image.png&originHeight=468&originWidth=1358&size=730973&status=done&style=none&width=679" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h4 id="出现大量ARP数据包的原因"><a href="#出现大量ARP数据包的原因" class="headerlink" title="出现大量ARP数据包的原因"></a>出现大量ARP数据包的原因</h4><ul>
+<li>ARP主机扫描</li>
+<li>ARP病毒进行通信</li>
+<li>ARP欺骗 中间人安全测试</li>
+</ul>
+<h4 id="防御ARP欺骗措施"><a href="#防御ARP欺骗措施" class="headerlink" title="防御ARP欺骗措施"></a>防御ARP欺骗措施</h4><ul>
+<li>静态绑定ARP表<ul>
+<li>arp -s 网关的IP地址 网关的MAC地址<ul>
+<li>不适合大型网络使用</li>
+<li>需要管理员权限</li>
+<li>win <code>netsh i i show in</code> -&gt; 查看网卡编号</li>
+<li>win <code>netsh -c &quot;i i&quot; add neighbors &lt;网卡编号&gt; &lt;网关IP地址&gt; &lt;网关MAC地址&gt;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605768196250-3b6f5a7b-e2a3-448d-8b6e-d6534a814bdf.png#align=left&display=inline&height=218&margin=%5Bobject%20Object%5D&name=image.png&originHeight=480&originWidth=1516&size=593279&status=done&style=stroke&width=687" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605768196250-3b6f5a7b-e2a3-448d-8b6e-d6534a814bdf.png#align=left&display=inline&height=218&margin=%5Bobject%20Object%5D&name=image.png&originHeight=480&originWidth=1516&size=593279&status=done&style=stroke&width=687" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<pre><code>  - 验证是否静态绑定 `arp -a`
+</code></pre>
+<ul>
+<li>交换机也有端口安全配置，固定MAC和IP使用端口<ul>
+<li>不适合大型网络使用</li>
+</ul>
+</li>
+<li>交换机 DHCP-Snooping<ul>
+<li>交换机监听DHCP数据，提取IP和MAC建立DHCP Snooping的绑定表</li>
+</ul>
+</li>
+<li>划分VLAN<ul>
+<li>每一个VLAN就是一个广播域 -&gt; 限制网络范围</li>
+</ul>
+</li>
+</ul>
+<h3 id="泪滴安全测试"><a href="#泪滴安全测试" class="headerlink" title="泪滴安全测试"></a>泪滴安全测试</h3><p>原理介绍</p>
+<ul>
+<li>针对于IP协议的安全测试，主要是伪造IP地址和发送畸形数据包</li>
+<li>向目标发送畸形数据包，使得IP数据包碎片在重组的过程中有重合的部分（偏移位置不够），从而导致目标系统无法进行重组，进一步导致系统奔溃而停止服务。</li>
+</ul>
+<p>下载IP协议案例数据包: <a href="https://wiki.wireshark.org/SampleCaptures?action=AttachFile&do=get&target=teardrop.cap">https://wiki.wireshark.org/SampleCaptures?action=AttachFile&amp;do=get&amp;target=teardrop.cap</a></p>
+<p>根据数据包表示 Identification 来确实是否属于同一分组<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605768822557-4469d415-8fb1-41f5-ad0b-7fbdfc713d8c.png#align=left&display=inline&height=454&margin=%5Bobject%20Object%5D&name=image.png&originHeight=908&originWidth=1780&size=235391&status=done&style=none&width=890" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605768822557-4469d415-8fb1-41f5-ad0b-7fbdfc713d8c.png#align=left&display=inline&height=454&margin=%5Bobject%20Object%5D&name=image.png&originHeight=908&originWidth=1780&size=235391&status=done&style=none&width=890" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>分析 第8和第9个数据包<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605770172122-e947f493-6485-40e5-b24f-372f33908a7a.png#align=left&display=inline&height=428&margin=%5Bobject%20Object%5D&name=image.png&originHeight=856&originWidth=2088&size=223939&status=done&style=none&width=1044" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605770172122-e947f493-6485-40e5-b24f-372f33908a7a.png#align=left&display=inline&height=428&margin=%5Bobject%20Object%5D&name=image.png&originHeight=856&originWidth=2088&size=223939&status=done&style=none&width=1044" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>偏移量仅为 24，远不够36。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605770235520-f1bfbd04-dae5-411c-a191-3c65013266ae.png#align=left&display=inline&height=407&margin=%5Bobject%20Object%5D&name=image.png&originHeight=814&originWidth=2128&size=235361&status=done&style=none&width=1064" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605770235520-f1bfbd04-dae5-411c-a191-3c65013266ae.png#align=left&display=inline&height=407&margin=%5Bobject%20Object%5D&name=image.png&originHeight=814&originWidth=2128&size=235361&status=done&style=none&width=1064" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>因此无法重组</p>
+<p>不过对现在的计算机来说，泪滴测试不会对计算机造成很大的影响，所以基本不关心泪滴安全测试了。不够泪滴测试和ARP泛洪结合，还是能对计算机造成很大的困扰。</p>
+<h2 id="传输层安全"><a href="#传输层安全" class="headerlink" title="传输层安全"></a>传输层安全</h2><p>传输层主要针对TCP和UDP协议，因此拒绝服务DOS（Denial of Service）也主要是基于这两个协议</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h3 id="TCP-SYN-泛洪"><a href="#TCP-SYN-泛洪" class="headerlink" title="TCP SYN 泛洪"></a>TCP SYN 泛洪</h3><h4 id="TCP连接介绍"><a href="#TCP连接介绍" class="headerlink" title="TCP连接介绍"></a>TCP连接介绍</h4><ul>
+<li>客户端发送SYN到服务器</li>
+<li>服务器响应 SYN+ACK 到客户机</li>
+<li>客户机发送ACK到服务器</li>
+</ul>
+<p>使用 wireshark 分析 TCP 三次握手数据包<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605793725479-0c582547-d917-4fc3-9cff-31c4d18b2c2b.png#align=left&display=inline&height=147&margin=%5Bobject%20Object%5D&name=image.png&originHeight=294&originWidth=2562&size=134618&status=done&style=none&width=1281" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605793725479-0c582547-d917-4fc3-9cff-31c4d18b2c2b.png#align=left&display=inline&height=147&margin=%5Bobject%20Object%5D&name=image.png&originHeight=294&originWidth=2562&size=134618&status=done&style=none&width=1281" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h4 id="TCP-SYN-flooding-安全测试"><a href="#TCP-SYN-flooding-安全测试" class="headerlink" title="TCP SYN flooding 安全测试"></a>TCP SYN flooding 安全测试</h4><p>原理</p>
+<ul>
+<li>客户端发送syn服务端返回syn+ack，如果客户端不再发送ack，那么服务端将等待超时，重新发送syn+ack。如果是大量的等待，就可能导致服务器奔溃。</li>
+</ul>
+<p>案例演示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hping3 -q -n --rand-source -S -p 80 --flood &lt;目标IP地址&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-q: 安静模式 </li>
+<li>-n: 数字化输出，象征性输出主机地址</li>
+<li>–rand-source: 随机源IP</li>
+<li>-S: 发送SYN数据包</li>
+<li>-p: 指向端口</li>
+<li>–flood: 使用泛洪</li>
+</ul>
+<p>为了便于分析。打开 Statistics -&gt; Flow Graph<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605798164166-c6513ee3-00d1-44ae-96a3-f1e112fa6e14.png#align=left&display=inline&height=411&margin=%5Bobject%20Object%5D&name=image.png&originHeight=822&originWidth=976&size=115134&status=done&style=none&width=488" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605798164166-c6513ee3-00d1-44ae-96a3-f1e112fa6e14.png#align=left&display=inline&height=411&margin=%5Bobject%20Object%5D&name=image.png&originHeight=822&originWidth=976&size=115134&status=done&style=none&width=488" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>先选择流类型为TCP<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605799515559-2a58b00c-81af-4d24-af39-eb8c19774b5d.png#align=left&display=inline&height=678&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1356&originWidth=1806&size=131163&status=done&style=none&width=903" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605799515559-2a58b00c-81af-4d24-af39-eb8c19774b5d.png#align=left&display=inline&height=678&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1356&originWidth=1806&size=131163&status=done&style=none&width=903" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>发现客户端发送syn服务端返回syn+ack，但客户端不再发送ack，导致资源消耗。</p>
+<h4 id="TCP-SYN-flooding安全防御"><a href="#TCP-SYN-flooding安全防御" class="headerlink" title="TCP SYN flooding安全防御"></a>TCP SYN flooding安全防御</h4><ul>
+<li>丢弃第一个SYN数据包 -&gt; 用户体验差</li>
+<li>反向探测 -&gt; 向源地址方向发送探测包，确定源地址合法性</li>
+<li>代理模式 -&gt; 防火墙代理 -&gt; 即先与防火墙建立tcp连接</li>
+</ul>
+<h3 id="UDP-泛洪"><a href="#UDP-泛洪" class="headerlink" title="UDP 泛洪"></a>UDP 泛洪</h3><p>非连接状态的协议，简洁协议，控制选项少，不可靠，传输速率高，适合大文件传输</p>
+<p>UDP协议关键点</p>
+<ul>
+<li>源端口</li>
+<li>目的端口</li>
+<li>UDP报文长度</li>
+<li>检验码</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605839057960-48412a34-8873-4ff3-9044-f54e09ea3cfb.png#align=left&display=inline&height=630&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1260&originWidth=1632&size=255005&status=done&style=none&width=816" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605839057960-48412a34-8873-4ff3-9044-f54e09ea3cfb.png#align=left&display=inline&height=630&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1260&originWidth=1632&size=255005&status=done&style=none&width=816" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h4 id="UDP-flooding-安全测试"><a href="#UDP-flooding-安全测试" class="headerlink" title="UDP flooding 安全测试"></a>UDP flooding 安全测试</h4><p>原理: 测试人员向目标发送大量巨大的UDP数据包，就会使网络资源被耗尽</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo hping3 -q -n -a &lt;fake_ip&gt; --udp -s 53 -p &lt;dst_port&gt; --flood &lt;target_ip&gt; -d 1000</span><br></pre></td></tr></table></figure>
+
+<p>-a: 伪造的 ip<br>-s: 53端口<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605840005031-623d1d8e-754a-422d-a359-193d2d5888c1.png#align=left&display=inline&height=647&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1294&originWidth=1852&size=317845&status=done&style=none&width=926" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605840005031-623d1d8e-754a-422d-a359-193d2d5888c1.png#align=left&display=inline&height=647&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1294&originWidth=1852&size=317845&status=done&style=none&width=926" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h4 id="UDP-flooding-安全防御"><a href="#UDP-flooding-安全防御" class="headerlink" title="UDP flooding 安全防御"></a>UDP flooding 安全防御</h4><p>防火墙</p>
+<ul>
+<li>限流: 将链路中的UDP报文控制在合理的范围，当超过指定值，则丢弃UDP报文</li>
+<li>指纹学习: 先学习，在匹配</li>
+</ul>
+<h3 id="网络取证简析"><a href="#网络取证简析" class="headerlink" title="网络取证简析"></a>网络取证简析</h3><h4 id="wireshark-恢复传输文件"><a href="#wireshark-恢复传输文件" class="headerlink" title="wireshark 恢复传输文件"></a>wireshark 恢复传输文件</h4><p>无论使用何种应用层协议，对于传输层来说都是TCP或UDP协议，来恢复一下wireshark官网提供的文件<br><a href="https://wiki.wireshark.org/SampleCaptures?action=AttachFile&do=view&target=http_with_jpegs.cap.gz">https://wiki.wireshark.org/SampleCaptures?action=AttachFile&amp;do=view&amp;target=http_with_jpegs.cap.gz</a><br><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2020/gz/2789727/1605840476295-da677716-cade-446a-9ad6-7b5cd60564d5.gz?_lake_card=%7B%22uid%22:%221605840475936-0%22,%22src%22:%22https://www.yuque.com/attachments/yuque/0/2020/gz/2789727/1605840476295-da677716-cade-446a-9ad6-7b5cd60564d5.gz%22,%22name%22:%22http_with_jpegs.cap.gz%22,%22size%22:261947,%22type%22:%22application/x-gzip%22,%22ext%22:%22gz%22,%22progress%22:%7B%22percent%22:99%7D,%22status%22:%22done%22,%22percent%22:0,%22id%22:%22jhjjK%22,%22card%22:%22file%22%7D">http_with_jpegs.cap.gz</a></p>
+<p>首先在显示过滤器中筛选具有jpeg内容的数据包: <code>http contains &quot;jpeg&quot;</code><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605840700672-307192b2-795c-44f9-acb5-6767a5d42d25.png#align=left&display=inline&height=343&margin=%5Bobject%20Object%5D&name=image.png&originHeight=686&originWidth=2212&size=291904&status=done&style=none&width=1106" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605840700672-307192b2-795c-44f9-acb5-6767a5d42d25.png#align=left&display=inline&height=343&margin=%5Bobject%20Object%5D&name=image.png&originHeight=686&originWidth=2212&size=291904&status=done&style=none&width=1106" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>选第一个，追踪tcp流<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605841239748-c5db8b2a-ec6e-47bf-88b1-99de7e7c3c32.png#align=left&display=inline&height=561&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1122&originWidth=1936&size=546540&status=done&style=none&width=968" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605841239748-c5db8b2a-ec6e-47bf-88b1-99de7e7c3c32.png#align=left&display=inline&height=561&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1122&originWidth=1936&size=546540&status=done&style=none&width=968" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605841334136-f96a6202-6552-4285-bb72-ab952c06e7f3.png#align=left&display=inline&height=792&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1584&originWidth=1540&size=557977&status=done&style=none&width=770" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605841334136-f96a6202-6552-4285-bb72-ab952c06e7f3.png#align=left&display=inline&height=792&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1584&originWidth=1540&size=557977&status=done&style=none&width=770" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>最后点一下 Save as… 保存为 xxx.bin 就好，然后用16进制编辑器打开，JPEG的文件开始字节为 <code>FF D8</code>，文件结束字节为 <code>FF D9</code><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605841552240-181bfa3f-e3d5-4362-b799-f327fb66fa23.png#align=left&display=inline&height=506&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1012&originWidth=1540&size=345491&status=done&style=none&width=770" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605841552240-181bfa3f-e3d5-4362-b799-f327fb66fa23.png#align=left&display=inline&height=506&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1012&originWidth=1540&size=345491&status=done&style=none&width=770" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>然后把其余没用的都删除掉，这里因为结束符号就是最后了，因此把上图 <code>FF D8</code> 之前的都删除掉就好了。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605841622742-4b8536ae-007b-4b11-a12c-163fd7fc896c.png#align=left&display=inline&height=394&margin=%5Bobject%20Object%5D&name=image.png&originHeight=788&originWidth=1584&size=394632&status=done&style=none&width=792" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605841622742-4b8536ae-007b-4b11-a12c-163fd7fc896c.png#align=left&display=inline&height=394&margin=%5Bobject%20Object%5D&name=image.png&originHeight=788&originWidth=1584&size=394632&status=done&style=none&width=792" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605841661621-38e7cf54-e921-4853-a5a8-3fc07c000734.png#align=left&display=inline&height=593&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1186&originWidth=1444&size=1359525&status=done&style=none&width=722" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605841661621-38e7cf54-e921-4853-a5a8-3fc07c000734.png#align=left&display=inline&height=593&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1186&originWidth=1444&size=1359525&status=done&style=none&width=722" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>成功恢复。</p>
+<h4 id="取证实践案例"><a href="#取证实践案例" class="headerlink" title="取证实践案例"></a>取证实践案例</h4><p><a target="_blank" rel="noopener" href="https://forensicscontest.com/2009/09/25/puzzle-1-anns-bad-aim">https://forensicscontest.com/2009/09/25/puzzle-1-anns-bad-aim</a><br>好像没了。。。然后在Github找了个: <a target="_blank" rel="noopener" href="https://github.com/aarud/Pcaps/blob/master/evidence01.pcap">https://github.com/aarud/Pcaps/blob/master/evidence01.pcap</a></p>
+<h5 id="-1"><a href="#-1" class="headerlink" title=""></a></h5><h5 id="1-寻找Ann的通信好友名称"><a href="#1-寻找Ann的通信好友名称" class="headerlink" title="1.寻找Ann的通信好友名称"></a>1.寻找Ann的通信好友名称</h5><p>根据题目名称提示 aim 通信，wireshark 自带 aim 解密<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605772208918-064aee2d-3b2b-4ed9-9f43-d654d1237f56.png#align=left&display=inline&height=381&margin=%5Bobject%20Object%5D&name=image.png&originHeight=762&originWidth=1042&size=277791&status=done&style=none&width=521" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605772208918-064aee2d-3b2b-4ed9-9f43-d654d1237f56.png#align=left&display=inline&height=381&margin=%5Bobject%20Object%5D&name=image.png&originHeight=762&originWidth=1042&size=277791&status=done&style=none&width=521" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>这三项依次改为<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605772589738-830ff49d-bc78-46db-8c3e-0065aef1936e.png#align=left&display=inline&height=80&margin=%5Bobject%20Object%5D&name=image.png&originHeight=160&originWidth=942&size=33306&status=done&style=none&width=471" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605772589738-830ff49d-bc78-46db-8c3e-0065aef1936e.png#align=left&display=inline&height=80&margin=%5Bobject%20Object%5D&name=image.png&originHeight=160&originWidth=942&size=33306&status=done&style=none&width=471" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>然后查看数据包，发现通信好友名称是 Sec558user1<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605772717050-166452db-d6d3-481c-a31a-4f09dc457427.png#align=left&display=inline&height=435&margin=%5Bobject%20Object%5D&name=image.png&originHeight=870&originWidth=1680&size=214193&status=done&style=none&width=840" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605772717050-166452db-d6d3-481c-a31a-4f09dc457427.png#align=left&display=inline&height=435&margin=%5Bobject%20Object%5D&name=image.png&originHeight=870&originWidth=1680&size=214193&status=done&style=none&width=840" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h5 id="2-通信过程中的第一条信息内容是什么"><a href="#2-通信过程中的第一条信息内容是什么" class="headerlink" title="2. 通信过程中的第一条信息内容是什么"></a>2. 通信过程中的第一条信息内容是什么</h5><p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605773224776-cf54fa2e-3d3d-42d5-8e46-89aa0bcd5fac.png#align=left&display=inline&height=377&margin=%5Bobject%20Object%5D&name=image.png&originHeight=754&originWidth=2166&size=186028&status=done&style=none&width=1083" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605773224776-cf54fa2e-3d3d-42d5-8e46-89aa0bcd5fac.png#align=left&display=inline&height=377&margin=%5Bobject%20Object%5D&name=image.png&originHeight=754&originWidth=2166&size=186028&status=done&style=none&width=1083" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h4 id="-2"><a href="#-2" class="headerlink" title=""></a></h4><h5 id="3-Ann-通信过程中传输的文件名字"><a href="#3-Ann-通信过程中传输的文件名字" class="headerlink" title="3. Ann 通信过程中传输的文件名字"></a>3. Ann 通信过程中传输的文件名字</h5><p>显示过滤器输入 <code>data</code>，然后追踪tcp流<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605773343192-020ba75d-966c-4c61-b195-943db2f8f8be.png#align=left&display=inline&height=352&margin=%5Bobject%20Object%5D&name=image.png&originHeight=704&originWidth=2226&size=395317&status=done&style=none&width=1113" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605773343192-020ba75d-966c-4c61-b195-943db2f8f8be.png#align=left&display=inline&height=352&margin=%5Bobject%20Object%5D&name=image.png&originHeight=704&originWidth=2226&size=395317&status=done&style=none&width=1113" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>文件名字<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605773432291-4151f4a5-d07b-425a-acd4-fc96474e1da9.png#align=left&display=inline&height=217&margin=%5Bobject%20Object%5D&name=image.png&originHeight=434&originWidth=1502&size=71877&status=done&style=none&width=751" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605773432291-4151f4a5-d07b-425a-acd4-fc96474e1da9.png#align=left&display=inline&height=217&margin=%5Bobject%20Object%5D&name=image.png&originHeight=434&originWidth=1502&size=71877&status=done&style=none&width=751" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h4 id="-3"><a href="#-3" class="headerlink" title=""></a></h4><h5 id="4-还原Ann发送文件并得出文件幻数（magic-number）"><a href="#4-还原Ann发送文件并得出文件幻数（magic-number）" class="headerlink" title="4. 还原Ann发送文件并得出文件幻数（magic number）"></a>4. 还原Ann发送文件并得出文件幻数（magic number）</h5><p>文件幻数介绍: <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/magic%20number">https://baike.baidu.com/item/magic%20number</a><br>说直白点就是以 zip 之父的首字母PK来命名，对应的16进制是<code>50 4B 03 04</code><br>50(P)4B(K)03(文本结束)04(传输结束)，组合起来就是压缩包的标识开头。<br>那为啥word文档的文件开头是这个，把word文档后缀改为<code>.zip</code>试试，这是微软2006年公布的OOXML规范。</p>
+<p>显示过滤器输入 <code>data</code>，然后追踪tcp流<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605775150674-da5faf1e-18e0-402e-8a03-3aacf9cc1659.png#align=left&display=inline&height=792&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1584&originWidth=1540&size=355286&status=done&style=none&width=770" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605775150674-da5faf1e-18e0-402e-8a03-3aacf9cc1659.png#align=left&display=inline&height=792&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1584&originWidth=1540&size=355286&status=done&style=none&width=770" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br>另存为，<code>xxx.bin</code>，用16进制编辑器打开<code>xxx.bin</code><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605775249230-11f41003-6bde-4b41-9440-4d6d0f6e3c7f.png#align=left&display=inline&height=308&margin=%5Bobject%20Object%5D&name=image.png&originHeight=616&originWidth=1104&size=136063&status=done&style=none&width=552" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605775249230-11f41003-6bde-4b41-9440-4d6d0f6e3c7f.png#align=left&display=inline&height=308&margin=%5Bobject%20Object%5D&name=image.png&originHeight=616&originWidth=1104&size=136063&status=done&style=none&width=552" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605775265569-bae777a6-9d33-4590-b856-bd850b64028f.png#align=left&display=inline&height=420&margin=%5Bobject%20Object%5D&name=image.png&originHeight=840&originWidth=1418&size=206237&status=done&style=none&width=709" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605775265569-bae777a6-9d33-4590-b856-bd850b64028f.png#align=left&display=inline&height=420&margin=%5Bobject%20Object%5D&name=image.png&originHeight=840&originWidth=1418&size=206237&status=done&style=none&width=709" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605775368576-d7466692-61fe-442a-b55a-894a35e087ff.png#align=left&display=inline&height=572&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1144&originWidth=2500&size=275400&status=done&style=none&width=1250" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605775368576-d7466692-61fe-442a-b55a-894a35e087ff.png#align=left&display=inline&height=572&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1144&originWidth=2500&size=275400&status=done&style=none&width=1250" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h5 id="5-查看文件md5值"><a href="#5-查看文件md5值" class="headerlink" title="5. 查看文件md5值"></a>5. 查看文件md5值</h5><p><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605776173099-e81a08f3-c739-4125-a673-7fe95fcc8ae8.png#align=left&display=inline&height=57&margin=%5Bobject%20Object%5D&name=image.png&originHeight=114&originWidth=762&size=57516&status=done&style=none&width=381" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605776173099-e81a08f3-c739-4125-a673-7fe95fcc8ae8.png#align=left&display=inline&height=57&margin=%5Bobject%20Object%5D&name=image.png&originHeight=114&originWidth=762&size=57516&status=done&style=none&width=381" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h2 id="应用层网络安全"><a href="#应用层网络安全" class="headerlink" title="应用层网络安全"></a>应用层网络安全</h2><h3 id="暴力破解分析"><a href="#暴力破解分析" class="headerlink" title="暴力破解分析"></a>暴力破解分析</h3><p>分析使用 medusa 破解 ssh 登录<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605842165858-a47b2bfd-424f-4bb1-9ccd-251d6bc24d51.png#align=left&display=inline&height=459&margin=%5Bobject%20Object%5D&name=image.png&originHeight=918&originWidth=1784&size=1844097&status=done&style=none&width=892" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605842165858-a47b2bfd-424f-4bb1-9ccd-251d6bc24d51.png#align=left&display=inline&height=459&margin=%5Bobject%20Object%5D&name=image.png&originHeight=918&originWidth=1784&size=1844097&status=done&style=none&width=892" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h3 id="后门分析"><a href="#后门分析" class="headerlink" title="后门分析"></a>后门分析</h3><p>某些软件具有其他的目的 -&gt; 设置隐藏后门<br>这里针对vsftpd 2.3.4 后门<br>帐号密码不要紧，有 <code>:)</code> 笑脸就行，因此这个后门也被称为笑脸后门，2333<br><img src="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605842408016-3afe8bd9-95c9-4f40-bf85-6ea21bdee091.png#align=left&display=inline&height=546&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1092&originWidth=1916&size=714363&status=done&style=none&width=958" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2020/png/2789727/1605842408016-3afe8bd9-95c9-4f40-bf85-6ea21bdee091.png#align=left&display=inline&height=546&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1092&originWidth=1916&size=714363&status=done&style=none&width=958" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tari0510.github.io/2021/04/01/Wireshark%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/>https://tari0510.github.io/2021/04/01/Wireshark%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Wireshark-%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Wireshark 流量分析</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/04/01/%E6%89%8B%E5%8A%A8%E5%88%86%E5%89%B2%E7%BA%BF/'>
+          <p class='title'>=======总结 & 手动分割线=======<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>由于 notion 和 语雀 使用起来过于舒适，差点忘了自己还有个博客，直到 （逃
+
+上次写博客还是大三上学期末，现在都差不多要毕业了。大二大三那会，在学校啥都干，从之前的文章也能看出，服务器运...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AF%E5%85%8B%E5%88%A9%E5%8C%85%E8%BF%87%E6%BB%A4-Wireshark%E5%8C%85%E8%BF%87%E6%BB%A4"><span class="toc-text">伯克利包过滤 - Wireshark包过滤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="toc-text">语法规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E5%AE%9E%E4%BE%8B"><span class="toc-text">演示实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wireshark%E5%8C%85%E8%BF%87%E6%BB%A4%E5%99%A8%E5%88%86%E7%B1%BB-%E9%81%B5%E5%BE%AA%E4%BC%AF%E5%85%8B%E5%88%A9%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="toc-text">wireshark包过滤器分类 - 遵循伯克利语法规则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8D%95%E8%8E%B7%E8%BF%87%E6%BB%A4%E5%99%A8-gt-%E5%9C%A8%E6%8A%93%E5%8C%85%E4%B9%8B%E5%89%8D%E8%BF%9B%E8%A1%8C%E8%AE%BE%E7%BD%AE%EF%BC%8C%E5%9C%A8%E6%8A%93%E5%8F%96%E6%97%B6%EF%BC%8C%E5%B0%B1%E4%B8%8D%E4%BC%9A%E6%8A%93%E5%8F%96%E4%B8%8D%E7%AC%A6%E5%90%88%E6%96%87%E4%BB%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85"><span class="toc-text">捕获过滤器 -&gt; 在抓包之前进行设置，在抓取时，就不会抓取不符合文件的数据包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%9B%E9%80%89%E8%BF%87%E6%BB%A4%E5%99%A8-%EF%BC%88%E6%98%BE%E7%A4%BA%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%89-gt-%E6%8A%93%E5%8C%85%E4%B9%8B%E5%90%8E%E8%BF%9B%E8%A1%8C%E5%BA%94%E7%94%A8%E7%9A%84%EF%BC%8C%E5%8D%B3%E5%86%8D%E6%AC%A1%E7%AD%9B%E9%80%89"><span class="toc-text">筛选过滤器 （显示过滤器）-&gt; 抓包之后进行应用的，即再次筛选</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wireshark-%E6%8D%95%E8%8E%B7%E6%95%B0%E6%8D%AE%E5%8C%85%E6%96%87%E4%BB%B6%E4%BF%9D%E5%AD%98"><span class="toc-text">Wireshark 捕获数据包文件保存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9%E8%AE%BE%E7%BD%AE"><span class="toc-text">杂项设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#wireshark-%E6%95%B0%E6%8D%AE%E5%8C%85%E9%A2%9C%E8%89%B2%E7%9A%84%E6%84%8F%E6%80%9D"><span class="toc-text">wireshark 数据包颜色的意思</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wireshark-%E6%95%85%E9%9A%9C%E5%8C%85%E8%BF%87%E6%BB%A4"><span class="toc-text">wireshark 故障包过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bwireshark-%E5%86%85%E7%BD%AE%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84"><span class="toc-text">查看wireshark 内置文件路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9wireshark%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE"><span class="toc-text">修改wireshark默认配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E6%95%B0%E6%8D%AE%E5%8C%85%E6%8D%95%E8%8E%B7"><span class="toc-text">远程数据包捕获</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F1"><span class="toc-text">方式1:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F2-wireshark-%E8%BF%9C%E7%A8%8B%E6%8A%93%E5%8C%85"><span class="toc-text">方式2: wireshark 远程抓包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#windows"><span class="toc-text">windows</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linux"><span class="toc-text">linux</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#macos"><span class="toc-text">macos</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%95%B0%E6%8D%AE%E5%8C%85%E6%8D%95%E8%8E%B7"><span class="toc-text">本地数据包捕获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%95%B0%E6%8D%AE%E5%8C%85%E6%8D%95%E8%8E%B7"><span class="toc-text">虚拟机数据包捕获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ARP%E6%AC%BA%E9%AA%97%E6%8D%95%E8%8E%B7%E6%95%B0%E6%8D%AE%E5%8C%85"><span class="toc-text">ARP欺骗捕获数据包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E5%8E%9F%E5%88%99"><span class="toc-text">攻击原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5"><span class="toc-text">实践</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E8%B7%AF%E5%B1%82%E5%AE%89%E5%85%A8"><span class="toc-text">链路层安全</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%92%88%E5%AF%B9%E4%BA%8E%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-text">针对于交换机的安全问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MAC%E5%AF%B9%E7%A7%B0%E6%AC%BA%E9%AA%97-%E2%80%94%E2%80%94-macchange"><span class="toc-text">MAC对称欺骗 —— macchange</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MAC%E5%9C%B0%E5%9D%80%E6%B3%9B%E6%B4%AA%E5%88%86%E6%9E%90-%E2%80%94%E2%80%94-%E6%BA%A2%E5%87%BA%E4%BA%A4%E6%8D%A2%E6%9C%BACAM%E8%A1%A8"><span class="toc-text">MAC地址泛洪分析 —— 溢出交换机CAM表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#wireshark-%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90"><span class="toc-text">wireshark 抓包分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%BA%90%E5%A4%B4%E7%AB%AF%E5%8F%A3"><span class="toc-text">查找源头端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E7%AD%96%E7%95%A5"><span class="toc-text">防御策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STP%E6%93%8D%E7%BA%B5"><span class="toc-text">STP操纵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BF%E6%92%AD%E9%A3%8E%E6%9A%B4"><span class="toc-text">广播风暴</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82%E5%AE%89%E5%85%A8"><span class="toc-text">网络层安全</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BA%BA%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95-%E6%AC%BA%E9%AA%97"><span class="toc-text">中间人安全测试 - 欺骗</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ARP%E5%8D%8F%E8%AE%AE"><span class="toc-text">ARP协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARP%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E4%BB%8B%E7%BB%8D"><span class="toc-text">ARP协议分析介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%93%E5%AE%B6%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90"><span class="toc-text">专家系统分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8FARP%E6%95%B0%E6%8D%AE%E5%8C%85%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-text">出现大量ARP数据包的原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1ARP%E6%AC%BA%E9%AA%97%E6%8E%AA%E6%96%BD"><span class="toc-text">防御ARP欺骗措施</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%AA%E6%BB%B4%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95"><span class="toc-text">泪滴安全测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E5%AE%89%E5%85%A8"><span class="toc-text">传输层安全</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-text"></span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-SYN-%E6%B3%9B%E6%B4%AA"><span class="toc-text">TCP SYN 泛洪</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP%E8%BF%9E%E6%8E%A5%E4%BB%8B%E7%BB%8D"><span class="toc-text">TCP连接介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-SYN-flooding-%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95"><span class="toc-text">TCP SYN flooding 安全测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-SYN-flooding%E5%AE%89%E5%85%A8%E9%98%B2%E5%BE%A1"><span class="toc-text">TCP SYN flooding安全防御</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP-%E6%B3%9B%E6%B4%AA"><span class="toc-text">UDP 泛洪</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP-flooding-%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95"><span class="toc-text">UDP flooding 安全测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP-flooding-%E5%AE%89%E5%85%A8%E9%98%B2%E5%BE%A1"><span class="toc-text">UDP flooding 安全防御</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%8F%96%E8%AF%81%E7%AE%80%E6%9E%90"><span class="toc-text">网络取证简析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#wireshark-%E6%81%A2%E5%A4%8D%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6"><span class="toc-text">wireshark 恢复传输文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%96%E8%AF%81%E5%AE%9E%E8%B7%B5%E6%A1%88%E4%BE%8B"><span class="toc-text">取证实践案例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#-1"><span class="toc-text"></span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%AF%BB%E6%89%BEAnn%E7%9A%84%E9%80%9A%E4%BF%A1%E5%A5%BD%E5%8F%8B%E5%90%8D%E7%A7%B0"><span class="toc-text">1.寻找Ann的通信好友名称</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E7%AC%AC%E4%B8%80%E6%9D%A1%E4%BF%A1%E6%81%AF%E5%86%85%E5%AE%B9%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">2. 通信过程中的第一条信息内容是什么</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-2"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-Ann-%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B%E4%B8%AD%E4%BC%A0%E8%BE%93%E7%9A%84%E6%96%87%E4%BB%B6%E5%90%8D%E5%AD%97"><span class="toc-text">3. Ann 通信过程中传输的文件名字</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-3"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E8%BF%98%E5%8E%9FAnn%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6%E5%B9%B6%E5%BE%97%E5%87%BA%E6%96%87%E4%BB%B6%E5%B9%BB%E6%95%B0%EF%BC%88magic-number%EF%BC%89"><span class="toc-text">4. 还原Ann发送文件并得出文件幻数（magic number）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6md5%E5%80%BC"><span class="toc-text">5. 查看文件md5值</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8"><span class="toc-text">应用层网络安全</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%E5%88%86%E6%9E%90"><span class="toc-text">暴力破解分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E5%88%86%E6%9E%90"><span class="toc-text">后门分析</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="Wireshark入门与实战";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2017-2021 TARI TARI</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('/js/search/hexo.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://tari0510.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://tari0510.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://tari0510.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>

@@ -24,7 +24,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2019/12 - TARI TARI</title>
+  <title>标签：Wireshark 流量分析 - TARI TARI</title>
   
 
   
@@ -106,7 +106,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -325,7 +325,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper  dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="/img/home.jpg"></div>
           
@@ -356,9 +356,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
+
 <div class='l_main'>
-	
-		
+  
+    
+      
   <section class="post-list">
     
       
@@ -378,21 +380,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/12/04/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E5%AE%9E%E9%AA%8C/">
-        计算智能实验
+      <a href="/2021/04/01/Wireshark%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/">
+        Wireshark入门与实战
       </a>
     </h2>
   
   <div class='md'>
     
       
-        :) 蚁群算法AS求解 TSP 参数一览(设任意两个城市的距离 $d_{ij}$ 为欧几里德距离)
-AS 中的随机比例规则(random proportional): 对于每只蚂蚁 k,  路径记忆向量 $R^{k}$ 按照访问顺序记录了所有 k 已经经过的程序序号
-
-
-
-
-$ \tau_{o}(i, j) = \frac{m}{C^{nn}} $, m是蚂蚁个数, $C^{nn}$ 是由贪...
+        wireshark入门: https://www.bilibili.com/video/BV1X5411x7R4他这里顺序有点误，应该是 P1-P26，P32-P39，P27-P31# Wireshark 入门
+伯克利包过滤 - Wireshark包过滤BPF（Berkeley Packet Filter） 采用与自然语言相近的语法，利用语法构造字符串确定保留具体符合规则的数据包而忽略其他数...
       
     
   </div>
@@ -400,12 +397,12 @@ $ \tau_{o}(i, j) = \frac{m}{C^{nn}} $, m是蚂蚁个数, $C^{nn}$ 是由贪...
     <div class='meta-v3' line_style='solid'>
       <div>
         
-        <time>2019-12-04</time>
+        <time>2021-04-01</time>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/12/04/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E5%AE%9E%E9%AA%8C/'>
+          <a class='readmore' href='/2021/04/01/Wireshark%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/'>
             阅读全文
           </a>
         </div>
@@ -425,7 +422,8 @@ $ \tau_{o}(i, j) = \frac{m}{C^{nn}} $, m是蚂蚁个数, $C^{nn}$ 是由贪...
   
 
 
-	
+    
+  
 </div>
 <aside class='l_side'>
   
@@ -545,14 +543,14 @@ $ \tau_{o}(i, j) = \frac{m}{C^{nn}} $, m是蚂蚁个数, $C^{nn}$ 是由贪...
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="half";
-    cover_wrapper.style.display="";
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
     
   
 </script>
