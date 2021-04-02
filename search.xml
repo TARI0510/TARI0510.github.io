@@ -13,9 +13,9 @@
       
       <categories>
           
-          <category> Wireshark </category>
-          
           <category> 流量分析 </category>
+          
+          <category> Wireshark </category>
           
           <category> MISC </category>
           
@@ -24,9 +24,9 @@
       
         <tags>
             
-            <tag> Wireshark </tag>
-            
             <tag> 流量分析 </tag>
+            
+            <tag> Wireshark </tag>
             
             <tag> MISC </tag>
             
@@ -258,9 +258,9 @@
       
       <categories>
           
-          <category> Wordpress </category>
-          
           <category> 运维 </category>
+          
+          <category> Wordpress </category>
           
       </categories>
       
@@ -312,18 +312,14 @@
       
       <categories>
           
-          <category> Wordpress </category>
-          
-          <category> 运维 </category>
-          
           <category> 开发 </category>
+          
+          <category> Wordpress </category>
           
       </categories>
       
       
         <tags>
-            
-            <tag> 运维 </tag>
             
             <tag> 开发 </tag>
             
@@ -345,9 +341,9 @@
       
       <categories>
           
-          <category> Nginx </category>
-          
           <category> 运维 </category>
+          
+          <category> Nginx </category>
           
       </categories>
       
@@ -503,9 +499,9 @@
       
       <categories>
           
-          <category> ansible </category>
-          
           <category> 运维 </category>
+          
+          <category> ansible </category>
           
       </categories>
       
@@ -532,9 +528,9 @@
       
       <categories>
           
-          <category> ansible </category>
-          
           <category> 运维 </category>
+          
+          <category> ansible </category>
           
       </categories>
       
@@ -594,9 +590,9 @@
       
       <categories>
           
-          <category> SSH </category>
-          
           <category> 运维 </category>
+          
+          <category> SSH </category>
           
       </categories>
       
@@ -623,9 +619,9 @@
       
       <categories>
           
-          <category> ansible </category>
-          
           <category> 运维 </category>
+          
+          <category> ansible </category>
           
       </categories>
       
@@ -727,9 +723,9 @@
       
       <categories>
           
-          <category> vsftpd </category>
-          
           <category> 运维 </category>
+          
+          <category> vsftpd </category>
           
       </categories>
       
@@ -906,9 +902,9 @@
       
       <categories>
           
-          <category> Wordpress </category>
-          
           <category> 运维 </category>
+          
+          <category> Wordpress </category>
           
       </categories>
       

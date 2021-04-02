@@ -327,7 +327,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
         <div id="full" class='cover-wrapper  dock' style="display: none;">
           
-            <div class='cover-bg lazyload placeholder' data-bg="/img/home.jpg"></div>
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/img/home.jpg"></div>
           
           <div class='cover-body'>
   <div class='top'>
@@ -595,67 +595,129 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     
+  
 
-<section class="widget blogger shadow ">
+  <section class="widget tagcloud shadow desktop">
+    
+  <header>
+    
+      <a href='/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      <a href="/tags/Django/" style="font-size: 14px; color: #999">Django</a> <a href="/tags/MISC/" style="font-size: 14px; color: #999">MISC</a> <a href="/tags/Motrix/" style="font-size: 14px; color: #999">Motrix</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Python/" style="font-size: 14px; color: #999">Python</a> <a href="/tags/SSH/" style="font-size: 14px; color: #999">SSH</a> <a href="/tags/Wireshark/" style="font-size: 14px; color: #999">Wireshark</a> <a href="/tags/Wordpress/" style="font-size: 19px; color: #777">Wordpress</a> <a href="/tags/ansible/" style="font-size: 21.5px; color: #666">ansible</a> <a href="/tags/aria2/" style="font-size: 14px; color: #999">aria2</a> <a href="/tags/ctf/" style="font-size: 21.5px; color: #666">ctf</a> <a href="/tags/vsftpd/" style="font-size: 14px; color: #999">vsftpd</a> <a href="/tags/%E5%8B%89%E5%BC%B7/" style="font-size: 19px; color: #777">勉強</a> <a href="/tags/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/" style="font-size: 16.5px; color: #888">学校课程</a> <a href="/tags/%E5%B0%8F%E8%AE%B0/" style="font-size: 21.5px; color: #666">小记</a> <a href="/tags/%E5%BC%80%E5%8F%91/" style="font-size: 16.5px; color: #888">开发</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%97%A5%E5%B8%B8%E6%8A%98%E8%85%BE/" style="font-size: 14px; color: #999">日常折腾</a> <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" style="font-size: 14px; color: #999">流量分析</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 24px; color: #555">运维</a>
+    </div>
+  </section>
+
+
+  
+
+  
+    
+    
+
+<section class="widget shadow desktop">
+  
+  <header>
+    
+      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>タリ的小破站</span>
+    
+  </header>
+
+
   <div class='content'>
-    
+    <div class="webinfo">
       
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
-        </a>
+        <div class="webinfo-item">
+          <div>文章数目：</div>
+          <div>35 篇</div>
+        </div>
       
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">TARI TARI</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
+
+      
+        <div class="webinfo-item">
+          <div>已运行时间：</div>
+          <div id="webinfo-runtime-count" publish_date="03/24/2020 21:34:09"></div>
+        </div>
+        <script>
+          var BirthDay = new Date(new Date('2020/01/01'));
+          var today = new Date();
+          var timeold = (today.getTime() - BirthDay.getTime());
+          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
+          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
+        </script>
+      
+
+
+      
+
+      
+
+      
+
+      
+        <div class="webinfo-item">
+          <div>最后活动时间：</div>
           
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
+            <div id="last-update" style="display: none;">Fri Apr 02 2021 12:08:11 GMT+0800 (GMT+08:00)</div>
+            <div id="last-update-show">2021-04-02 日</div>
           
+        </div>
         
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
+        <script>
+          function timeago(dateTimeStamp) {
+              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
+              var hour = minute * 60;
+              var day = hour * 24;
+              var week = day * 7;
+              var month = day * 30;
+              var now = new Date().getTime(); //获取当前时间毫秒
+              var diffValue = now - dateTimeStamp; //时间差
+              if (diffValue < 0) {
+                  return;
+              }
+              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
+              var hourC = diffValue / hour;
+              var dayC = diffValue / day;
+              var weekC = diffValue / week;
+              var monthC = diffValue / month;
+              if (monthC >= 1 && monthC <= 3) {
+                  result = " " + parseInt(monthC) + " 月前"
+              } else if (weekC >= 1 && weekC <= 3) {
+                  result = " " + parseInt(weekC) + " 周前"
+              } else if (dayC >= 1 && dayC <= 6) {
+                  result = " " + parseInt(dayC) + " 天前"
+              } else if (hourC >= 1 && hourC <= 23) {
+                  result = " " + parseInt(hourC) + " 小时前"
+              } else if (minC >= 1 && minC <= 59) {
+                  result = " " + parseInt(minC) + " 分钟前"
+              } else if (diffValue >= 0 && diffValue <= minute) {
+                  result = "刚刚"
+              } else {
+                  var datetime = new Date();
+                  datetime.setTime(dateTimeStamp);
+                  var Nyear = datetime.getFullYear();
+                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+                  result = Nyear + "-" + Nmonth + "-" + Ndate
+              }
+              return result;
+          }
+          var lastUpDate = document.getElementById('last-update').innerHTML;
+          try {
+            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
+          } catch (error) {
+            document.getElementById('last-update-show').innerHTML = '2021-04-02 日';
+          }
+        </script>
         
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
+      
+    </div>
   </div>
 </section>
 
@@ -679,79 +741,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <ul class="entry navigation">
         
           <li><a class="flat-box"
-            title="/categories/Nginx/" href="/categories/Nginx/"
-            id="categoriesNginx"
-            ><div class='name'>Nginx</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/Nginx/%E8%BF%90%E7%BB%B4/" href="/categories/Nginx/%E8%BF%90%E7%BB%B4/"
-            id="categoriesNginxE8BF90E7BBB4"
-            ><div class='name'>运维</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/SSH/" href="/categories/SSH/"
-            id="categoriesSSH"
-            ><div class='name'>SSH</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/SSH/%E8%BF%90%E7%BB%B4/" href="/categories/SSH/%E8%BF%90%E7%BB%B4/"
-            id="categoriesSSHE8BF90E7BBB4"
-            ><div class='name'>运维</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Wireshark/" href="/categories/Wireshark/"
-            id="categoriesWireshark"
-            ><div class='name'>Wireshark</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/Wireshark/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" href="/categories/Wireshark/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"
-            id="categoriesWiresharkE6B581E9878FE58886E69E90"
-            ><div class='name'>流量分析</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/Wireshark/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/MISC/" href="/categories/Wireshark/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/MISC/"
-            id="categoriesWiresharkE6B581E9878FE58886E69E90MISC"
-            ><div class='name'>MISC</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Wordpress/" href="/categories/Wordpress/"
-            id="categoriesWordpress"
-            ><div class='name'>Wordpress</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/Wordpress/%E8%BF%90%E7%BB%B4/" href="/categories/Wordpress/%E8%BF%90%E7%BB%B4/"
-            id="categoriesWordpressE8BF90E7BBB4"
-            ><div class='name'>运维</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/Wordpress/%E8%BF%90%E7%BB%B4/%E5%BC%80%E5%8F%91/" href="/categories/Wordpress/%E8%BF%90%E7%BB%B4/%E5%BC%80%E5%8F%91/"
-            id="categoriesWordpressE8BF90E7BBB4E5BC80E58F91"
-            ><div class='name'>开发</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/ansible/" href="/categories/ansible/"
-            id="categoriesansible"
-            ><div class='name'>ansible</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/ansible/%E8%BF%90%E7%BB%B4/" href="/categories/ansible/%E8%BF%90%E7%BB%B4/"
-            id="categoriesansibleE8BF90E7BBB4"
-            ><div class='name'>运维</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
             title="/categories/ctf/" href="/categories/ctf/"
             id="categoriesctf"
             ><div class='name'>ctf</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/vsftpd/" href="/categories/vsftpd/"
-            id="categoriesvsftpd"
-            ><div class='name'>vsftpd</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/vsftpd/%E8%BF%90%E7%BB%B4/" href="/categories/vsftpd/%E8%BF%90%E7%BB%B4/"
-            id="categoriesvsftpdE8BF90E7BBB4"
-            ><div class='name'>运维</div><div class='badge'>(1)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/%E5%8B%89%E5%BC%B7/" href="/categories/%E5%8B%89%E5%BC%B7/"
@@ -771,7 +763,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <li><a class="flat-box"
             title="/categories/%E5%BC%80%E5%8F%91/" href="/categories/%E5%BC%80%E5%8F%91/"
             id="categoriesE5BC80E58F91"
-            ><div class='name'>开发</div><div class='badge'>(1)</div></a></li>
+            ><div class='name'>开发</div><div class='badge'>(2)</div></a></li>
         
           <li><a class="flat-box child"
             title="/categories/%E5%BC%80%E5%8F%91/Python/" href="/categories/%E5%BC%80%E5%8F%91/Python/"
@@ -782,6 +774,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             title="/categories/%E5%BC%80%E5%8F%91/Python/Django/" href="/categories/%E5%BC%80%E5%8F%91/Python/Django/"
             id="categoriesE5BC80E58F91PythonDjango"
             ><div class='name'>Django</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%BC%80%E5%8F%91/Wordpress/" href="/categories/%E5%BC%80%E5%8F%91/Wordpress/"
+            id="categoriesE5BC80E58F91Wordpress"
+            ><div class='name'>Wordpress</div><div class='badge'>(1)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/%E6%80%BB%E7%BB%93/" href="/categories/%E6%80%BB%E7%BB%93/"
@@ -809,43 +806,54 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             ><div class='name'>aria2</div><div class='badge'>(1)</div></a></li>
         
           <li><a class="flat-box"
+            title="/categories/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" href="/categories/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"
+            id="categoriesE6B581E9878FE58886E69E90"
+            ><div class='name'>流量分析</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/Wireshark/" href="/categories/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/Wireshark/"
+            id="categoriesE6B581E9878FE58886E69E90Wireshark"
+            ><div class='name'>Wireshark</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/Wireshark/MISC/" href="/categories/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/Wireshark/MISC/"
+            id="categoriesE6B581E9878FE58886E69E90WiresharkMISC"
+            ><div class='name'>MISC</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
             title="/categories/%E8%BF%90%E7%BB%B4/" href="/categories/%E8%BF%90%E7%BB%B4/"
             id="categoriesE8BF90E7BBB4"
-            ><div class='name'>运维</div><div class='badge'>(9)</div></a></li>
+            ><div class='name'>运维</div><div class='badge'>(17)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E8%BF%90%E7%BB%B4/Nginx/" href="/categories/%E8%BF%90%E7%BB%B4/Nginx/"
+            id="categoriesE8BF90E7BBB4Nginx"
+            ><div class='name'>Nginx</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E8%BF%90%E7%BB%B4/SSH/" href="/categories/%E8%BF%90%E7%BB%B4/SSH/"
+            id="categoriesE8BF90E7BBB4SSH"
+            ><div class='name'>SSH</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E8%BF%90%E7%BB%B4/Wordpress/" href="/categories/%E8%BF%90%E7%BB%B4/Wordpress/"
+            id="categoriesE8BF90E7BBB4Wordpress"
+            ><div class='name'>Wordpress</div><div class='badge'>(2)</div></a></li>
         
           <li><a class="flat-box child"
             title="/categories/%E8%BF%90%E7%BB%B4/ansible/" href="/categories/%E8%BF%90%E7%BB%B4/ansible/"
             id="categoriesE8BF90E7BBB4ansible"
-            ><div class='name'>ansible</div><div class='badge'>(1)</div></a></li>
+            ><div class='name'>ansible</div><div class='badge'>(4)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E8%BF%90%E7%BB%B4/vsftpd/" href="/categories/%E8%BF%90%E7%BB%B4/vsftpd/"
+            id="categoriesE8BF90E7BBB4vsftpd"
+            ><div class='name'>vsftpd</div><div class='badge'>(1)</div></a></li>
         
       </ul>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop">
-    
-  <header>
-    
-      <a href='/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/Django/" style="font-size: 14px; color: #999">Django</a> <a href="/tags/MISC/" style="font-size: 14px; color: #999">MISC</a> <a href="/tags/Motrix/" style="font-size: 14px; color: #999">Motrix</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Python/" style="font-size: 14px; color: #999">Python</a> <a href="/tags/SSH/" style="font-size: 14px; color: #999">SSH</a> <a href="/tags/Wireshark/" style="font-size: 14px; color: #999">Wireshark</a> <a href="/tags/Wordpress/" style="font-size: 19px; color: #777">Wordpress</a> <a href="/tags/ansible/" style="font-size: 21.5px; color: #666">ansible</a> <a href="/tags/aria2/" style="font-size: 14px; color: #999">aria2</a> <a href="/tags/ctf/" style="font-size: 21.5px; color: #666">ctf</a> <a href="/tags/vsftpd/" style="font-size: 14px; color: #999">vsftpd</a> <a href="/tags/%E5%8B%89%E5%BC%B7/" style="font-size: 19px; color: #777">勉強</a> <a href="/tags/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/" style="font-size: 16.5px; color: #888">学校课程</a> <a href="/tags/%E5%B0%8F%E8%AE%B0/" style="font-size: 21.5px; color: #666">小记</a> <a href="/tags/%E5%BC%80%E5%8F%91/" style="font-size: 16.5px; color: #888">开发</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%97%A5%E5%B8%B8%E6%8A%98%E8%85%BE/" style="font-size: 14px; color: #999">日常折腾</a> <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" style="font-size: 14px; color: #999">流量分析</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 24px; color: #555">运维</a>
-    </div>
-  </section>
-
-
-  
 
   
 
