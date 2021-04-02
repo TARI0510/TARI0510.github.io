@@ -382,10 +382,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-01T16:27:29+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-02T10:14:27+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年4月1日 16:27</p>
+    <p>更新于：2021年4月2日 10:14</p>
   </a>
 </div>
 
@@ -482,6 +482,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>  其中 $Y_{j}^{k}$ 表示期望输出，是已知量</p>
 <p>  误差肯定是越小越好。因此，我们就要调整w和b值， 使得误差函数的值最小。<br>  要求式子(5) 在两个变量 ( $\omega$ 和 $b$ ) 取不同值时的最值，首先想到的就是求各自的偏导了</p>
 </li>
+</ul>
+<ul>
 <li><p>引入式子(1) 和 (4) 对目标函数 E 求 $\omega$ 和 $b$ 的偏导可以得到 $\omega$ 和 $b$ 的更新量<br>  下面拿求 $\omega$ 偏导来做推导。<br>$$<br>\Delta \omega_{ij} = \eta\frac{\partial E}{\partial w_{hj}} \qquad (6)<br>$$<br>  $\eta$ 学习率取值通常为 0.1 ~ 0.3,可以理解为每次梯度所迈的步伐。<br>  $w_{hj}$为 h 和 j 两层神经元之间的权重<br>  注意到 $w_{hj}$ 的值先影响到第 j 个输出层神经元的输入值 a，再影响到输出值 y</p>
 <p>  根据链式求导法对权重求偏导有：<br>$$<br>\frac{\partial E}{\partial w_{hj}} =\frac{\partial E}{\partial a_{j}^{l}}\cdot \frac{\partial a_{j}^{l}}{\partial z_{j}^{l}}\cdot\frac{\partial z_{j}^{l}}{\partial w_{hj}} \qquad (7)<br>$$</p>
 <p>  由 (3) 有:<br>$$<br>\frac{\partial z_{j}^{l}}{\partial w_{hj}}  = {(\sum_{i=1…n}w_{hj}\cdot a_{hj}^{l-1}-b_{j}^{l})}’ = a_{hj}^{l-1} = O_{i} \qquad (8)<br>$$<br>  与神经网络结构图对应知 $ a_{hj}^{l-1} $ 为上一层单元i的输出 $ O_{i} $</p>
