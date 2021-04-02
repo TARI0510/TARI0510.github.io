@@ -811,7 +811,7 @@ wordpress本身路由特点，wordpress在建站时会把网站的根地址存�
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Fri Apr 02 2021 12:37:17 GMT+0800 (GMT+08:00)</div>
+            <div id="last-update" style="display: none;">Fri Apr 02 2021 12:57:15 GMT+0800 (GMT+08:00)</div>
             <div id="last-update-show">2021-04-02 日</div>
           
         </div>
@@ -1275,7 +1275,7 @@ var loadCSS = function( href, before, media, attributes ){
   function loadIssuesJS() {
     if ($(".md").find(".issues-api").length == 0) return;
 	
-	  loadScript('/js/issues.js');
+	  loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/issues.min.js');
 	
   };
   $(function () {
@@ -1370,7 +1370,7 @@ var loadCSS = function( href, before, media, attributes ){
 
 
   
-<script src="/js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/app.min.js"></script>
 
 
 
@@ -1382,7 +1382,7 @@ const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
 
 $('.input.u-search-input').one('focus',function(){
 	
-		loadScript('/js/search/hexo.js',setSearchService);
+		loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/search/hexo.min.js',setSearchService);
 	
 })
 
@@ -1502,7 +1502,7 @@ function setSearchService() {
       // 请求 PV 并自增
       var pvCtn = document.querySelector('#lc-sv');
       if (pvCtn || enableIncr) {
-        var pvGetter = this.getRecord(Counter, 'https://tari0510.github.io' + '/#lc-sv', 'Visits').then((record) => {
+        var pvGetter = this.getRecord(Counter, 'https://tari.moe' + '/#lc-sv', 'Visits').then((record) => {
           incrArr.push(this.buildIncrement(record.objectId))
           var eles = document.querySelectorAll('#lc-sv #number');
           if (eles.length > 0) {
@@ -1520,7 +1520,7 @@ function setSearchService() {
       // 请求 UV 并自增
       var uvCtn = document.querySelector('#lc-uv');
       if (uvCtn || enableIncr) {
-        var uvGetter = this.getRecord(Counter, 'https://tari0510.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+        var uvGetter = this.getRecord(Counter, 'https://tari.moe' + '/#lc-uv', 'Visitors').then((record) => {
           var vuv = this.validUV();
           vuv && incrArr.push(this.buildIncrement(record.objectId))
           var eles = document.querySelectorAll('#lc-uv #number');
@@ -1542,7 +1542,7 @@ function setSearchService() {
         for (i = 0; i < allPV.length; i++) {
           let pv = allPV[i];
           let title = pv.getAttribute('data-title');
-          var url = 'https://tari0510.github.io' + pv.getAttribute('data-path');
+          var url = 'https://tari.moe' + pv.getAttribute('data-path');
           if (url) {
             var viewGetter = this.getRecord(Counter, url, title).then((record) => {
               // 是当前页面就自增

@@ -489,7 +489,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><p>B方向：<br>Web应用安全权威指南（适合小白入门对WEB安全进行宏观的理解）<br>黑客攻防技术宝典 Web实战篇<br>Web前端黑客技术揭秘<br>黑客秘籍-渗透测试实用指南<br>代码审计：企业级Web代码安全架构</p>
 </li>
 </ul>
-<h4 id="7-web、Reverse、PWN、Crypto和Misc的详细入门指导请戳我！"><a href="#7-web、Reverse、PWN、Crypto和Misc的详细入门指导请戳我！" class="headerlink" title="7.web、Reverse、PWN、Crypto和Misc的详细入门指导请戳我！"></a>7.<a href="https://tari0510.github.io/2019/10/17/2019hmb_guide/">web、Reverse、PWN、Crypto和Misc的详细入门指导请戳我！</a></h4><h3 id="8-总结"><a href="#8-总结" class="headerlink" title="8.总结"></a>8.<span id="ask_question">总结</span></h3><p>CTF可能门槛比较高，但是入门之后你会发现其乐趣 在学习过程中遇到挫折不要轻易放弃，建议先谷歌查找相关资料，实在查不到再求助他人。 关于如何提问，建议阅读这篇文章：<a target="_blank" rel="noopener" href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md">提问的智慧</a> </p>
+<h4 id="7-web、Reverse、PWN、Crypto和Misc的详细入门指导请戳我！"><a href="#7-web、Reverse、PWN、Crypto和Misc的详细入门指导请戳我！" class="headerlink" title="7.web、Reverse、PWN、Crypto和Misc的详细入门指导请戳我！"></a>7.<a target="_blank" rel="noopener" href="https://tari0510.github.io/2019/10/17/2019hmb_guide/">web、Reverse、PWN、Crypto和Misc的详细入门指导请戳我！</a></h4><h3 id="8-总结"><a href="#8-总结" class="headerlink" title="8.总结"></a>8.<span id="ask_question">总结</span></h3><p>CTF可能门槛比较高，但是入门之后你会发现其乐趣 在学习过程中遇到挫折不要轻易放弃，建议先谷歌查找相关资料，实在查不到再求助他人。 关于如何提问，建议阅读这篇文章：<a target="_blank" rel="noopener" href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md">提问的智慧</a> </p>
 <p>有任何问题欢迎到群里或联系协会成员。</p>
 <h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><ul>
 <li><p>Q1: 要是我技术不好或者基础不太好怎么办？你们会教吗？</p>
@@ -520,7 +520,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://tari0510.github.io/2019/10/18/2019hmb/>https://tari0510.github.io/2019/10/18/2019hmb/</a></p>
+                <p>本文永久链接是：<a href=https://tari.moe/2019/10/18/2019hmb/>https://tari.moe/2019/10/18/2019hmb/</a></p>
               
             
           </blockquote>
@@ -884,7 +884,7 @@ var loadCSS = function( href, before, media, attributes ){
   function loadIssuesJS() {
     if ($(".md").find(".issues-api").length == 0) return;
 	
-	  loadScript('/js/issues.js');
+	  loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/issues.min.js');
 	
   };
   $(function () {
@@ -979,7 +979,7 @@ var loadCSS = function( href, before, media, attributes ){
 
 
   
-<script src="/js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/app.min.js"></script>
 
 
 
@@ -991,7 +991,7 @@ const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
 
 $('.input.u-search-input').one('focus',function(){
 	
-		loadScript('/js/search/hexo.js',setSearchService);
+		loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/search/hexo.min.js',setSearchService);
 	
 })
 
@@ -1111,7 +1111,7 @@ function setSearchService() {
       // 请求 PV 并自增
       var pvCtn = document.querySelector('#lc-sv');
       if (pvCtn || enableIncr) {
-        var pvGetter = this.getRecord(Counter, 'https://tari0510.github.io' + '/#lc-sv', 'Visits').then((record) => {
+        var pvGetter = this.getRecord(Counter, 'https://tari.moe' + '/#lc-sv', 'Visits').then((record) => {
           incrArr.push(this.buildIncrement(record.objectId))
           var eles = document.querySelectorAll('#lc-sv #number');
           if (eles.length > 0) {
@@ -1129,7 +1129,7 @@ function setSearchService() {
       // 请求 UV 并自增
       var uvCtn = document.querySelector('#lc-uv');
       if (uvCtn || enableIncr) {
-        var uvGetter = this.getRecord(Counter, 'https://tari0510.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+        var uvGetter = this.getRecord(Counter, 'https://tari.moe' + '/#lc-uv', 'Visitors').then((record) => {
           var vuv = this.validUV();
           vuv && incrArr.push(this.buildIncrement(record.objectId))
           var eles = document.querySelectorAll('#lc-uv #number');
@@ -1151,7 +1151,7 @@ function setSearchService() {
         for (i = 0; i < allPV.length; i++) {
           let pv = allPV[i];
           let title = pv.getAttribute('data-title');
-          var url = 'https://tari0510.github.io' + pv.getAttribute('data-path');
+          var url = 'https://tari.moe' + pv.getAttribute('data-path');
           if (url) {
             var viewGetter = this.getRecord(Counter, url, title).then((record) => {
               // 是当前页面就自增
