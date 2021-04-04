@@ -24,7 +24,7 @@
   
   <title>2021HFCTF Web Writeup (持续更新) - TARI TARI</title>
   
-    <meta name="keywords" content="ctf">
+    <meta name="keywords" content="ctf,比赛">
   
 
   
@@ -382,10 +382,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-03T19:51:27+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-04T13:09:35+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年4月3日 19:51</p>
+    <p>更新于：2021年4月4日 13:09</p>
   </a>
 </div>
 
@@ -487,7 +487,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>可以看到 <code>$pre</code> 部分已经成功被闭合了，但是有个问题，</p>
 <p> <code>$pinjie</code> 部分拼接不正常</p>
 <p><code>unset($this-&gt;hive[&#39;s&#39;][&#39;&#39;]);</code> 这部分正常，但多了 <code>);</code></p>
-<p>至于为什么我这么熟练，直接用数组给闭合了，，因为一开始，，在分析 3.7.1 时，把代码流，包括 <code>$this-&gt;compile</code> 部分给整明白了，然后 3.7.2 重构了 <code>$this-&gt;compile</code> 很类似，有兴趣可以去看看，就是正则有点多和复杂。。。看的头皮发麻</p>
+<div class="note quote"><p>至于为什么我这么熟练，直接用数组给闭合了，，因为一开始，，在分析 3.7.1 时，把代码流，包括 <code>$this-&gt;compile</code> 部分给整明白了，然后 3.7.2 重构了 <code>$this-&gt;compile</code> 很类似，有兴趣可以去看看，就是正则有点多和复杂。。。看的头皮发麻</p></div>
+
+
+
 <p>尝试传入 <code>a=s[]);phpinfo();//</code> 这样，反正后面多了的 <code>);</code> 会被注释掉（好像和我新年出的 CTF 有点像，要闭合加注释），断点看看呗</p>
 <p><img src="/img/2021hfctf/image-20210403185337497.png" class="lazyload" data-srcset="/img/2021hfctf/image-20210403185337497.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210403185337497"></p>
 <p><img src="/img/2021hfctf/image-20210403185407122.png" class="lazyload" data-srcset="/img/2021hfctf/image-20210403185407122.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210403185407122"></p>
@@ -610,7 +613,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ctf/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ctf</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ctf/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ctf</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%AF%94%E8%B5%9B/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>比赛</p></a></div>
 
 
         
@@ -624,6 +627,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
     <div class="prev-next">
+      
+        <a class='prev' href='/2021/04/04/thread-modeling/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>威胁建模安全基础知识 （持续更新）</p>
+          <p class='content'>实习过程中零零碎碎学了一些，但还没系统学过，发现微软有个很全面的，打算系统学习一波~
+https://docs.microsoft.com/zh-cn/learn/paths/tm-threat...</p>
+        </a>
       
       
         <a class='next' href='/2021/04/01/Wireshark%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/'>
