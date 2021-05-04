@@ -5,7 +5,9 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
+      
+        <meta name="robots" content="noindex,follow">
+      
     
   
   <!-- 渲染优化 -->
@@ -24,7 +26,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2019/8 - TARI TARI</title>
+  <title>TARI TARI</title>
   
 
   
@@ -106,7 +108,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -325,7 +327,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper  dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/img/home.jpeg"></div>
           
@@ -357,15 +359,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 
 <div class='l_main'>
-	
-		
+  
   <section class="post-list">
-    
-      
-        
-          
-        
-      
     
     
       
@@ -378,18 +373,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/08/26/wordpress%E5%90%8E%E5%8F%B0%E7%99%BB%E5%BD%95%E5%8A%A0%E5%AF%86/">
-        wordpress后台登录密码前端js加密+php后端解密
+      <a href="/2019/06/23/hello-world/">
+        Hello World
       </a>
     </h2>
   
   <div class='md'>
     
       
-        由于特殊原因，wordpress后台登录密码不能被明文抓包…于是我采用 rsa 前端 js 加密 + php 后端解密 的方式进行
-那只能大费周章去改wordpress代码了= = 。。。。
-由于 wordpress 登录时 wp-login.php 是直接提交表单给自己的于是想到用 jquery 去修改表单数据， 直接上代码。
-wordpress根目录 wp-login.php 文件此处需...
+        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Qu...
       
     
   </div>
@@ -397,15 +390,12 @@ wordpress根目录 wp-login.php 文件此处需...
     <div class='meta-v3' line_style='solid'>
       <div>
         
-        <time>2019-08-26</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/Wordpress/">Wordpress</a>
+        <time>2019-06-23</time>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/08/26/wordpress%E5%90%8E%E5%8F%B0%E7%99%BB%E5%BD%95%E5%8A%A0%E5%AF%86/'>
+          <a class='readmore' href='/2019/06/23/hello-world/'>
             阅读全文
           </a>
         </div>
@@ -422,10 +412,24 @@ wordpress根目录 wp-login.php 文件此处需...
   </section>
   
     
+      <br>
+      <div class="prev-next">
+        
+          <a class="prev" rel="prev" href="/page/4/">
+            <section class="post prev white-box shadow" >
+              <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
+            </section>
+          </a>
+        
+        <p class="current">
+          5 / 5
+        </p>
+        
+      </div>
+    
   
 
 
-	
 </div>
 <aside class='l_side'>
   
@@ -738,6 +742,7 @@ wordpress根目录 wp-login.php 文件此处需...
 </aside>
 
 
+
 		  
 		  <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
@@ -751,14 +756,14 @@ wordpress根目录 wp-login.php 文件此处需...
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="half";
-    cover_wrapper.style.display="";
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
     
   
 </script>

