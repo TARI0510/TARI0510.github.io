@@ -24,7 +24,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2019/7 - TARI TARI</title>
+  <title>分类：ctf - TARI TARI</title>
   
 
   
@@ -106,7 +106,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -325,7 +325,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper  dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/img/home.jpeg"></div>
           
@@ -356,9 +356,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
+
 <div class='l_main'>
-	
-		
+  
+    
+      
   <section class="post-list">
     
     
@@ -372,17 +374,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/07/06/%E5%88%9D%E8%AF%86-ansible-1/">
-        初识 ansible (一)
+      <a href="/2019/09/10/2019qwb/">
+        2019年第三届广东省强网杯网络安全大赛WEBwriteup
       </a>
     </h2>
   
   <div class='md'>
     
       
-        个人踩滴小坑要注意下下, 一些参数的含义是什么, 好比我调用 script 模块, 想把脚本调用到目标服务器去执行
-12- name: backup base system version    script: /baseVersionBackup.sh 传入脚本参数1, 2, 3....
-“机智” 的我以为这是到对方服务器的根目录执行脚本….emmmmmm** 注意 chdir 是脚本在对...
+        八卦本次比赛的一个槽点，为什么是在星期一二举行咧…
+由于我只会一点 web ，所以只解出几道 web 题
+Writeby TARITARI
+1. Web – 小明又被拒绝了看到题目很容易想到改http头，于是抓包。一开始直接改cookie: admin=1无效，后来想了下，小明如果是本地人就不会被拒绝啦！于是用到X-Forwarded-For字段，伪造ip为本地地址127.0.0.1。提交过...
       
     
   </div>
@@ -390,289 +393,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='meta-v3' line_style='solid'>
       <div>
         
-        <time>2019-07-06</time>
+        <time>2019-09-10</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a><span class="sep"></span><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/ansible/">ansible</a>
+          <a class="category-link" href="/categories/ctf/">ctf</a><span class="sep"></span><a class="category-link" href="/categories/ctf/%E6%AF%94%E8%B5%9B/">比赛</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/07/06/%E5%88%9D%E8%AF%86-ansible-1/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/03/MySQL_upgrade_from_5.5.*_to_5.7.*/">
-        MySQL upgrade, from 5.5.* to 5.7.*
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        服务器版本 Ubuntu14.04备份(快照)日常忘记密码 -,- (知道密码滴请直接跳至 开始升级至5.7.* )介绍一个简单修改数据库密码的方法
-1sudo cat /etc/mysql/debian.cnf 
-红线选中部分为我本地mysql的用户和密码(password部分每个人不同的喔!)存在mysql的debian-sys-maint用户和密码,那他们是怎么来的呢?
-先假科普一波,...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-07-03</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/07/03/MySQL_upgrade_from_5.5.*_to_5.7.*/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/03/PHP_upgrade_from_5.5.*_to_7.2.24/">
-        PHP upgrade, from 5.5.* to 7.2.*
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        服务器版本 CentOS6备份(快照)首先卸载当前版本PHP1sudo yum remove php*
-
-配置yum仓库在CentOS6/7升级PHP至7.* 需要开启Remi和EPEL仓库
-123yum install epel-releaserpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-
-安装PH...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-07-03</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/07/03/PHP_upgrade_from_5.5.*_to_7.2.24/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/02/%E3%80%8C%E5%BD%A2%E5%AE%B9%E8%A9%9E%E3%80%8D/">
-        「形容詞」
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        「な形容詞」
-「な形容詞」+ な　+ 名词 ，因此称为「な形容詞」&nbsp; 名词 + の + 名词
-
-にぎやか：热闹的
-「い形容詞」特徴：〜い
-い形容詞 + 名词例：大きい会社
-
-
-
-
-肯定行
-否定行
-
-
-
-〜います
-〜 **い**くないです
-
-
-寒いです
-寒くないです
-
-
-辛い　暖かい　暑い　（食べ）たいです
-
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-07-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%8B%89%E5%BC%B7/">勉強</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/07/02/%E3%80%8C%E5%BD%A2%E5%AE%B9%E8%A9%9E%E3%80%8D/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/01/vsftpd_upgrade_from_2.2.2_to_3.0.3/">
-        vsftpd upgrade, from 2.2.2 to 3.0.3
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        记一次vsftpd 升级过程备份(快照)收集系统信息以及原有vsftpd安装版本信息123uname -arpm -qa | grep vsftpdvsftpd -v
-
-卸载原 vsftpd1rpm -e vsftpd-******
-
-GPG签名认证由于没用到公钥,因此跳过下面两条命令
-12gpg -import publickeygpg -verify ***.asc(.sig) ***
-...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-07-01</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a><span class="sep"></span><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/vsftpd/">vsftpd</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/07/01/vsftpd_upgrade_from_2.2.2_to_3.0.3/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/01/Openssh_upgrade_from_7.5_to_8.0p1/">
-        Openssh upgrade, from 7.5 to 8.0p1
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        记一次OpenSSH升级过程系统环境: Ubuntu14.04sshd -D先是修改sshd配置允许root登录，但是重启不了
-1sudo service ssh restart 
-查看得知存在 sshd -D 进程并终止它
-12ps -ef | grep sshsudo kill ID
-最后开启sshd
-1sudo /usr/sbin/sshd -D
-启动后就可以root登录了emmm…....
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-07-01</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/07/01/Openssh_upgrade_from_7.5_to_8.0p1/'>
+          <a class='readmore' href='/2019/09/10/2019qwb/'>
             阅读全文
           </a>
         </div>
@@ -692,7 +421,7 @@ GPG签名认证由于没用到公钥,因此跳过下面两条命令
       <br>
       <div class="prev-next">
         
-          <a class="prev" rel="prev" href="/archives/2019/07/">
+          <a class="prev" rel="prev" href="/categories/ctf/">
             <section class="post prev white-box shadow" >
               <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
             </section>
@@ -707,7 +436,8 @@ GPG签名认证由于没用到公钥,因此跳过下面两条命令
   
 
 
-	
+    
+  
 </div>
 <aside class='l_side'>
   
@@ -780,7 +510,7 @@ GPG签名认证由于没用到公钥,因此跳过下面两条命令
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun May 09 2021 23:35:08 GMT+0800 (GMT+08:00)</div>
+            <div id="last-update" style="display: none;">Sun May 09 2021 23:35:09 GMT+0800 (GMT+08:00)</div>
             <div id="last-update-show">2021-05-09 日</div>
           
         </div>
@@ -1033,14 +763,14 @@ GPG签名认证由于没用到公钥,因此跳过下面两条命令
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="half";
-    cover_wrapper.style.display="";
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
     
   
 </script>
