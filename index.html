@@ -476,6 +476,53 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
+      <a href="/2021/06/03/laravel8-debug-rce/">
+        Laravel8 CVE-2021-3129 复现分析
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        1. 前言由于参加两次CTF都遇上了反序列化+PHP各种filter过滤器的利用，然后对一些不常见filter的利用不是很熟悉，因此复现分析一下 CVE-2021-3129，因为这个CVE对一些filter利用的比较巧妙
+ignition组件是Laravel5.5及其之后的使用的自定义错误页面美化组件，2.5.2 版本之前因 file_get_contents() 和 file_put_co...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-06-03</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a><span class="sep"></span><a class="category-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ignition/">ignition</a><span class="sep"></span><a class="category-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ignition/Laravel8/">Laravel8</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2021/06/03/laravel8-debug-rce/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2021/05/23/2021gd-university-ctf/">
         Web writeup | 2021年第一届广东大学生网络安全攻防大赛-晋级赛
       </a>
@@ -931,61 +978,6 @@ https://docs.microsoft.com/zh-cn/learn/paths/tm-threat-modeling-fundamentals/
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/04/03/2021hfctf/">
-        2021HFCTF Web Writeup
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        internal_system 挺有意思的，复现完学到了刷多 （
-签到题考点：PHP供应链攻击
-php 近期爆的漏洞，一开始就看到了，
-
-喔？你说这个我可就不困了，（我是个爱看新闻的好孩子 逃
-
-
-但是，，User-Agentt 看成了 User-Agent，，没成，然后被另一个地方吸住了眼球，在搞 guestbook.php 草。。
-直到官方放出提示，我不信邪在看了一遍
-1user-age...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-04-03</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/ctf/">ctf</a><span class="sep"></span><a class="category-link" href="/categories/ctf/%E6%AF%94%E8%B5%9B/">比赛</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/04/03/2021hfctf/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1026,7 +1018,7 @@ php 近期爆的漏洞，一开始就看到了，
 
 
     <div class='content'>
-      <a href="/tags/Django/" style="font-size: 14px; color: #999">Django</a> <a href="/tags/MISC/" style="font-size: 14px; color: #999">MISC</a> <a href="/tags/Motrix/" style="font-size: 14px; color: #999">Motrix</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Python/" style="font-size: 14px; color: #999">Python</a> <a href="/tags/SDL/" style="font-size: 14px; color: #999">SDL</a> <a href="/tags/SSH/" style="font-size: 14px; color: #999">SSH</a> <a href="/tags/Wireshark/" style="font-size: 14px; color: #999">Wireshark</a> <a href="/tags/Wordpress/" style="font-size: 17.33px; color: #828282">Wordpress</a> <a href="/tags/ansible/" style="font-size: 19px; color: #777">ansible</a> <a href="/tags/aria2/" style="font-size: 14px; color: #999">aria2</a> <a href="/tags/ctf/" style="font-size: 22.33px; color: #606060">ctf</a> <a href="/tags/ctfshow/" style="font-size: 17.33px; color: #828282">ctfshow</a> <a href="/tags/ctf%E7%BB%83%E4%B9%A0/" style="font-size: 19px; color: #777">ctf练习</a> <a href="/tags/hackme/" style="font-size: 14px; color: #999">hackme</a> <a href="/tags/vsftpd/" style="font-size: 14px; color: #999">vsftpd</a> <a href="/tags/%E4%B8%AD%E5%9B%BD%E8%8F%9C%E5%88%80/" style="font-size: 14px; color: #999">中国菜刀</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 15.67px; color: #8e8e8e">入门</a> <a href="/tags/%E5%8B%89%E5%BC%B7/" style="font-size: 17.33px; color: #828282">勉強</a> <a href="/tags/%E5%A8%81%E8%83%81%E5%BB%BA%E6%A8%A1/" style="font-size: 14px; color: #999">威胁建模</a> <a href="/tags/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/" style="font-size: 15.67px; color: #8e8e8e">学校课程</a> <a href="/tags/%E5%B0%8F%E8%AE%B0/" style="font-size: 19px; color: #777">小记</a> <a href="/tags/%E5%BC%80%E5%8F%91/" style="font-size: 15.67px; color: #8e8e8e">开发</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%97%A5%E5%B8%B8%E6%8A%98%E8%85%BE/" style="font-size: 14px; color: #999">日常折腾</a> <a href="/tags/%E6%AF%94%E8%B5%9B/" style="font-size: 20.67px; color: #6c6c6c">比赛</a> <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" style="font-size: 14px; color: #999">流量分析</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 24px; color: #555">运维</a> <a href="/tags/%E9%9D%A2%E7%99%BDi%E5%AE%89%E5%85%A8%E5%B0%8F%E8%AE%B0/" style="font-size: 14px; color: #999">面白i安全小记</a>
+      <a href="/tags/Django/" style="font-size: 14px; color: #999">Django</a> <a href="/tags/Laravel8/" style="font-size: 14px; color: #999">Laravel8</a> <a href="/tags/MISC/" style="font-size: 14px; color: #999">MISC</a> <a href="/tags/Python/" style="font-size: 14px; color: #999">Python</a> <a href="/tags/SDL/" style="font-size: 14px; color: #999">SDL</a> <a href="/tags/Wireshark/" style="font-size: 14px; color: #999">Wireshark</a> <a href="/tags/Wordpress/" style="font-size: 14px; color: #999">Wordpress</a> <a href="/tags/ctf/" style="font-size: 22.33px; color: #606060">ctf</a> <a href="/tags/ctfshow/" style="font-size: 17.33px; color: #828282">ctfshow</a> <a href="/tags/ctf%E7%BB%83%E4%B9%A0/" style="font-size: 19px; color: #777">ctf练习</a> <a href="/tags/hackme/" style="font-size: 14px; color: #999">hackme</a> <a href="/tags/ignition/" style="font-size: 14px; color: #999">ignition</a> <a href="/tags/%E4%B8%AD%E5%9B%BD%E8%8F%9C%E5%88%80/" style="font-size: 14px; color: #999">中国菜刀</a> <a href="/tags/%E5%8B%89%E5%BC%B7/" style="font-size: 17.33px; color: #828282">勉強</a> <a href="/tags/%E5%A8%81%E8%83%81%E5%BB%BA%E6%A8%A1/" style="font-size: 14px; color: #999">威胁建模</a> <a href="/tags/%E5%B0%8F%E8%AE%B0/" style="font-size: 19px; color: #777">小记</a> <a href="/tags/%E5%BC%80%E5%8F%91/" style="font-size: 15.67px; color: #8e8e8e">开发</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%97%A5%E5%B8%B8%E6%8A%98%E8%85%BE/" style="font-size: 14px; color: #999">日常折腾</a> <a href="/tags/%E6%AF%94%E8%B5%9B/" style="font-size: 20.67px; color: #6c6c6c">比赛</a> <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" style="font-size: 14px; color: #999">流量分析</a> <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" style="font-size: 14px; color: #999">漏洞复现</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 24px; color: #555">运维</a> <a href="/tags/%E9%9D%A2%E7%99%BDi%E5%AE%89%E5%85%A8%E5%B0%8F%E8%AE%B0/" style="font-size: 14px; color: #999">面白i安全小记</a>
     </div>
   </section>
 
@@ -1080,8 +1072,8 @@ php 近期爆的漏洞，一开始就看到了，
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Wed Jun 02 2021 19:52:28 GMT+0800 (GMT+08:00)</div>
-            <div id="last-update-show">2021-06-02 日</div>
+            <div id="last-update" style="display: none;">Wed Jun 09 2021 17:03:05 GMT+0800 (GMT+08:00)</div>
+            <div id="last-update-show">2021-06-09 日</div>
           
         </div>
         
@@ -1131,7 +1123,7 @@ php 近期爆的漏洞，一开始就看到了，
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-06-02 日';
+            document.getElementById('last-update-show').innerHTML = '2021-06-09 日';
           }
         </script>
         
@@ -1280,9 +1272,29 @@ php 近期爆的漏洞，一开始就看到了，
             ><div class='name'>MISC</div><div class='badge'>(1)</div></a></li>
         
           <li><a class="flat-box"
+            title="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"
+            id="categoriesE6BC8FE6B49EE5A48DE78EB0"
+            ><div class='name'>漏洞复现</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ignition/" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ignition/"
+            id="categoriesE6BC8FE6B49EE5A48DE78EB0ignition"
+            ><div class='name'>ignition</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ignition/Laravel8/" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ignition/Laravel8/"
+            id="categoriesE6BC8FE6B49EE5A48DE78EB0ignitionLaravel8"
+            ><div class='name'>Laravel8</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
             title="/categories/%E8%BF%90%E7%BB%B4/" href="/categories/%E8%BF%90%E7%BB%B4/"
             id="categoriesE8BF90E7BBB4"
-            ><div class='name'>运维</div><div class='badge'>(17)</div></a></li>
+            ><div class='name'>运维</div><div class='badge'>(16)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E8%BF%90%E7%BB%B4/MySQL/" href="/categories/%E8%BF%90%E7%BB%B4/MySQL/"
+            id="categoriesE8BF90E7BBB4MySQL"
+            ><div class='name'>MySQL</div><div class='badge'>(1)</div></a></li>
         
           <li><a class="flat-box child"
             title="/categories/%E8%BF%90%E7%BB%B4/Nginx/" href="/categories/%E8%BF%90%E7%BB%B4/Nginx/"
@@ -1290,9 +1302,14 @@ php 近期爆的漏洞，一开始就看到了，
             ><div class='name'>Nginx</div><div class='badge'>(1)</div></a></li>
         
           <li><a class="flat-box child"
+            title="/categories/%E8%BF%90%E7%BB%B4/PHP/" href="/categories/%E8%BF%90%E7%BB%B4/PHP/"
+            id="categoriesE8BF90E7BBB4PHP"
+            ><div class='name'>PHP</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child"
             title="/categories/%E8%BF%90%E7%BB%B4/SSH/" href="/categories/%E8%BF%90%E7%BB%B4/SSH/"
             id="categoriesE8BF90E7BBB4SSH"
-            ><div class='name'>SSH</div><div class='badge'>(1)</div></a></li>
+            ><div class='name'>SSH</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box child"
             title="/categories/%E8%BF%90%E7%BB%B4/Wordpress/" href="/categories/%E8%BF%90%E7%BB%B4/Wordpress/"
@@ -1308,6 +1325,11 @@ php 近期爆的漏洞，一开始就看到了，
             title="/categories/%E8%BF%90%E7%BB%B4/vsftpd/" href="/categories/%E8%BF%90%E7%BB%B4/vsftpd/"
             id="categoriesE8BF90E7BBB4vsftpd"
             ><div class='name'>vsftpd</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E8%BF%90%E7%BB%B4/%E5%A4%87%E4%BB%BD/" href="/categories/%E8%BF%90%E7%BB%B4/%E5%A4%87%E4%BB%BD/"
+            id="categoriesE8BF90E7BBB4E5A487E4BBBD"
+            ><div class='name'>备份</div><div class='badge'>(1)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/%E9%9D%A2%E7%99%BDi%E5%AE%89%E5%85%A8%E5%B0%8F%E8%AE%B0/" href="/categories/%E9%9D%A2%E7%99%BDi%E5%AE%89%E5%85%A8%E5%B0%8F%E8%AE%B0/"
